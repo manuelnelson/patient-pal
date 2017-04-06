@@ -1,0 +1,24 @@
+body{
+  background-color:$base-background-color;
+  color:$base-font-color;
+}
+html{
+  font-size:$base-font-size;
+  @media (max-width: $bp-between){
+	font-size:$base-font-size*.8 !important;
+  }
+  @media (max-width: $bp-mobile){
+	font-size:$base-font-size*.6 !important;
+  }
+}
+.two-column{
+    display: flex;
+    flex-flow: row;
+    .column{
+        width: 50%;
+    }
+}
+#footer {
+	margin-top: 30px;
+	padding-top: 30px;
+  }

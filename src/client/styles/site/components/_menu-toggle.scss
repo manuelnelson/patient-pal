@@ -1,0 +1,95 @@
+.menu-toggle{
+    $menu-button-height:50px;
+    $menu-button-width:54px;
+    $menu-shrink-ratio: 0.6;
+    $line-width:40px;
+    $line-height:4px;
+    $line-gap: 10px;
+    $transition-duration: 0.5s;
+    height:$menu-button-height;
+    position:relative;
+    top:($header-height - $menu-button-height)/(2);
+    margin-left:20px;
+    width:$menu-button-width;
+    cursor: pointer;
+    top: 14px;
+    transition: height $transition-duration ease-in-out, width $transition-duration ease-in-out;
+    display: inline-block;
+    &.active{
+        $icon-color: $color-red;
+        $background-color: $color-white;
+        height:$header-height / $menu-shrink-ratio + 6px;
+        background-color: rgba(0,0,0,1);
+        .menu{
+            height: $menu-button-height / $menu-shrink-ratio;
+            width: $menu-button-width / $menu-shrink-ratio;
+            top:($header-height - $menu-button-height)/(2 * $menu-shrink-ratio);
+            border-color: $icon-color;
+        }
+        .menu-button{
+            height:$line-height / $menu-shrink-ratio;
+            width: $line-width / $menu-shrink-ratio;
+            background-color: $icon-color;
+            bottom: (-($menu-button-height/2) + ($line-height/2) ) / $menu-shrink-ratio;
+            &:before, &:after{
+                height:$line-height / $menu-shrink-ratio;
+                width: $line-width / $menu-shrink-ratio;
+                background-color: $icon-color;
+            }
+            &:before{
+                top: -1 * $line-gap / $menu-shrink-ratio
+            }
+            &:after{
+                bottom: -1 * $line-gap / $menu-shrink-ratio
+            }
+            &.close{
+                &:after{
+                    bottom: -0.3rem;
+                }
+            }
+        }
+
+
+    }
+
+    .menu-button{
+        content:'';
+        height:$line-height;
+        width: $line-width;
+        background-color:$color-white;
+        position:relative;
+        display: block;
+        margin:0 auto;
+        bottom:-($menu-button-height/2) + ($line-height/2);
+        transition: all $transition-duration ease-in-out;
+        cursor:pointer;
+        &:before,&:after{
+            content:'';
+            transition: all $transition-duration ease-in-out;
+            position:absolute;
+            height:$line-height;
+            width: $line-width;
+            background-color:$color-white;
+        }
+        &:before{
+            top:-1 * $line-gap;
+        }
+        &:after{
+            bottom:-1 * $line-gap;
+        }
+        &.close{
+            height:0;
+            &:before{
+                transform:rotate(45deg);
+                top:.08rem;
+                background-color:$color-white;
+
+            }
+            &:after{
+                transform:rotate(-45deg);
+                bottom:-.4rem;
+                background-color:$color-white;
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+@mixin clearfix {
+    &:after {
+        clear: both;
+    }
+
+    &:before,
+    &:after {
+        display: table;
+        content: ' ';
+    }
+}
+
+@mixin borderBox {
+    box-sizing: border-box;
+}
+
+@mixin display($display: block) {
+    display: $display;
+
+    @if ($display == inline-block and $legacy_support_for_ie) {
+        *display: inline;
+        zoom: 1;
+    }
+}
+
+/// Helper mixin to size elements
+/// @param {Number} $width - Width
+/// @param {Number} $height ($width) - Height
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin transition($property: all, $timing: $transition-timing) {
+	transition: $property #{$timing+ms} $transition-ease 0s;
+}
+@mixin link-transition($color: $color-blue, $hover-color: $color-red) {
+    color: $color;
+    transition: color 0.2s ease-in-out;
+    &:hover{
+        color:$hover-color;
+    }
+}
+//Breakpoints
+@mixin bp-max($custom-px){
+	@media screen and (max-width: $custom-px){
+	  @content;
+	}
+}
+
+@mixin bp-min($custom-px){
+	@media screen and (min-width: $custom-px){
+	  @content;
+	}
+}
+@mixin bp-max-height($custom-px){
+	@media screen and (max-height: $custom-px){
+	  @content;
+	}
+}

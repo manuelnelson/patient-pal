@@ -1,0 +1,127 @@
+//------------------------------------------
+//				Variables
+//------------------------------------------
+$base-font-size:16px;
+$font-family-fontawesome: 'Font Awesome';
+$font-family-ionicons: 'Ionicons';
+$font-family-source-sans: "Source Sans Pro", Arial, sans-serif;
+$font-family-roboto-slab: "Roboto Slab", serif;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+//------------------------------------------
+//				Font Assignments
+//------------------------------------------
+
+$font-family-sans-serif: $font-family-source-sans;
+$font-family-serif: $font-family-roboto-slab;
+
+
+
+//------------------------------------------
+//				Mixins
+//------------------------------------------
+
+@mixin font-face($font-family, $file-path, $font-weight, $font-style) {
+	@font-face {
+		font-family: $font-family;
+		src: url('#{$file-path-fonts}#{$file-path}.eot');
+		src: url('#{$file-path-fonts}#{$file-path}.eot?#iefix') format('embedded-opentype'),
+			 url('#{$file-path-fonts}#{$file-path}.woff') format('woff'),
+			 url('#{$file-path-fonts}#{$file-path}.ttf') format('truetype'),
+			 url('#{$file-path-fonts}#{$file-path}.svg##{$font-family}') format('svg');
+		font-weight: $font-weight;
+		font-style: $font-style;
+	}
+}
+
+@mixin font-sans-serif ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-regular;
+	font-style: normal;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+@mixin font-serif ($font-size: null, $base-size: null){
+	font-family: $font-family-serif;
+	font-weight: $font-weight-regular;
+	font-style: normal;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+@mixin font-sans-serif-italic ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-regular;
+	font-style: italic;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+@mixin font-sans-serif-light ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-light;
+	font-style: normal;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+@mixin font-sans-serif-light-italic ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-light;
+	font-style: italic;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+@mixin font-sans-serif-bold ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-bold;
+	font-style: normal;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+@mixin font-sans-serif-bold-italic ($font-size: null, $base-size: null){
+	font-family: $font-family-sans-serif;
+	font-weight: $font-weight-bold;
+	font-style: italic;
+
+	@if ($font-size != null){
+		@include font-size($font-size, $base-size);
+	}
+}
+
+
+
+@mixin font-size($font-size, $base-size){
+	@if ($base-size == null) {
+		//font-size: px-to-rem($font-size); //aint workin for me
+		font-size: ($font-size / $base-font-size) * 1rem;
+	}
+
+	@else {
+		font-size: px-to-rem($font-size, $base-size);
+	}
+}
+
+//------------------------------------------
+//				Font Load
+//------------------------------------------
+
+// Note: Adelle Sans is a typekit font. Georgia is a standard font on every computer.

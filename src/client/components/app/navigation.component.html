@@ -1,0 +1,27 @@
+<header class="header">
+	<nav>
+		<div class="menu-toggle" (click)="toggleMenu()">
+			<span class="menu-button" [ngClass]="{'close':showMenu}"></span>
+		</div>
+		<a href="/" class="logo"><h1>Practice Pal</h1></a>
+	</nav>
+	<div class="flyout-menu" [ngClass]="{'show':showMenu}">
+		<ul>
+			<li>
+				<a href="/test" title="some title">Link 1</a>
+			</li>
+			<li>
+				<a href="/test" title="some title">Link 2</a>
+			</li>
+			<li>
+				<a href="/test" title="some title">Link 3</a>
+			</li>
+			<li>
+				<a href="/test" title="some title">Link 4</a>
+			</li>
+			<li>
+				<a href="/test" title="some title">Link 5</a>
+			</li>
+		</ul>
+	</div>
+</header>

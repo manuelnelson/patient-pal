@@ -1,0 +1,13 @@
+.home-page{
+    .home-section{
+        background-color: $color-white;
+        color: $color-dark-gray;
+        &.dark-background{
+            background-color: $color-blue;
+            color: $color-white;
+        }
+    }
+    .column:first-child{
+        padding: $site-padding-desktop;
+    }
+}

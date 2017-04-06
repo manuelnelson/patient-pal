@@ -1,0 +1,36 @@
+.home-hero{
+    background-size: cover;
+    position: relative;
+    height: 80vh;
+    .hero-tint{
+        &:before{
+            content:'';
+            display: block;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+    }
+    .hero-text-content{
+        position: absolute;
+        right: $site-padding-desktop;
+        width: 40%;
+        text-align: center;
+        color: $color-white;
+        //height: calc(100% - #{$header-height} - #{$site-padding-desktop});
+        //top:$header-height + $site-padding-desktop;
+        top: 0;
+        height: 100%;
+        .rich-text{
+            font-size: px-to-rem($base-font-size*2);
+            transform: translateY(-50%);
+            position: relative;
+            top: 50%;
+        }
+        h1{
+            color: $color-white;
+            font-size: $base-font-size * 4;
+        }
+    }
+}

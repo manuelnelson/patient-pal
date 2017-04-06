@@ -1,0 +1,43 @@
+$max-width: 2000px; // 1200px / 16px
+
+$a-tags: 'a, a:active, a:hover';
+$a-tags-hover: 'a:active, a:hover';
+a{
+    color: $action-color;
+}
+#{$a-tags} {
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+html,
+body {
+    font-size: 16px;
+    @include bp-max($bp-tablet){
+        font-size: 15px;
+    };
+    @include bp-max($bp-between){
+        font-size: 14px;
+        overflow: auto;
+    };
+    @include bp-max($bp-mobile){
+        font-size: 13px;
+    };
+}
+img{
+    width: 100%;
+}
+body {
+//    max-width: $max-width;
+    margin: auto;
+    line-height: 1.4;
+}
+
+p {
+    margin-bottom: $default-spacing;
+    margin-top: 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
