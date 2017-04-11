@@ -24,7 +24,7 @@ initializeDb( db => {
 
 	//static files
 	app.use(express.static(path.join(__dirname, 'public')));
-	
+
 	// logger
 	if (config.env === 'development') {
 		app.use(morgan('dev'));

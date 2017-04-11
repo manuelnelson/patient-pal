@@ -10,11 +10,61 @@
         position: relative;
         z-index: 100;
         height: 100%;
+        &.menu-open{
+            .profile-toggle{
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+    .profile-toggle{
+        font-size: $base-font-size*2;
+        display: inline-block;
+        visibility: visible;
+        opacity: 1;
+        color: $color-white;
+        margin-left: 20px;
+        border: solid 2px $color-white;
+        border-radius: $base-font-size * 2.5;
+        width: $base-font-size * 2.5;
+        height: $base-font-size * 2.5;
+        text-align: center;
+        cursor: pointer;
+        transition: border 0.3s ease-in-out, color 0.3s ease-in-out,opacity 0.3s ease-in-out,visibility 0.3s ease-in-out;
+        &:hover{
+            color: $color-light-blue;
+            border: solid 2px $color-light-blue;
+        }
+
     }
     .logo{
         position: absolute;
         right: $site-padding-desktop;
         height: 100%;
         color: $color-white;
+        i{
+            font-size: $base-font-size*2;
+            position: relative;
+            bottom: 3px;
+        }
+    }
+    .login-form{
+        signup-form{
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            display: block;
+        }
+        .rich-text{
+            margin-top: $default-spacing;
+        }
+    }
+    .signup-form{
+        login-form{
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            display: block;
+        }
     }
 }

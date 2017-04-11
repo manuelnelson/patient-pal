@@ -29,7 +29,7 @@ npm start
 Docker Support
 ------
 ```sh
-cd patient-pal.git
+cd patient-pal.git  
 
 # Build your docker
 docker build -t es6/api-service .

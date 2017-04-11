@@ -1,50 +1,25 @@
-import jwt from 'jsonwebtoken';
-import httpStatus from 'http-status';
-import APIError from '../lib/APIError';
-import config from '../config';
+import express from 'express';
+import validate from 'express-validation';
+import paramValidation from '../config/user-validation';
+import authCtrl from '../controllers/auth-controller';
 
-// sample user, used for authentication
-const user = {
-  username: 'react',
-  password: 'express'
-};
+const router = express.Router(); // eslint-disable-line new-cap
 
-/**
- * Returns jwt token if valid username and password is provided
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
-function login(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
-    const token = jwt.sign({
-      username: user.username
-    }, config.jwtSecret);
-    return res.json({
-      token,
-      username: user.username
-    });
-  }
+router.route('/login')
+  /** POST /api/auth/login - Create new user */
+  .post(validate(paramValidation.login), authCtrl.login);
 
-  const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED, true);
-  return next(err);
-}
+// router.route('/:userId')
+//   /** GET /api/users/:userId - Get user */
+//   .get(authCtrl.get)
+//
+//   /** PUT /api/users/:userId - Update user */
+//   .put(validate(paramValidation.updateUser), authCtrl.update)
+//
+//   /** DELETE /api/users/:userId - Delete user */
+//   .delete(authCtrl.remove);
+//
+// /** Load user when API with userId route parameter is hit */
+// router.param('userId', authCtrl.load);
 
-/**
- * This is a protected route. Will return random number only if jwt token is provided in header.
- * @param req
- * @param res
- * @returns {*}
- */
-function getRandomNumber(req, res) {
-  // req.user is assigned by jwt middleware if valid token is provided
-  return res.json({
-    user: req.user,
-    num: Math.random() * 100
-  });
-}
-
-export default { login, getRandomNumber };
+export default router;

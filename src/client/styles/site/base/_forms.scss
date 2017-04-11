@@ -8,12 +8,13 @@ label,
 select {
   font-family: $font-family-sans-serif;
   font-size: $base-font-size;
+  border: none;
 }
 
 label {
   font-weight: 600;
   margin-bottom: $small-spacing / 2;
-
+  display: inline-block;
   &.required::after {
 	content: "*";
   }
@@ -37,7 +38,6 @@ select[multiple=multiple] {
 
 
   &:focus {
-	border-color: $action-color;
 	outline: none;
   }
 
@@ -69,7 +69,26 @@ input[type="file"] {
 }
 
 select {
-  margin-bottom: $base-spacing;
-  max-width: 100%;
-  width: auto;
+  padding: $base-spacing / 3;
+  width: 100%;
+  display: inherit;
+  border-radius: $base-border-radius;
+  option[disabled] { display: none; }
+  &.ng-untouched {
+      color: $color-medium-gray;
+      option{
+          color: $color-black !important;
+      }
+  }
+}
+
+.form-input{
+    &.error{
+        label{
+            color: $color-red;
+        }
+        input{
+            outline: solid 1px $color-red;
+        }
+    }
 }

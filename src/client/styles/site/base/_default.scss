@@ -4,6 +4,7 @@ $a-tags: 'a, a:active, a:hover';
 $a-tags-hover: 'a:active, a:hover';
 a{
     color: $action-color;
+    cursor: pointer;
 }
 #{$a-tags} {
     text-decoration: none;

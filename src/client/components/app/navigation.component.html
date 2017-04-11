@@ -1,27 +1,43 @@
 <header class="header">
-	<nav>
+	<nav [ngClass]="{'menu-open':showMenu || showSignIn}">
 		<div class="menu-toggle" (click)="toggleMenu()">
-			<span class="menu-button" [ngClass]="{'close':showMenu}"></span>
+			<span class="menu-button" [ngClass]="{'close':showMenu || showSignIn || showLogIn}"></span>
 		</div>
-		<a href="/" class="logo"><h1>Practice Pal</h1></a>
+		<div class="profile-toggle" (click)="toggleLogIn()">
+			<span class="icon icon-user"></span>
+		</div>
+		<a href="/" class="logo">
+			<h1>
+				<i class="icon icon-profile"></i>
+				Practice Pal
+			</h1>
+		</a>
 	</nav>
 	<div class="flyout-menu" [ngClass]="{'show':showMenu}">
-		<ul>
-			<li>
-				<a href="/test" title="some title">Link 1</a>
-			</li>
-			<li>
-				<a href="/test" title="some title">Link 2</a>
-			</li>
-			<li>
-				<a href="/test" title="some title">Link 3</a>
-			</li>
-			<li>
-				<a href="/test" title="some title">Link 4</a>
-			</li>
-			<li>
-				<a href="/test" title="some title">Link 5</a>
-			</li>
-		</ul>
+		<div class="flyout-content">
+			<ul>
+				<li>
+					<a href="/test" title="some title">Link 1</a>
+				</li>
+				<li>
+					<a href="/test" title="some title">Link 2</a>
+				</li>
+				<li>
+					<a href="/test" title="some title">Link 3</a>
+				</li>
+				<li>
+					<a href="/test" title="some title">Link 4</a>
+				</li>
+				<li>
+					<a href="/test" title="some title">Link 5</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="flyout-menu green-background" [ngClass]="{'show': showLogIn || showSignIn,'login-form':showLogIn,'signup-form':showSignIn}">
+		<div class="flyout-content">
+			<login-form (showSignUp)="showSignUp($event)"></login-form>
+			<signup-form></signup-form>
+		</div>
 	</div>
 </header>

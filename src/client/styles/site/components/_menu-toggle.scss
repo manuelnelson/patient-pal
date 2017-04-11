@@ -63,6 +63,12 @@
         bottom:-($menu-button-height/2) + ($line-height/2);
         transition: all $transition-duration ease-in-out;
         cursor:pointer;
+        &:hover{
+            background-color: $color-light-blue;
+            &:before,&:after{
+                background-color: $color-light-blue;
+            }
+        }
         &:before,&:after{
             content:'';
             transition: all $transition-duration ease-in-out;

@@ -8,22 +8,27 @@
     $transition-duration: 0.4s;
     min-width: 400px;
     transition: left $transition-duration ease-in-out;
+    &.green-background{
+        background-color: $color-green;
+    }
     &.show{
         left: 0;
     }
-    ul{
+    .flyout-content{
         position: absolute;
         padding: ($header-height) $site-padding-desktop $site-padding-desktop;
         font-size: $base-font-size * 2.5;
         height: calc(100% - #{$header-height} - #{$site-padding-desktop});
         width: calc(100% - 2 * #{$site-padding-desktop});
+    }
+    ul{
         li{
             margin-bottom: px-to-rem(12px);
             color: $color-white;
         }
         a{
             @include link-transition($color-white, $color-red);
-            font-family: $font-family-sans-serif;      
+            font-family: $font-family-sans-serif;
         }
     }
 }
