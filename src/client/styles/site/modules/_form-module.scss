@@ -1,0 +1,21 @@
+.form-module{
+    max-width: 1200px;
+    margin: $section-spacing auto;
+    .form{
+        display: flex;
+        flex-flow: row wrap;
+        margin-top: $section-spacing;
+        background-color: $color-light-gray;
+        padding: 40px;
+        border-radius: 10px;
+    }
+    .form-input{
+        width: calc(50% - #{$form-padding});
+        &:nth-child(even){
+            padding-left: $form-padding;
+        }
+        &:nth-child(odd){
+            padding-right: $form-padding;
+        }
+    }
+}

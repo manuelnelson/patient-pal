@@ -1,3 +1,24 @@
+form{
+    width: 100%;
+    label {
+      margin-bottom: $small-spacing / 2;
+      display: block;
+      //font-size: $base-font-size*.9;
+      @include font-serif(12px);
+      font-weight: 500;
+      text-transform: uppercase;
+      &.required::after {
+    	content: "*";
+      }
+
+      abbr {
+    	display: none;
+      }
+      span{
+          float: right;
+      }
+    }
+}
 fieldset {
   margin: 0 0 $small-spacing;
   padding: $base-spacing;
@@ -11,18 +32,6 @@ select {
   border: none;
 }
 
-label {
-  font-weight: 600;
-  margin-bottom: $small-spacing / 2;
-  display: inline-block;
-  &.required::after {
-	content: "*";
-  }
-
-  abbr {
-	display: none;
-  }
-}
 
 input,
 select[multiple=multiple] {
@@ -81,7 +90,11 @@ select {
       }
   }
 }
-
+.submit-input{
+    text-align: right;
+    width: 100%;
+    margin-top: 20px;
+}
 .form-input{
     &.error{
         label{

@@ -37,7 +37,8 @@ function login(req, res, next) {
 
             return res.json({
                 token,
-                email: existingUser.email
+                email: existingUser.email,
+                role: existingUser.role
             });
         })
     })

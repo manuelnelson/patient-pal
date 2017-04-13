@@ -1,0 +1,24 @@
+.detail-hero{
+    background-size: cover;
+    position: relative;
+    height: 20vh;
+    background-color: $color-blue;  
+    .hero-tint{
+        &:before{
+            content:'';
+            display: block;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+    }
+    .hero-text-content{
+        position: relative;
+        text-align: center;
+        top: $header-height;
+        h1{
+            color: $color-white;
+        }
+    }
+}

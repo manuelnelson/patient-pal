@@ -1,0 +1,30 @@
+alert{
+    $alert-height:40px;
+    $alert-font-size: $base-font-size-px;
+    position: relative;
+    div{
+        display: none;
+        &.alert{
+            display: block;
+            position: fixed;
+            height: $alert-height;
+            top:0;
+            left:0;
+            background-color: $color-red;
+            color: $color-white;
+            width: 100%;
+            text-align: center;
+            z-index: 1000;
+            line-height: $alert-height;
+        }
+    }
+
+    .close{
+        position: absolute;
+        right: 20px;
+        cursor: pointer;
+        &:before{
+            content:'✖';
+        }
+    }
+}

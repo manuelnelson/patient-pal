@@ -1,5 +1,6 @@
 // Font Sizes
 $base-font-size: 1rem;
+$base-font-size-px: 16px;;
 
 // Line height
 $base-line-height: 1.5;
@@ -15,6 +16,11 @@ $header-height: 80px;
 //small-spacing
 $default-spacing: 10px;
 $base-border: solid 1px $color-blue;
+$section-spacing: 60px;
+$form-padding:20px;
+
+//widths
+$max-button-width:300px;
 
 //z-indexes
 $z-index-header: 100;

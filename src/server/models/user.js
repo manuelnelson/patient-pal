@@ -4,11 +4,20 @@ import httpStatus from 'http-status';
 import APIError from '../lib/APIError';
 import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
+import Patient from './patient';
+import Professional from './professional';
 const UserSchema = new mongoose.Schema({
+    firstname: {
+        type: String,
+    },
+    lastname: {
+        type: String,
+    },
     email: {
         type: String,
         required: true,
-        validate: [ validator.isEmail, 'invalid email' ]
+        validate: [ validator.isEmail, 'invalid email' ],
+        unique: true
     },
     password: {
         type: String,
@@ -21,6 +30,14 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: Number,
         required: true
+    },
+    patient: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Patient'
+    },
+    professional: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Professional'
     },
     createdAt: {
         type: Date,
@@ -84,8 +101,9 @@ UserSchema.statics = {
             if (user) {
                 return user;
             }
-            const err = new APIError('No such user exists!', httpStatus.NOT_FOUND);
-            return Promise.reject(err);
+            return null;
+            // const err = new APIError('No such user exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
     /**
@@ -102,8 +120,9 @@ UserSchema.statics = {
             if (user) {
                 return user;
             }
-            const err = new APIError('No such user exists!', httpStatus.NOT_FOUND);
-            return Promise.reject(err);
+            return null;
+            // const err = new APIError('No such user exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 

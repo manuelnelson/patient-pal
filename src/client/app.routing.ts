@@ -2,12 +2,14 @@ import { NgModule }                from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent } from './components';
 
 const routes: Routes = [
     // Root
     // { path: 'home',  component: HomeComponent},
-    { path: '',  component: HomeComponent}
+    { path: '',  component: HomeComponent},
+    { path: 'professional',  component:ProfessionalDashboardComponent },
+    { path: 'patients/add',  component:AddPatientComponent }
 ];
 
 @NgModule({

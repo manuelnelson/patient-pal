@@ -36,7 +36,7 @@ function create(req, res, next) {
     //check if user already exists
     User.getByEmail(user.email)
     .then(existingUser=>{
-        if(existingUser && existingUser.length > 0)
+        if(existingUser)
         {
             const err = new APIError('Authentication error: User Already Exists', httpStatus.UNAUTHORIZED, true);
             return next(err);
@@ -49,7 +49,8 @@ function create(req, res, next) {
                 }, config.jwtSecret);
                 return res.json({
                   token,
-                  email: savedUser.email
+                  email: savedUser.email,
+                  role: savedUser.role
                 });
             })
             .catch(e => next(e));

@@ -1,0 +1,75 @@
+import Promise from 'bluebird';
+import mongoose from 'mongoose';
+import httpStatus from 'http-status';
+import APIError from '../lib/APIError';
+import validator from 'validator';
+import Patient from './patient';
+import bcrypt from 'bcrypt-nodejs';
+//console.log()
+const ProfessionalSchema = new mongoose.Schema({
+    email:{
+        type: String
+    },
+    patients:[{type:mongoose.Schema.ObjectId,ref:'Patient'}],
+    //1 = active, 0 = disabled or disactive
+    status: {
+        type: Boolean
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+/**
+* Statics
+*/
+ProfessionalSchema.statics = {
+    /**
+    * Get Professional
+    * @param {ObjectId} id - The objectId of Professional.
+    * @returns {Promise<Professional, APIError>}
+    */
+    get(id) {
+        return this.findById(id)
+        .exec()
+        .then((Professional) => {
+            if (Professional) {
+                return Professional;
+            }
+            const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+            return Promise.reject(err);
+        });
+    },
+    /**
+    * Get Patient by Email
+    * @param {string} email - The email of Patient.
+    * @returns {Promise<Patient, APIError>}
+    */
+    getByEmail(email) {
+        this.findOne({email:email}).exec().then((Patient) => {
+            if (Patient) {
+                return Patient;
+            }
+            const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            return Promise.reject(err);
+        });
+    },
+
+    /**
+    * List Professionals in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of Professionals to be skipped.
+    * @param {number} limit - Limit number of Professionals to be returned.
+    * @returns {Promise<Professional[]>}
+    */
+    list({ skip = 0, limit = 50 } = {}) {
+        return this.find()
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec();
+    }
+};
+
+
+export default mongoose.model('Professional', ProfessionalSchema);

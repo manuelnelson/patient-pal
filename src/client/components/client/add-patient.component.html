@@ -1,0 +1,52 @@
+<main class="add-patient">
+    <!-- <section class="detail-hero" style="background-image:url('/images/home-img.jpg')"> -->
+    <section class="detail-hero" >
+        <div class="hero-tint">
+        </div>
+        <div class="hero-text-content">
+            <h1>Create Patient</h1>
+        </div>
+    </section>
+    <section class="form-module patient-form">
+        <p>
+            As you create the patient, a patient will automatically be added for the patient.  You should pass along the email address provided to the patient so that they can login and update the appropriate fields.
+        </p>
+        <form class="form" [formGroup]="patientForm" (ngSubmit)="patient(patientForm.value)" novalidate>
+            <div class="form-input">
+                <label>First Name</label>
+                <input type="text" formControlName="firstName" placeholder="First Name"/>
+            </div>
+            <div class="form-input">
+                <label>Last Name</label>
+                <input type="text" formControlName="lastName" placeholder="Last Name"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.email)}">
+                <label>Email<span *ngIf="invalidControl(patientForm.controls.email)">Invalid Email</span></label>
+                <input type="text" formControlName="email" placeholder="Email"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.birth)}">
+                <label>Date of Birth<span *ngIf="invalidControl(patientForm.controls.birth)">Invalid Date</span></label>
+                <input type="text" formControlName="birth" placeholder="Date of Birth (MM/dd/yyyy)"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.sex)}">
+                <label>Sex<span *ngIf="invalidControl(patientForm.controls.sex)">Invalid selection</span></label>
+                <select formControlName="sex">
+                    <option value="" disabled selected>Sex</option>
+                    <option value="male">
+                        Male
+                    </option>
+                    <option value="female">
+                        Female
+                    </option>
+                </select>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.insurance)}">
+                <label>Insurance<span *ngIf="invalidControl(patientForm.controls.insurance)">Invalid insurance type</span></label>
+                <input type="text" formControlName="insurance" placeholder="Insurance"/>
+            </div>
+            <div class="submit-input">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </section>
+</main>
