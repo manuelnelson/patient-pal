@@ -8,7 +8,15 @@ import bcrypt from 'bcrypt-nodejs';
 const PatientSchema = new mongoose.Schema({
     email:{
         type: String,
+        required: true,
+        validate: [ validator.isEmail, 'invalid email' ],
         unique: true
+    },
+    firstname: {
+        type: String,
+    },
+    lastname: {
+        type: String,
     },
     birth: {
         type: Date

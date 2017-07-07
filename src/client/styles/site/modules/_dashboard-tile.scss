@@ -1,0 +1,17 @@
+.dashboard-tile{
+    $tiles-per-row: 3;
+    $tile-padding: 4%;
+    $width:(100% / $tiles-per-row - $tile-padding);
+    width: calc(#{$width} - 1px);
+    padding: 0 ($tile-padding / 2) $tile-padding;
+    //border-right: solid 1px $color-light-gray;
+    @include bp-max($bp-between){
+        $tiles-per-row: 2;
+        width: 100% / $tiles-per-row;
+    };
+    @include bp-max($bp-mobile){
+        $tiles-per-row: 1;
+        width: 100% / $tiles-per-row;
+    };
+
+}

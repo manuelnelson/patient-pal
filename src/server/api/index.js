@@ -3,6 +3,8 @@ import { Router } from 'express';
 import userRoutes from './user-routes';
 import authRoutes from './auth-routes';
 import patientRoutes from './patient-routes';
+import professionalRoutes from './professional-routes';
+import appointmentRoutes from './appointment-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -11,6 +13,8 @@ export default ({ config, db }) => {
 	api.use('/users', userRoutes);
 	api.use('/auth', authRoutes);
 	api.use('/patients', patientRoutes);
+	api.use('/professionals', professionalRoutes);
+	api.use('/appointments', appointmentRoutes);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

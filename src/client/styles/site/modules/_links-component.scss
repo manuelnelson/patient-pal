@@ -1,0 +1,33 @@
+links-component{
+    width: (100% * 2 / 3);
+    h3{
+        text-align: center;
+    }
+    .dashboard-link-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    $padding: 2%;
+    $border-width: 1px;
+    $icon-spacing: 2%;
+    .dashboard-icon{
+        $icon-width: (100% / 3) - 2*$padding - 2*$icon-spacing;
+        width: calc(#{$icon-width} - 2*#{$border-width});
+        margin: $icon-spacing;
+        display: inline-block;
+        text-align: center;
+        font-size: px-to-rem(24px);
+        padding: 2%;
+        min-height: 120px;
+        border: solid $border-width $color-outline-gray;
+        @include box-shadow;
+        span{
+            display: block;
+            margin-bottom: px-to-rem(24px);
+        }
+    }
+    [class^="icon-"]{
+        display: block;
+        font-size: px-to-rem(44px);
+    }
+}

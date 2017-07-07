@@ -1,0 +1,12 @@
+appointment-list {
+    $component-spacing: 2%;
+    width: (100% * 2 / 3) - $component-spacing;
+    margin-left: $component-spacing;
+    h4{
+        text-align: center;
+    }
+    .btn-add{
+        display: inline-block;
+        margin-top: px-to-rem(20px);
+    }
+}

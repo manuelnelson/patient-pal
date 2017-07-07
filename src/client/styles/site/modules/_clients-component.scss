@@ -1,0 +1,49 @@
+clients-component{
+    width: (100% * 2 / 3);
+    font-size: px-to-rem(18px);
+    h4{
+        text-align: center;
+    }
+    .client-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    $item-width: 45%;
+    .client-item {
+        display: inline-flex;
+        width: $item-width;
+        margin-right: (50% - $item-width);
+        margin-bottom: px-to-rem(20px);
+        background-color: $color-light-gray;
+    }
+    $width-spacing: 3%;
+    .client-picture {
+        width: 30%;
+        display: inline-block;
+        //margin-right: $width-spacing;
+    }
+    $profile-picture-height: 120px;
+    .no-picture{
+        background-color: $color-green;
+        color: $color-white;
+        font-size: $profile-picture-height * .75;
+        text-align: center;
+        height: 100%;
+        @include font-icomoon($icon-user);
+        &:before{
+            margin-top: $profile-picture-height * .25;
+        }
+    }
+    a{
+        display: block;
+    }
+    .client-info{
+        padding: px-to-rem(10px);
+    }
+    .client-name{
+
+    }
+    .client-add{
+        margin-top: px-to-rem(30px);
+    }
+}

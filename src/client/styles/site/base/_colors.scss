@@ -6,13 +6,15 @@ $color-red: #9B242A;
 $color-green: #8FBF69;
 $color-black: #000;
 
+$color-text-gray: #545454;
 $color-dark-gray: #333;
 $color-medium-gray: #999;
 $color-light-gray: #f4f4f4;
+$color-outline-gray: #ccc;
 $color-white:#fff;
 $color-off-white:#fdfdfd;
 
 // Font Colors
-$base-font-color: $color-dark-gray;
+$base-font-color: $color-text-gray;
 $action-color: $color-blue;
 $base-background-color: $color-off-white;

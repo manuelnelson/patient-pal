@@ -1,0 +1,17 @@
+calendar-component {
+    width: (100% * 2 / 3);
+    font-size: px-to-rem(18px);
+    .appointment-container{
+        display: flex;
+    }
+    h3{
+        margin-bottom: 0;
+        text-align: center;
+        font-size: px-to-rem(22px);
+    }
+    .calendar{
+        width: (100% / 3);
+        display: inline-block;
+        margin-bottom: px-to-rem(20px);
+    }
+}

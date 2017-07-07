@@ -1,29 +1,28 @@
 import express from 'express';
 import validate from 'express-validation';
 import paramValidation from '../config/user-validation';
-import patientCtrl from '../controllers/patient-controller';
-
+import { PatientCtrl, AuthCtrl} from '../controllers';
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/users - Get list of users */
-  .get(patientCtrl.list)
+  .get(PatientCtrl.list)
 
   /** POST /api/users - Create new user */
-  .post(patientCtrl.create);
-  // .post(validate(paramValidation.createUser), patientCtrl.create);
+  .post(AuthCtrl.verifyToken,PatientCtrl.create);
+  // .post(validate(paramValidation.createUser), PatientCtrl.create);
 
-router.route('/:patientId')
+router.route('/:userId')
   /** GET /api/users/:userId - Get user */
-  .get(patientCtrl.get)
+  .get(PatientCtrl.get)
 
   /** PUT /api/users/:userId - Update user */
-  .put(validate(paramValidation.updateUser), patientCtrl.update)
+  .put(PatientCtrl.update)
 
   /** DELETE /api/users/:userId - Delete user */
-  .delete(patientCtrl.remove);
+  .delete(PatientCtrl.remove);
 
 /** Load user when API with userId route parameter is hit */
-router.param('patientId', patientCtrl.load);
+router.param('userId', PatientCtrl.load);
 
 export default router;

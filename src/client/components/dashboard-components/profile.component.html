@@ -1,0 +1,14 @@
+<div class="profile-pic">
+  <div class="no-picture" *ngIf="!profile.picture">
+  </div>
+</div>
+<div class="profile-info">
+  <h4 class="name" *ngIf="profile.firstName && profile.firstName.length > 0">{{profile.firstName}} {{profile.lastName}}</h4>
+  <h4 class="name" *ngIf="!profile.firstName || !profile.firstName.length > 0">No Name Entered</h4>
+  <span class="email">{{profile.email}}</span>
+  <span class="title" *ngIf="profile.title && profile.title.length > 0">{{profile.title}}</span>
+  <div class="upcoming-appointment">
+      <span class="label">Upcoming Appointments</span>
+      <span class="date">August 1st, 2017 8:00am-9:00am</span>
+  </div>
+</div>

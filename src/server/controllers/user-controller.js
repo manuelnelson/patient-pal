@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user';
+import {User, Professional} from '../models';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
+import config from '../config';
+import constants from '../lib/constants';
+
 /**
 * Load user and append to req.
 */
@@ -43,6 +46,16 @@ function create(req, res, next) {
         } else {
             user.save()
             .then(savedUser => {
+                if(savedUser.role == constants.roles.Professional){
+                    //create the professional asynchronously
+                    const professional = new Professional({
+                        email: req.body.email,
+                        status: 1
+                    }).save().then(savedProfessional =>{
+                        savedUser.professional = savedProfessional;
+                        savedUser.save();
+                    });
+                }
                 //log user in
                 const token = jwt.sign({
                   email: savedUser.email

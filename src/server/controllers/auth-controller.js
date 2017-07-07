@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import httpStatus from 'http-status';
-import User from '../models/user';
+import { User } from '../models';
 import APIError from '../lib/APIError';
 import config from '../config';
 
@@ -34,8 +34,9 @@ function login(req, res, next) {
             const token = jwt.sign({
                 email: existingUser.email
             }, config.jwtSecret);
-
+            var id = existingUser.professional ? existingUser.professional : existingUser.patient;
             return res.json({
+                _id: id,
                 token,
                 email: existingUser.email,
                 role: existingUser.role
@@ -45,7 +46,39 @@ function login(req, res, next) {
     .catch(e => next(e));
 }
 
+/**
+* Update user password
+* @property {string} req.body.email - The email of user.
+* @returns {User}
+*/
 
+function updatePassword(req, res, next) {
+    User.getByEmail(req.params.email, true)
+    .then((user) => {
+        user.password = req.body.password;
+        user.save()
+        .then(savedUser => res.json(savedUser))
+        .catch(e => next(e));
+    })
+    .catch(e => next(e));
+}
+
+/**
+* Verifies Authorization token sent in API Request.  If valid, it returns the user email on the req.locals object.
+* If invalid, jwt throws an Authorization error
+* @param req
+* @param res
+* @returns {*}
+*/
+function verifyToken(req,res,next){
+    var token = req.get('Authorization');
+    console.log(token);
+    var unsignedToken = jwt.verify(token,config.jwtSecret);
+    req.locals = {
+        sessionUserEmail: unsignedToken.email
+    };
+    next();
+}
 
 /**
 * This is a protected route. Will return random number only if jwt token is provided in header.
@@ -60,5 +93,5 @@ function getRandomNumber(req, res) {
         num: Math.random() * 100
     });
 }
-
-export default { login, getRandomNumber };
+let AuthCtrl = { login, getRandomNumber, verifyToken, updatePassword };
+export default AuthCtrl;

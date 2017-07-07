@@ -1,14 +1,13 @@
 import jwt from 'jsonwebtoken';
-import Patient from '../models/patient';
-import User from '../models/user';
+import {Patient, Professional, User} from '../models';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import Constants from '../lib/constants';
 /**
 * Load patient and append to req.
 */
-function load(req, res, next, id) {
-    Patient.get(id)
+function load(req, res, next, userId) {
+    Patient.get(userId)
     .then((patient) => {
         req.patient = patient;
         return next();
@@ -35,12 +34,17 @@ function create(req, res, next) {
             return next(err);
         }else{
             const patient = new Patient({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 email: req.body.email,
                 birth: req.body.birth,
                 sex: req.body.sex,
                 insurance: req.body.insurance,
                 status: 1
             }).save().then(savedPatient =>{
+                //asynchronously add patient to current professional
+                Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{patients:savedPatient}}, (err,result) =>{});
+
                 //check if user already exists
                 User.getByEmail(req.body.email)
                 .then(existingUser=>{
@@ -56,9 +60,7 @@ function create(req, res, next) {
                             role: Constants.roles.Client,
                             email: req.body.email,
                             password: Constants.defaultPassword,
-                            patient: savedPatient._id,
-                            firstName: req.body.firstName,
-                            lastName: req.body.lastName
+                            patient: savedPatient._id
                         }).save().then(savedUser => {
                             return res.json(savedPatient);
                         })
@@ -83,8 +85,8 @@ function update(req, res, next) {
     //we may have to get user based off this.
     const patient = req.patient;
     patient.email = req.body.email;
-    patient.firstName = req.body.firstName;
-    patient.lastName = req.body.lastName;
+    patient.firstname = req.body.firstname;
+    patient.lastname = req.body.lastname;
     patient.insurance = req.body.insurance;
     patient.sex = req.body.sex;
     patient.birth = req.body.birth;
@@ -101,7 +103,7 @@ function update(req, res, next) {
 * @returns {Patient[]}
 */
 function list(req, res, next) {
-    const { limit = 50, skip = 0 } = req.query;
+    const { limit = 20, skip = 0 } = req.query;
     Patient.list({ limit, skip })
     .then(patients => res.json(patients))
     .catch(e => next(e));

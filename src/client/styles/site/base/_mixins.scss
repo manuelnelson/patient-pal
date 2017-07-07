@@ -47,6 +47,14 @@
 	  @content;
 	}
 }
+@mixin box-shadow(){
+  //box-shadow: 0 2px 2px rgba(0,0,0,.1);
+  transition: box-shadow 0.3s ease-in-out !important;
+
+  &:hover {
+    box-shadow: 0 1rem 1rem rgba(0,0,0,.1);
+  }
+}
 
 @mixin bp-min($custom-px){
 	@media screen and (min-width: $custom-px){

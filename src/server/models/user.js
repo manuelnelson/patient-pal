@@ -7,12 +7,6 @@ import bcrypt from 'bcrypt-nodejs';
 import Patient from './patient';
 import Professional from './professional';
 const UserSchema = new mongoose.Schema({
-    firstname: {
-        type: String,
-    },
-    lastname: {
-        type: String,
-    },
     email: {
         type: String,
         required: true,

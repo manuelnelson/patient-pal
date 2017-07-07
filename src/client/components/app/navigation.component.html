@@ -36,8 +36,8 @@
 	</div>
 	<div class="flyout-menu green-background" [ngClass]="{'show': showLogIn || showSignIn,'login-form':showLogIn,'signup-form':showSignIn}">
 		<div class="flyout-content">
-			<login-form (showSignUp)="showSignUp($event)"></login-form>
-			<signup-form></signup-form>
+			<login-form (showSignUp)="showSignUp($event)" [user]="user" (closeLogin)="closeLogin($event)"></login-form>
+			<signup-form (closeSignup)="closeSignup($event)"></signup-form>
 		</div>
 	</div>
 </header>

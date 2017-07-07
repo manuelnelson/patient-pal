@@ -1,0 +1,29 @@
+<h4>Add Appointment</h4>
+<section class="form-module appointment-form">
+    <form class="form" [formGroup]="appointmentForm" (ngSubmit)="appointment(appointmentForm.value)" novalidate>
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.date)}">
+            <label>Date<span *ngIf="invalidControl(appointmentForm.controls.date)">Date Required</span></label>
+            <input type="text" formControlName="date" placeholder="Date (MM/dd/yyyy)"/>
+        </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.patient)}">
+            <label>Patient<span *ngIf="invalidControl(appointmentForm.controls.patient)">Invalid selection</span></label>
+            <select formControlName="patient">
+                <option value="" disabled selected>Patient</option>
+                <!-- TODO load available patients -->
+                <option value="male">
+                    Male
+                </option>
+                <option value="female">
+                    Female
+                </option>
+            </select>
+        </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.location)}">
+            <label>Location<span *ngIf="invalidControl(appointmentForm.controls.location)">Location Required</span></label>
+            <input type="text" formControlName="location" placeholder="Location"/>
+        </div>
+        <div class="submit-input">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</section>

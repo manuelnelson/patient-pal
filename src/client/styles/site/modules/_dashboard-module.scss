@@ -1,0 +1,16 @@
+.dashboard-module{
+    padding: $site-padding-desktop;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    back-component{
+        margin-bottom: px-to-rem(20px);
+        display: block;
+    }
+    .back-btn{
+        i{
+            display: inline-block;
+            margin-right: px-to-rem(8px);
+        }
+    }
+}

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:url('/fonts/icomoon.eot?7wirvd');
-  src:url('/fonts/icomoon.eot?#iefix7wirvd') format('embedded-opentype'),
-  url('/fonts/icomoon.ttf?7wirvd') format('truetype'),
-  url('/fonts/icomoon.woff?7wirvd') format('woff'),
-  url('/fonts/icomoon.svg?7wirvd#icomoon') format('svg');
+  src:url('/fonts/icomoon.eot?52ccom');
+  src:url('/fonts/icomoon.eot?#iefix52ccom') format('embedded-opentype'),
+  url('/fonts/icomoon.ttf?52ccom') format('truetype'),
+  url('/fonts/icomoon.woff?52ccom') format('woff'),
+  url('/fonts/icomoon.svg?52ccom#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,9 +23,36 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+$icon-profile: "\e923";
+$icon-user: "\e971";
+$icon-users: "\e972";
+$icon-hammer: "\996";
+$icon-calendar2: "\905";
+$icon-paste: "\900";
+$icon-documents: "\901";
+$icon-left-arrow: "\ea40";
+
 .icon-profile:before {
-  content: "\e923";
+  content: $icon-profile;
 }
 .icon-user:before {
-  content: "\e971";
+  content: $icon-user;
+}
+.icon-users:before {
+  content: "\e972";
+}
+.icon-hammer:before {
+  content: "\e996";
+}
+.icon-calendar2:before {
+  content: "\e905";
+}
+.icon-paste:before {
+  content: "\e900";
+}
+.icon-documents:before {
+  content: "\e901";
+}
+.icon-left-arrow:before {
+  content: $icon-left-arrow;
 }

@@ -1,0 +1,9 @@
+<back-component></back-component>
+<div class="appointment-container">
+    <div class="calendar" [ngSwitch]="view">
+        <h3>{{ viewDate | calendarDate:'monthViewTitle':'en' }}</h3>
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate">
+        </mwl-calendar-month-view>
+    </div>
+    <router-outlet></router-outlet>
+</div>

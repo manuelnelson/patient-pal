@@ -35,6 +35,7 @@
   "author": "Emmanuel Nelson <info@emmanuelnelson.com>",
   "license": "MIT",
   "dependencies": {
+    "@angular/animations": "^4.0.1",
     "@angular/common": "^4.0.1",
     "@angular/compiler": "^4.0.1",
     "@angular/core": "^4.0.1",
@@ -44,6 +45,7 @@
     "@angular/platform-browser-dynamic": "^4.0.1",
     "@angular/router": "^4.0.1",
     "@types/node": "^7.0.12",
+    "angular-calendar": "^0.18.3",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
@@ -64,7 +66,7 @@
     "reflect-metadata": "^0.1.10",
     "resource-router-middleware": "^0.6.0",
     "rxjs": "^5.2.0",
-    "typescript": "^2.2.1",
+    "typescript": "^2.3.4",
     "validator": "^7.0.0",
     "winston": "^2.3.1",
     "zone.js": "^0.8.5"
@@ -97,9 +99,6 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
     "webpack-merge": "^3.0.0"
-  },
-  "bugs": {
-    "url": "https://github.com/manuelnelson/node-angular-2-boilerplate/issues"
   },
   "homepage": "https://github.com/manuelnelson/node-angular-2-boilerplate#readme",
   "keywords": [

@@ -82,6 +82,7 @@ select {
   width: 100%;
   display: inherit;
   border-radius: $base-border-radius;
+  margin-bottom: 8px;
   option[disabled] { display: none; }
   &.ng-untouched {
       color: $color-medium-gray;

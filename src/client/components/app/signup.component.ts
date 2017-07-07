@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { UserService, AlertService } from '../../services';
 @Component({
@@ -8,6 +8,8 @@ import { UserService, AlertService } from '../../services';
 export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     signupFormString: string;
+    @Output() closeSignup = new EventEmitter();
+
     constructor(private userService:UserService,private alertService:AlertService){
 
     }
@@ -29,6 +31,7 @@ export class SignupComponent implements OnInit {
             this.userService.create(signupValues.email,signupValues.password, signupValues.role).subscribe(
                 data => {
                     console.log(data);
+                    this.closeSignup.emit();
                 },
                 error => {
                     this.alertService.error(error);

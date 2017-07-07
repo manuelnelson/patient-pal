@@ -3,12 +3,20 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../lib/APIError';
 import validator from 'validator';
-import Patient from './patient';
 import bcrypt from 'bcrypt-nodejs';
-//console.log()
+
 const ProfessionalSchema = new mongoose.Schema({
     email:{
-        type: String
+        type: String,
+        required: true,
+        validate: [ validator.isEmail, 'invalid email' ],
+        unique: true
+    },
+    firstname: {
+        type: String,
+    },
+    lastname: {
+        type: String,
     },
     patients:[{type:mongoose.Schema.ObjectId,ref:'Patient'}],
     //1 = active, 0 = disabled or disactive
@@ -27,11 +35,12 @@ const ProfessionalSchema = new mongoose.Schema({
 ProfessionalSchema.statics = {
     /**
     * Get Professional
-    * @param {ObjectId} id - The objectId of Professional.
+    * @param {ObjectId} email - The email of Professional.
     * @returns {Promise<Professional, APIError>}
     */
     get(id) {
         return this.findById(id)
+        .populate('patients')
         .exec()
         .then((Professional) => {
             if (Professional) {
@@ -42,16 +51,18 @@ ProfessionalSchema.statics = {
         });
     },
     /**
-    * Get Patient by Email
-    * @param {string} email - The email of Patient.
-    * @returns {Promise<Patient, APIError>}
+    * Get Professional by Email
+    * @param {string} email - The email of Professional.
+    * @returns {Promise<Professional, APIError>}
     */
     getByEmail(email) {
-        this.findOne({email:email}).exec().then((Patient) => {
-            if (Patient) {
-                return Patient;
+        return this.findOne({email:email})
+        .populate('patients')
+        .exec().then((Professional) => {
+            if (Professional) {
+                return Professional;
             }
-            const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
             return Promise.reject(err);
         });
     },

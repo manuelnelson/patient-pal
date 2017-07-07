@@ -8,8 +8,8 @@
         </div>
     </section>
     <section class="dashboard-module">
-        <p>
-            You appear to have no patients.  <a href="/patients/add">Click here </a> to add patients.
-        </p>
+        <profile-component class="dashboard-tile profile-tile" *ngIf="professional" [profile]="professional">
+        </profile-component>
+        <router-outlet></router-outlet>
     </section>
 </main>

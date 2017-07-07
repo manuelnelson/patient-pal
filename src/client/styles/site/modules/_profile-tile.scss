@@ -1,0 +1,39 @@
+.profile-tile{
+    display: flex;
+    font-size: px-to-rem(18px);
+    $profile-picture-height:200px;
+    $profile-picture-width: 30%;
+    $profile-margin: 25px;
+    h4{
+        margin-bottom: 0;
+    }
+    .profile-pic{
+        width: 40%;
+        height: $profile-picture-height;
+        margin-right: $profile-margin;
+    }
+    .no-picture{
+        background-color: $color-green;
+        color: $color-white;
+        font-size: $profile-picture-height * .75;
+        text-align: center;
+        height: 100%;
+        @include font-icomoon($icon-user);
+        &:before{
+            margin-top: $profile-picture-height * .25;
+        }
+    }
+    .profile-info{
+        width: (100% - $profile-picture-width);
+    }
+    .upcoming-appointment{
+        margin-top: px-to-rem(30px);
+        .label{
+            display: block;
+            font-weight: bold;
+        }
+        .date{
+            display: block;
+        }
+    }
+}

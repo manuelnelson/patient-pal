@@ -1,4 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
+import { User } from '../../models';
+import { AuthenticationService, AlertService } from '../../services';
 
 @Component({
     selector: 'nav-menu',
@@ -9,7 +11,9 @@ export class NavigationComponent {
     showMenu: boolean = false;
     showSignIn: boolean = false;
     showLogIn: boolean = false;
-    constructor() {
+    user: User = null;
+    constructor(private authService: AuthenticationService) {
+        this.user = this.authService.getLoggedInUser();
     }
     toggleMenu(){
         if(this.showSignIn){
@@ -31,5 +35,12 @@ export class NavigationComponent {
     showSignUp(){
         this.showSignIn = true;
         this.showLogIn = false;
+    }
+    closeLogin(){
+        this.showLogIn = false;
+    }
+    closeSignup(){
+        this.user = this.authService.getLoggedInUser();
+        this.showSignIn = false;
     }
 }
