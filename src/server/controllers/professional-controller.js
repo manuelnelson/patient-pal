@@ -29,6 +29,8 @@ function get(req, res) {
 */
 function getAppointments(req, res, next) {
     Appointment.find({professional: req.professional._id})
+        .populate('patient')
+        .sort('startDate')
         .exec()
         .then(appointments => res.json(appointments));
 }

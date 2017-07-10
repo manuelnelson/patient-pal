@@ -6,7 +6,11 @@ import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
 
 const AppointmentSchema = new mongoose.Schema({
-    date:{
+    startDate:{
+        type: Date,
+        required: true
+    },
+    endDate:{
         type: Date,
         required: true
     },

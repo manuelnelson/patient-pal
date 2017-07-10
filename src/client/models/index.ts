@@ -3,4 +3,8 @@ export * from './user.model';
 export * from './patient.model';
 export * from './error.model';
 export * from './professional.model';
+export * from './targetType.model';
+export * from './ddtType.model';
+export * from './skill.model';
 export * from './appointment.model';
+export * from './appointment-form.model';

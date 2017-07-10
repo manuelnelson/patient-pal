@@ -9,4 +9,24 @@ appointment-list {
         display: inline-block;
         margin-top: px-to-rem(20px);
     }
+    .appointment-item {
+        display: flex;
+        align-items: baseline;
+        $cell-padding: 8px;
+        $cell-width:(100% / 3);
+        span{
+            display: inline-block;
+            width: calc(#{$cell-width} - #{$cell-padding}*2);
+            padding: px-to-rem($cell-padding);
+            &:nth-child(2){
+                text-align: center;
+            }
+            &:last-child{
+                text-align: right;
+            }
+        }
+        &:nth-child(even){
+            background-color: $color-light-gray;
+        }
+    }
 }

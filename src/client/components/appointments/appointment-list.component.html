@@ -1,4 +1,14 @@
 <div class="appointment-list">
-    <h4>You currently have no appointments scheduled.</h4>
+    <div *ngIf="appointments.length == 0" class="no-appointments">
+        <h4>You currently have no appointments scheduled.</h4>
+    </div>
+    <h4 *ngIf="appointments.length > 0">Upcoming Appointments</h4>
+    <div class="appointment-item" *ngFor="let appointment of appointments">
+        <span class="appointment-patient">{{appointment.patient.firstname}} {{appointment.patient.lastname}}</span>
+        <span class="appointment-date start-time">{{appointment.startDate | date: "MMMM dd"}} <br />{{appointment.startDate | date: "hh:mm a"}}-{{appointment.endDate | date: "hh:mm a"}}</span>
+        <span class="appointment-actions">
+            <a routerLink="['/appointments/start']">Start</a>
+        </span>
+    </div>
     <a class="btn btn-primary btn-add" routerLink="/professional/appointments/add">Add Appointment</a>
 </div>

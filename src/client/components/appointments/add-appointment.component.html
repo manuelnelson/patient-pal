@@ -5,16 +5,21 @@
             <label>Date<span *ngIf="invalidControl(appointmentForm.controls.date)">Date Required</span></label>
             <input type="text" formControlName="date" placeholder="Date (MM/dd/yyyy)"/>
         </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.startTime)}">
+            <label>Start Time<span *ngIf="invalidControl(appointmentForm.controls.startTime)">Start Time Required</span></label>
+            <input type="text" formControlName="startTime" placeholder="Start Time (hh:mm am/pm)"/>
+        </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.endTime)}">
+            <label>End Time<span *ngIf="invalidControl(appointmentForm.controls.endTime)">End Time Required</span></label>
+            <input type="text" formControlName="endTime" placeholder="End Time (hh:mm am/pm)"/>
+        </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.patient)}">
             <label>Patient<span *ngIf="invalidControl(appointmentForm.controls.patient)">Invalid selection</span></label>
-            <select formControlName="patient">
+            <select *ngIf="patients" formControlName="patient">
                 <option value="" disabled selected>Patient</option>
                 <!-- TODO load available patients -->
-                <option value="male">
-                    Male
-                </option>
-                <option value="female">
-                    Female
+                <option *ngFor="let patient of patients" [value]="patient._id">
+                    {{patient.firstname}} {{patient.lastname}}
                 </option>
             </select>
         </div>

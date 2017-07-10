@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Appointment from '../models';
+import { Appointment } from '../models';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import Constants from '../lib/constants';

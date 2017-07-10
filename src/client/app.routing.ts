@@ -4,8 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 // Components
 import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
     EditPatientComponent, LinksComponent, CalendarComponent, SkillsComponent,
-ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent } from './components';
-import { PatientResolver, ProfessionalResolver, AppointmentResolver } from './services';
+    ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
+    SkillListComponent, AddSkillComponent
+} from './components';
+import { PatientResolver, ProfessionalResolver, AppointmentResolver, AddAppointmentResolver } from './services';
 
 const routes: Routes = [
     // Root
@@ -18,7 +20,15 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'links', pathMatch: 'full' },
             { path: 'links', component: LinksComponent },
-            { path: 'skills', component: SkillsComponent },
+            {
+                path: 'skills',
+                component: SkillsComponent,
+                children: [
+                    { path: '', redirectTo: 'list', pathMatch: 'full'},
+                    { path: 'list', pathMatch: 'full', component: SkillListComponent},
+                    { path: 'add',  pathMatch: 'full', component: AddSkillComponent}
+                ]
+            },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver} },
             { path: 'reports', component: ReportsComponent },
             {
@@ -27,7 +37,7 @@ const routes: Routes = [
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
                     { path: 'list', pathMatch: 'full', component: AppointmentListComponent, resolve: {appointments: AppointmentResolver}},
-                    { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent}
+                    { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {patients: AddAppointmentResolver}}
                 ]
             },
         ]

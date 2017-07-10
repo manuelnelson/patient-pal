@@ -10,7 +10,8 @@ calendar-component {
         font-size: px-to-rem(22px);
     }
     .calendar{
-        width: (100% / 3);
+        //width: (100% / 3);
+        width: 40%;
         display: inline-block;
         margin-bottom: px-to-rem(20px);
     }
