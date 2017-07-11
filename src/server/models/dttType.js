@@ -5,7 +5,7 @@ import APIError from '../lib/APIError';
 import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
 
-const ddtTypeSchema = new mongoose.Schema({
+const dttTypeSchema = new mongoose.Schema({
     name:{
         type: String,
     },
@@ -18,30 +18,30 @@ const ddtTypeSchema = new mongoose.Schema({
 /**
 * Statics
 */
-ddtTypeSchema.statics = {
+dttTypeSchema.statics = {
     /**
-    * Get ddtType
-    * @param {ObjectId} id - The objectId of ddtType.
-    * @returns {Promise<ddtType, APIError>}
+    * Get dttType
+    * @param {ObjectId} id - The objectId of dttType.
+    * @returns {Promise<dttType, APIError>}
     */
     get(id) {
         return this.findById(id)
         .exec()
-        .then((ddtType) => {
-            if (ddtType) {
-                return ddtType;
+        .then((dttType) => {
+            if (dttType) {
+                return dttType;
             }
             return null;
-            // const err = new APIError('No such ddtType exists!', httpStatus.NOT_FOUND);
+            // const err = new APIError('No such dttType exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
     },
 
     /**
-    * List ddtTypes in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of ddtTypes to be skipped.
-    * @param {number} limit - Limit number of ddtTypes to be returned.
-    * @returns {Promise<ddtType[]>}
+    * List dttTypes in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of dttTypes to be skipped.
+    * @param {number} limit - Limit number of dttTypes to be returned.
+    * @returns {Promise<dttType[]>}
     */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
@@ -53,4 +53,4 @@ ddtTypeSchema.statics = {
 };
 
 
-export default mongoose.model('DdtType', ddtTypeSchema);
+export default mongoose.model('DttType', dttTypeSchema);

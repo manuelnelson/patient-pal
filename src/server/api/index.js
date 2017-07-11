@@ -5,6 +5,9 @@ import authRoutes from './auth-routes';
 import patientRoutes from './patient-routes';
 import professionalRoutes from './professional-routes';
 import appointmentRoutes from './appointment-routes';
+import targetTypeRoutes from './target-type-routes';
+import dttTypeRoutes from './dtt-type-routes';
+import skillRoutes from './skill-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -15,6 +18,9 @@ export default ({ config, db }) => {
 	api.use('/patients', patientRoutes);
 	api.use('/professionals', professionalRoutes);
 	api.use('/appointments', appointmentRoutes);
+	api.use('/targettypes', targetTypeRoutes);
+	api.use('/dtttypes', dttTypeRoutes);
+	api.use('/skills', skillRoutes);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

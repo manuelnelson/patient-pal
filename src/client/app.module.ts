@@ -7,7 +7,7 @@ import { AppRoutingModule }  from './app.routing';
 import {
             AuthenticationService, AlertService, UserService, PatientService, ProfessionalService, PatientResolver,
             ProfessionalResolver, AppointmentService, AppointmentResolver, AddAppointmentResolver,
-            SkillResolver, SkillService
+            SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver
         } from './services';
 import { CalendarModule } from 'angular-calendar';
 import { AuthGuard } from './guards/index';
@@ -36,7 +36,8 @@ import {
     ],
     providers: [ AuthenticationService, AlertService, UserService, AuthGuard, PatientService,
         ProfessionalService, PatientResolver, ProfessionalResolver, AppointmentService, AppointmentResolver,
-        AddAppointmentResolver, DatePipe, SkillService, SkillResolver
+        AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService,
+        DttTypeResolver, TargetTypeResolver
     ]
 })
 

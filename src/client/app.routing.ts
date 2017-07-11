@@ -7,7 +7,9 @@ import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
     SkillListComponent, AddSkillComponent
 } from './components';
-import { PatientResolver, ProfessionalResolver, AppointmentResolver, AddAppointmentResolver } from './services';
+import { PatientResolver, ProfessionalResolver, AppointmentResolver,
+    AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver
+} from './services';
 
 const routes: Routes = [
     // Root
@@ -25,8 +27,8 @@ const routes: Routes = [
                 component: SkillsComponent,
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
-                    { path: 'list', pathMatch: 'full', component: SkillListComponent},
-                    { path: 'add',  pathMatch: 'full', component: AddSkillComponent}
+                    { path: 'list', pathMatch: 'full', component: SkillListComponent, resolve: {skills:SkillResolver}},
+                    { path: 'add',  pathMatch: 'full', component: AddSkillComponent, resolve: {targetTypes: TargetTypeResolver, dttTypes: DttTypeResolver}}
                 ]
             },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver} },

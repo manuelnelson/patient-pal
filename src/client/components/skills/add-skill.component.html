@@ -3,7 +3,7 @@
     <form class="form" [formGroup]="skillForm" (ngSubmit)="skill(skillForm.value)" novalidate>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.targetName)}">
             <label>Target Name<span *ngIf="invalidControl(skillForm.controls.targetName)">Target Name Required</span></label>
-            <input type="text" formControlName="targetName" placeholder="Target Name"/>
+            <input type="text" formControlName="targetName" placeholder="Target Name" required/>
         </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.goalName)}">
             <label>Goal Name<span *ngIf="invalidControl(skillForm.controls.goalName)">Goal Name Required</span></label>
@@ -15,39 +15,37 @@
         </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.numberOfTrials)}">
             <label>Number Of Trials<span *ngIf="invalidControl(skillForm.controls.numberOfTrials)">Number Of Trials Required</span></label>
-            <input type="text" formControlName="numberOfTrials" placeholder="Number Of Trials"/>
+            <input type="text" formControlName="numberOfTrials" placeholder="Number Of Trials" required/>
         </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.targetType)}">
             <label>Target Type<span *ngIf="invalidControl(skillForm.controls.targetType)">Invalid selection</span></label>
-            <select *ngIf="targetTypes" formControlName="targetType">
+            <select *ngIf="targetTypes" formControlName="targetType" required>
                 <option value="" disabled selected>Target Type</option>
-                <!-- TODO load target types -->
                 <option *ngFor="let targetType of targetTypes" [value]="targetType._id">
                     {{targetType.name}}
                 </option>
             </select>
         </div>
-        <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.ddtType)}">
-            <label>Prompt Schedule<span *ngIf="invalidControl(skillForm.controls.ddtType)">Invalid selection</span></label>
-            <select *ngIf="targetTypes" formControlName="ddtType">
+        <div class="form-input" *ngIf="showDtt()" [ngClass]="{'error':invalidControl(skillForm.controls.dttType)}">
+            <label>Prompt Schedule<span *ngIf="invalidControl(skillForm.controls.dttType)">Invalid selection</span></label>
+            <select *ngIf="dttTypes" formControlName="dttType">
                 <option value="" disabled selected>Prompt Schedule</option>
-                <!-- TODO load target types -->
-                <option *ngFor="let ddtType of ddlTypes" [value]="ddtType._id">
-                    {{ddtType.name}}
+                <option *ngFor="let dttType of dttTypes" [value]="dttType._id">
+                    {{dttType.name}}
                 </option>
             </select>
         </div>
-        <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.interval)}">
+        <div class="form-input" *ngIf="showInterval()" [ngClass]="{'error':invalidControl(skillForm.controls.interval)}">
             <label>Interval<span *ngIf="invalidControl(skillForm.controls.interval)">Interval Required</span></label>
             <input type="text" formControlName="interval" placeholder="Interval"/>
         </div>
-        <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.maxThreshold)}">
+        <div class="form-input" *ngIf="showMaxThreshold()" [ngClass]="{'error':invalidControl(skillForm.controls.maxThreshold)}">
             <label>Max Threshold<span *ngIf="invalidControl(skillForm.controls.maxThreshold)">Max Threshold Required</span></label>
             <input type="text" formControlName="maxThreshold" placeholder="Max Threshold"/>
         </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.masteryType)}">
             <label>Mastery Type<span *ngIf="invalidControl(skillForm.controls.masteryType)">Invalid selection</span></label>
-            <select formControlName="masteryType">
+            <select formControlName="masteryType" required>
                 <option value="" disabled selected>Mastery Type</option>
                 <option value="1">
                     Automatic
@@ -56,9 +54,10 @@
                     Manual
                 </option>
             </select>
+		</div>
         <div class="form-input" [ngClass]="{'error':invalidControl(skillForm.controls.targetInstructions)}">
             <label>Target Instructions<span *ngIf="invalidControl(skillForm.controls.targetInstructions)">Target Instructions Required</span></label>
-            <input type="text" formControlName="targetInstructions" placeholder="Target Instructions"/>
+            <textarea type="text" formControlName="targetInstructions" placeholder="Target Instructions"></textarea>
         </div>
         <div class="submit-input">
             <input type="submit" class="btn btn-primary" />

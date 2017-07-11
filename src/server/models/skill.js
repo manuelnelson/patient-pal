@@ -26,18 +26,20 @@ const SkillSchema = new mongoose.Schema({
         ref: 'TargetType'
     },
     //specific to ddt target type and jump-to
-    ddtType: {
+    dttType: {
         type: mongoose.Schema.ObjectId,
-        ref: 'ddtType'
+        ref: 'DttType'
     },
     //specific to target types duration (seconds), fluency/rate (amount), whole/partial interval
     //will always store amount in seconds
     interval: {
-        type: Number
+        type: Number,
+        default:0
     },
     //specific to quantity target type
     maxThreshold: {
-        type: Number
+        type: Number,
+        default:0
     },
     //two mastery types, 1 = Automatic, 2 = Manual
     masteryType: {
@@ -83,6 +85,7 @@ SkillSchema.statics = {
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
         .sort({ createdAt: -1 })
+        .populate('targetType dttType')
         .skip(skip)
         .limit(limit)
         .exec();

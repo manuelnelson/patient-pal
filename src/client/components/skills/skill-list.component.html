@@ -3,9 +3,13 @@
         <h4>You currently have no skills added.</h4>
     </div>
     <h4 *ngIf="skills.length > 0">Skills</h4>
+    <div *ngIf="skills.length > 0" class="skill-item">
+        <span class="skill-name bold">Target Name</span>
+        <span class="skill-target bold">Target Type</span>
+    </div>
     <div class="skill-item" *ngFor="let skill of skills">
-        <span class="skill-name">{{skill.name}}</span>
+        <span class="skill-name">{{skill.targetName}}</span>
         <span class="skill-target">{{skill.targetType.name}}</span>
     </div>
-    <a class="btn btn-primary btn-add" routerLink="/professional/skills/add">Add Skill</a>
 </div>
+<a class="btn btn-primary btn-add" routerLink="/professional/skills/add">Add Skill</a>

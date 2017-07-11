@@ -1,13 +1,14 @@
-import { DdtType, TargetType} from '../models';
+import { DttType, TargetType} from '../models';
 
 export class Skill {
+    _id: string;
     targetName: string;
     goalName: string;
     stimulus: string;
     numberOfTrials:number;
     targetType: TargetType;
     //specific to ddt target type and jump-to
-    ddtType: DdtType;
+    dttType: DttType;
     //specific to target types duration (seconds), fluency/rate (amount), whole/partial interval
     //will always store amount in seconds
     interval: number;

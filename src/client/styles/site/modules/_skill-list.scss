@@ -1,0 +1,17 @@
+.skill-list {
+    margin-bottom: px-to-rem(40px);
+    .skill-item{
+        display: flex;
+        padding: px-to-rem(10px);
+        &:nth-child(odd){
+            background-color: $color-light-gray;
+        }
+        span{
+            width: 20%;
+            display: inline-block;
+            &.bold{
+                font-weight: bold;
+            }
+        }
+    }
+}

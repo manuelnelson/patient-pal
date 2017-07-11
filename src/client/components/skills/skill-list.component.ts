@@ -11,7 +11,7 @@ export class SkillListComponent implements OnInit {
     skills: Array<Skill> = new Array<Skill>();
     constructor(private skillService:SkillService,private alertService:AlertService,
         private router: Router, private route: ActivatedRoute){
-            //this.skills = this.route.snapshot.data["skills"];
+            this.skills = this.route.snapshot.data["skills"];
     }
     ngOnInit(){
     }

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import SeedTargetType from './seed/targetType';
-import SeedDdt from './seed/ddtType';
+import SeedDdt from './seed/dttType';
 
 export default callback => {
 	mongoose.Promise = require('bluebird');

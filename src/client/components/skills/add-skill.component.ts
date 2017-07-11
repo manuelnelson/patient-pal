@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { SkillService, AlertService, AuthenticationService } from '../../services';
-import { Skill, Patient } from '../../models';
+import { Skill, TargetType, DttType } from '../../models';
 import { Router, ActivatedRoute } from "@angular/router";
-import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'skill-form',
@@ -11,19 +10,35 @@ import { DatePipe } from "@angular/common";
 })
 export class AddSkillComponent implements OnInit {
     skillForm: FormGroup;
-    //patients: Array<Patient> = null;
+    targetTypes: Array<TargetType> = null;
+    dttTypes: Array<DttType> = null;
+    dttTypeId: string;
+    jumpToId: string;
+    durationId: string;
+    fluencyId: string;
+    wholeId: string;
+    quantityId: string;
+
     constructor(private skillService:SkillService,private alertService:AlertService,
-        private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private datePipe: DatePipe){
-        //this.patients = this.route.snapshot.data['patients'];
+        private router: Router, private route: ActivatedRoute, private authService: AuthenticationService){
+        this.targetTypes = this.route.snapshot.data['targetTypes'];
+        this.dttTypes = this.route.snapshot.data['dttTypes'];
+        //get ids for special cases
+        this.dttTypeId = this.getId('dtt');
+        this.jumpToId = this.getId('jump');
+        this.durationId = this.getId('duration');
+        this.fluencyId = this.getId('fluency');
+        this.wholeId = this.getId('whole');
+        this.quantityId = this.getId('quantity');
     }
     ngOnInit(){
 
         let targetName = new FormControl('');
         let goalName = new FormControl('');
         let stimulus = new FormControl('');
-        let numberOfTrials = new FormControl('');
+        let numberOfTrials = new FormControl('',Validators.pattern(/\d+/));
         let targetType = new FormControl('');
-        let ddtType = new FormControl('');
+        let dttType = new FormControl('');
         let interval = new FormControl('');
         let maxThreshold = new FormControl('');
         let masteryType = new FormControl('');
@@ -35,7 +50,7 @@ export class AddSkillComponent implements OnInit {
             stimulus: stimulus,
             numberOfTrials: numberOfTrials,
             targetType: targetType,
-            ddtType: ddtType,
+            dttType: dttType,
             interval: interval,
             maxThreshold: maxThreshold,
             masteryType: masteryType,
@@ -44,7 +59,8 @@ export class AddSkillComponent implements OnInit {
     }
     skill(skillValues:Skill){
         if(this.skillForm.valid){
-            this.skillService.create(skillValues).subscribe(
+            var cleanObject = this.removeEmptyFields(skillValues);
+            this.skillService.create(cleanObject).subscribe(
                 data => {
                     this.router.navigate(['/professional/skills']);
                 },
@@ -53,7 +69,30 @@ export class AddSkillComponent implements OnInit {
                 });
         }
     }
+    removeEmptyFields(skillValues: Skill){
+        for(var prop in skillValues){
+            if(skillValues[prop] == "")
+                delete skillValues[prop];
+        }
+        return skillValues;
+    }
     invalidControl(control:FormControl){
         return control.invalid && control.touched;
+    }
+    getId(key: string){
+        let target = this.targetTypes.find(targetType => targetType.name.toLowerCase().indexOf(key) > -1);
+        return target === null ? '' : target._id;
+    }
+    showDtt() {
+        let val = this.skillForm.controls.targetType.value;
+        return val === this.dttTypeId || val === this.jumpToId;
+    }
+    showInterval() {
+        let val = this.skillForm.controls.targetType.value;
+        return val === this.fluencyId || val === this.durationId || val === this.wholeId;
+    }
+    showMaxThreshold() {
+        let val = this.skillForm.controls.targetType.value;
+        return val === this.quantityId;
     }
 }

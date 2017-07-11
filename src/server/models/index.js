@@ -4,7 +4,7 @@ import Professional from './professional';
 import User from './user';
 import Skill from './skill';
 import TargetType from './targetType';
-import DdtType from './ddtType';
+import DttType from './dttType';
 
 export {
     Appointment,
@@ -13,5 +13,5 @@ export {
     User,
     Skill,
     TargetType,
-    DdtType
+    DttType
 }

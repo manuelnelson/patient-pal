@@ -1,12 +1,12 @@
-import { DdtType } from '../models';
+import { DttType } from '../models';
 
 
 function any() {
-    return DdtType.find();
+    return DttType.find();
 }
 
 function insert(name) {
-    return new DdtType({
+    return new DttType({
         name: name
     })
     .save()
@@ -23,9 +23,9 @@ let docArray = [
     "Role Play"
 ]
 
-function run(ddtTypes){
+function run(dttTypes){
     let promiseArray = [];
-    if(ddtTypes.length == 0){
+    if(dttTypes.length == 0){
         Promise.all(
             docArray
                 .map(targetType => insert(targetType))

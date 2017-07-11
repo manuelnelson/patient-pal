@@ -1,40 +1,39 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { Patient } from '../models';
+import { DttType } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class PatientService {
-    // @Output LoggedIn:
+export class DttTypeService {
     constructor(private http: Http, private authService: AuthenticationService) { }
-    private apiEndpointUrl: string = '/api/patients';
+    private apiEndpointUrl: string = '/api/dtttypes';
 
-    create(patient: Patient) {
+    create(dttType: DttType) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.apiEndpointUrl, patient, options)
+        return this.http.post(this.apiEndpointUrl, dttType, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patient = response.json();
-                if (patient) {
-                    return patient;
+                let dttType = response.json();
+                if (dttType) {
+                    return dttType;
                 }
             });
     }
-    update(patient: Patient) {
+    update(dttType: DttType) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.apiEndpointUrl + '/' + patient._id, patient, options)
+        return this.http.put(this.apiEndpointUrl + '/' + dttType._id, dttType, options)
             .map((response: Response) => {
-                // update successful - return patient
-                let patient = response.json();
-                if (patient) {
-                    return patient;
+                // update successful - return dttType
+                let dttType = response.json();
+                if (dttType) {
+                    return dttType;
                 }
             });
     }
@@ -47,8 +46,8 @@ export class PatientService {
         return this.http.get(this.apiEndpointUrl, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patients = response.json() as Array<Patient>;
-                return patients;
+                let dttTypes = response.json() as Array<DttType>;
+                return dttTypes;
             });
     }
     get(id: string) {
@@ -59,8 +58,8 @@ export class PatientService {
         return this.http.get(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patient = response.json() as Patient;
-                return patient;
+                let dttType = response.json() as DttType;
+                return dttType;
             });
     }
     delete(id: string) {
@@ -70,8 +69,8 @@ export class PatientService {
 
         return this.http.delete(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
-                let patient = response.json() as Patient;
-                return patient;
+                let dttType = response.json() as DttType;
+                return dttType;
             });
     }
 

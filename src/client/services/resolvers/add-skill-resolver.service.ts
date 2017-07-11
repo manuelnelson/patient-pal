@@ -4,7 +4,7 @@ import { Router, Resolve, RouterStateSnapshot,
 import { AuthenticationService, SkillService } from '../../services';
 import { Skill } from '../../models';
 @Injectable()
-export class SkillResolver implements Resolve<Array<Skill>> {
+export class AddSkillResolver implements Resolve<Array<Skill>> {
     constructor(private skillService: SkillService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<Skill>> {
         return this.skillService.list().map(skills => skills).toPromise();
