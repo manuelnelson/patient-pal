@@ -63,7 +63,7 @@ const routes: Routes = [
         resolve:{appointment: AppointmentResolver},
         children: [
             { path: '', redirectTo: 'assign', pathMatch: 'full'},
-            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumResolver}}
+            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumResolver}},
             { path: 'run', component: RunAppointmentComponent, pathMatch: 'full'}
         ]
     }
