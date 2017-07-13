@@ -8,7 +8,8 @@ import bcrypt from 'bcrypt-nodejs';
 const SkillSchema = new mongoose.Schema({
     targetName: {
         type: String,
-        required: true
+        required: true,
+        text: true
     },
     goalName: {
         type: String
@@ -53,7 +54,7 @@ const SkillSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
+SkillSchema.index({'targetName': 'text'});
 /**
 * Statics
 */

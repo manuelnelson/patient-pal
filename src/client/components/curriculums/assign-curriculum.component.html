@@ -1,0 +1,22 @@
+<h4 *ngIf="existingCurriculums">Continue Curriculums</h4>
+<curriculum-list *ngIf="existingCurriculums"></curriculum-list>
+<h4>Select Curriculum</h4>
+<section class="form-module">
+    <form class="form" [formGroup]="curriculumForm" (ngSubmit)="curriculum(curriculumForm.value)" novalidate>
+        <div class="form-input auto-complete" [ngClass]="{'error':invalidControl(curriculumForm.controls.curriculum)}">
+            <label>Curriculum<span *ngIf="invalidControl(curriculumForm.controls.curriculum)">Curriculum Required</span></label>
+            <input type="hidden" formControlName="curriculum"/>
+            <div class="autocomplete-container">
+                <input type="text" formControlName="keyword" (keyup)="search()" placeholder="Search"/>
+                <div class="autocomplete-drop-down" *ngIf="searchResults && searchResults.length > 0">
+                    <div class="drop-down-item" (click)="select(result)" *ngFor="let result of searchResults">
+                        {{result.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-input">
+            <input type="submit" value="Start Appointment &#8594;" class="btn btn-primary" />
+        </div>
+    </form>
+</section>

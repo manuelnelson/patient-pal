@@ -23,6 +23,22 @@ function get(req, res) {
 }
 
 /**
+* Get skill
+* @returns {Skill}
+* https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
+*/
+function search(req, res, next) {
+    var regex = new RegExp(req.params.keyword,'ig')
+    Skill.find({
+        targetName: {
+            $regex: regex
+        }
+    })
+    .then((skills) => res.json(skills))
+    .catch(e => next(e));
+}
+
+/**
 * Checks if user exists with same email as skill.  If not, it creates a new User with the email provided and a default password. Then creates the Skill to reside in the new user
 * @returns {Skill}
 */
@@ -71,4 +87,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, search };

@@ -1,0 +1,20 @@
+.appointment-detail{
+    width: 50%;
+    .appointment-detail-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    $label-width: 100% / 5;
+    $vertical-padding: 4px;
+    .label{
+        width: $label-width;
+        display: inline-block;
+        padding: px-to-rem($vertical-padding) 0;
+        font-weight: bold;
+    }
+    .info{
+        width: (100% - $label-width);
+        display: inline-block;
+        padding: px-to-rem($vertical-padding) 0;
+    }
+}

@@ -9,6 +9,7 @@ const curriculumSchema = new mongoose.Schema({
     name:{
         type: String,
     },
+    skills:[{type:mongoose.Schema.ObjectId, ref:'Skill'}],
     createdAt: {
         type: Date,
         default: Date.now
@@ -26,6 +27,7 @@ curriculumSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        .populate('skills')
         .exec()
         .then((curriculum) => {
             if (curriculum) {

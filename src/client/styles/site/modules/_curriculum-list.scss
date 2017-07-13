@@ -1,0 +1,16 @@
+curriculum-list{
+    width: 50%;
+    .curriculum-item{
+        display: flex;
+        padding: px-to-rem(10px);
+        &:nth-child(even){
+            background-color: $color-light-gray;
+        }
+        span,a{
+            width: 50%;
+        }
+        a{
+            text-align: right;
+        }
+    }
+}

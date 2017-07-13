@@ -73,5 +73,12 @@ export class CurriculumService {
                 return curriculum;
             });
     }
+    search(keyword: string) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword, options)
+            .map((response: Response) => response.json() as Array<Curriculum>);
+    }
 
 }

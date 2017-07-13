@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { AppointmentService, AlertService, AuthenticationService } from '../../services';
-import { Appointment, Patient, AppointmentForm } from '../../models';
+import { Appointment, Patient, AppointmentForm, AppointmentApi } from '../../models';
 import { Router, ActivatedRoute } from "@angular/router";
 import { DatePipe } from "@angular/common";
 
@@ -35,7 +35,7 @@ export class AddAppointmentComponent implements OnInit {
     appointment(appointmentValues:AppointmentForm){
         if(this.appointmentForm.valid){
             //convert appointment form to direct model entity
-            let appointment = new Appointment();
+            let appointment = new AppointmentApi();
             appointment.startDate = new Date(appointmentValues.date + ' ' + appointmentValues.startTime.ensureSpacingInTime());//custom string extension
             appointment.endDate = new Date(appointmentValues.date + ' ' + appointmentValues.endTime.ensureSpacingInTime());
             appointment.patient = appointmentValues.patient;

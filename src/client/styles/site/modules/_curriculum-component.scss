@@ -1,0 +1,9 @@
+curriculums-component{
+    width: 66%;
+    .curriculum-container{
+        display: flex;
+        router-outlet{
+            width: 0;
+        }
+    }
+}

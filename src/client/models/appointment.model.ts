@@ -1,8 +1,9 @@
 import { Professional, Patient } from '../models';
 export class Appointment {
+    _id: string;
     startDate: Date;
     endDate: Date;
-    professional: string;
-    patient: string;
+    professional: Professional;
+    patient: Patient;
     location: string;
 }

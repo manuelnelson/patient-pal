@@ -8,6 +8,8 @@ import appointmentRoutes from './appointment-routes';
 import targetTypeRoutes from './target-type-routes';
 import dttTypeRoutes from './dtt-type-routes';
 import skillRoutes from './skill-routes';
+import curriculumRoutes from './curriculum-routes';
+import clientCurriculumRoutes from './client-curriculum-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -21,6 +23,8 @@ export default ({ config, db }) => {
 	api.use('/targettypes', targetTypeRoutes);
 	api.use('/dtttypes', dttTypeRoutes);
 	api.use('/skills', skillRoutes);
+	api.use('/curriculums', curriculumRoutes);
+	api.use('/clientcurriculums', clientCurriculumRoutes);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

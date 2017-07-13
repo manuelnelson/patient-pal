@@ -16,13 +16,14 @@ export class SkillService {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.apiEndpointUrl, skill, options)
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let skill = response.json();
-                if (skill) {
-                    return skill;
-                }
-            });
+            .map((response: Response) => response.json() as Skill);
+    }
+    search(keyword: string) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword, options)
+            .map((response: Response) => response.json() as Array<Skill>);
     }
     update(skill: Skill) {
         // add authorization header with jwt token

@@ -7,4 +7,7 @@ export * from './target-type.model';
 export * from './dtt-type.model';
 export * from './skill.model';
 export * from './appointment.model';
+export * from './appointment-api.model';
 export * from './appointment-form.model';
+export * from './curriculum.model';
+export * from './client-curriculum.model';

@@ -31,6 +31,7 @@ $icon-calendar2: "\905";
 $icon-paste: "\900";
 $icon-documents: "\901";
 $icon-left-arrow: "\ea40";
+$icon-address-book: "\e944";
 
 .icon-profile:before {
   content: $icon-profile;
@@ -55,4 +56,7 @@ $icon-left-arrow: "\ea40";
 }
 .icon-left-arrow:before {
   content: $icon-left-arrow;
+}
+.icon-address-book:before { 
+  content: $icon-address-book;
 }

@@ -7,11 +7,12 @@ import Constants from '../lib/constants';
 */
 function load(req, res, next, id) {
     Curriculum.get(id)
-    .then((curriculum) => {
-        req.curriculum = curriculum;
-        return next();
-    })
-    .catch(e => next(e));
+        .populate('skills')
+        .then((curriculum) => {
+            req.curriculum = curriculum;
+            return next();
+        })
+        .catch(e => next(e));
 }
 
 /**
@@ -70,5 +71,20 @@ function remove(req, res, next) {
     .then(deletedCurriculum => res.json(deletedCurriculum))
     .catch(e => next(e));
 }
+/**
+* Get skill
+* @returns {Skill}
+* https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
+*/
+function search(req, res, next) {
+    var regex = new RegExp(req.params.keyword,'ig')
+    Curriculum.find({
+        name: {
+            $regex: regex
+        }
+    })
+    .then((curriculums) => res.json(curriculums))
+    .catch(e => next(e));
+}
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, search };

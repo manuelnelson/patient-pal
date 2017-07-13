@@ -5,10 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
     EditPatientComponent, LinksComponent, CalendarComponent, SkillsComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
-    SkillListComponent, AddSkillComponent
+    SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
+    CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent
 } from './components';
 import { PatientResolver, ProfessionalResolver, AppointmentResolver,
-    AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver
+    AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
+    ClientCurriculumResolver
 } from './services';
 
 const routes: Routes = [
@@ -31,6 +33,14 @@ const routes: Routes = [
                     { path: 'add',  pathMatch: 'full', component: AddSkillComponent, resolve: {targetTypes: TargetTypeResolver, dttTypes: DttTypeResolver}}
                 ]
             },
+            {
+                path: 'curriculums',
+                component: CurriculumsComponent,
+                children: [
+                    { path: '', redirectTo: 'list', pathMatch: 'full'},
+                    { path: 'list', pathMatch: 'full', component: CurriculumListComponent, resolve: {curriculums:CurriculumResolver}}
+                ]
+            },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver} },
             { path: 'reports', component: ReportsComponent },
             {
@@ -46,7 +56,17 @@ const routes: Routes = [
     },
     { path: 'patients/add',  component:AddPatientComponent },
     { path: 'patients/edit/:userId',  component:EditPatientComponent, pathMatch: 'full', resolve:{patient:PatientResolver} },
-    { path: 'patients/edit',  component:EditPatientComponent, pathMatch: 'full' }
+    { path: 'patients/edit',  component:EditPatientComponent, pathMatch: 'full' },
+    {
+        path: 'appointments/:appointmentId/start',
+        component:StartAppointmentComponent,
+        resolve:{appointment: AppointmentResolver},
+        children: [
+            { path: '', redirectTo: 'assign', pathMatch: 'full'},
+            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumResolver}}
+            { path: 'run', component: RunAppointmentComponent, pathMatch: 'full'}
+        ]
+    }
 ];
 
 @NgModule({

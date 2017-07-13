@@ -42,6 +42,7 @@ AppointmentSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        .populate('professional patient')
         .exec()
         .then((Appointment) => {
             if (Appointment) {

@@ -7,7 +7,7 @@
         <span class="appointment-patient">{{appointment.patient.firstname}} {{appointment.patient.lastname}}</span>
         <span class="appointment-date start-time">{{appointment.startDate | date: "MMMM dd"}} <br />{{appointment.startDate | date: "hh:mm a"}}-{{appointment.endDate | date: "hh:mm a"}}</span>
         <span class="appointment-actions">
-            <a routerLink="['/appointments/start']">Start</a>
+            <a routerLink="/appointments/{{appointment._id}}/start">Start</a>
         </span>
     </div>
     <a class="btn btn-primary btn-add" routerLink="/professional/appointments/add">Add Appointment</a>

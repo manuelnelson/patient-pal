@@ -1,0 +1,40 @@
+.auto-complete{
+    .autocomplete-container{
+        position: relative;
+    }
+    .autocomplete-drop-down{
+        position: absolute;
+        top: $input-height;
+        width: 100%;
+        background-color: $color-white;
+    }
+    .drop-down-item{
+        padding: 10px;
+        cursor: pointer;
+        &:hover{
+            background-color: $color-light-blue;
+            color: $color-white;
+        }
+    }
+    .autocomplete-selections{
+
+    }
+    .autocomplete-item{
+        background-color: $color-blue;
+        color: $color-white;
+        font-size: px-to-rem(14px);
+        font-weight: bold;
+        margin-right: px-to-rem(10px);
+        cursor: pointer;
+        display: inline-block;
+        padding: px-to-rem(8px);
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        i{
+            margin-left: px-to-rem(8px);
+        }
+        &:hover{
+            background-color: $color-white;
+            color: $color-blue;
+        }
+    }
+}

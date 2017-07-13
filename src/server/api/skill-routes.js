@@ -10,7 +10,6 @@ router.route('/')
 
   /** POST /api/skills - Create new skill */
   .post(AuthCtrl.verifyToken,SkillCtrl.create);
-  // .post(validate(paramValidation.createUser), SkillCtrl.create);
 
 router.route('/:id')
   /** GET /api/skills/:id - Get skill */
@@ -21,6 +20,10 @@ router.route('/:id')
 
   /** DELETE /api/skills/:id - Delete skill */
   .delete(SkillCtrl.remove);
+
+router.route('/search/:keyword')
+    /** GET /api/skills/search/:keyword - search skills */
+    .get(SkillCtrl.search);
 
 /** Load user when API with userId route parameter is hit */
 router.param('id', SkillCtrl.load);

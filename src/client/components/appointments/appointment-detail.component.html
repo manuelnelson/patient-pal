@@ -1,0 +1,14 @@
+<h4>The Details</h4>
+<div class="appointment-detail-container" *ngIf="appointment">
+    <span class="label">Date:</span>
+    <span class="info date">{{appointment.startDate | date: constants.DateFormat}}</span>
+    <span class="label">Time:</span>
+    <span class="info time">{{appointment.startDate | date: constants.TimeFormat}}-{{appointment.endDate | date: constants.TimeFormat}}</span>
+    <span class="label">Client:</span>
+    <span class="info client">{{appointment.patient.firstname}} {{appointment.patient.lastname}}</span>
+    <span class="label">Professional:</span>
+    <span class="info client" *ngIf="appointment.professional.firstname">{{appointment.professional.firstname}} {{appointment.professional.lastname}}</span>
+    <span class="info client" *ngIf="!appointment.professional.firstname">No Name Provided</span>
+    <span class="label">Location:</span>
+    <span class="info location">{{appointment.location}}</span>
+</div>

@@ -22,6 +22,10 @@ router.route('/:id')
   /** DELETE /api/curriculums/:id - Delete curriculum */
   .delete(CurriculumCtrl.remove);
 
+router.route('/search/:keyword')
+    /** GET /api/skills/search/:keyword - search skills */
+    .get(CurriculumCtrl.search);
+
 /** Load user when API with userId route parameter is hit */
 router.param('id', CurriculumCtrl.load);
 

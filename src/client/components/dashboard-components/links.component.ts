@@ -7,15 +7,11 @@ import { Professional } from '../../models';
     selector: 'links-component',
     template: require('./links.component.html')
 })
-export class LinksComponent implements OnInit{
+export class LinksComponent {
     @Input() profile: Professional;
     constructor(private profService: ProfessionalService, private authService: AuthenticationService,
         private alertService: AlertService)
     {
 
-    }
-
-    ngOnInit(){
-        
     }
 }
