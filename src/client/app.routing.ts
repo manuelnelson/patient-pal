@@ -6,7 +6,9 @@ import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
     EditPatientComponent, LinksComponent, CalendarComponent, SkillsComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
     SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
-    CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent
+    CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
+    PageNotFoundComponent
+
 } from './components';
 import { PatientResolver, ProfessionalResolver, AppointmentResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
@@ -64,14 +66,18 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'assign', pathMatch: 'full'},
             { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumResolver}},
-            { path: 'run', component: RunAppointmentComponent, pathMatch: 'full'}
+            { path: 'curriculum/:curriculumId/run', component: RunAppointmentComponent, pathMatch: 'full', resolve: {curriculums: CurriculumResolver}}
         ]
-    }
+    },
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,
+        { enableTracing: true } // <-- debugging purposes only
+    ),
+
   ],
   exports: [
     RouterModule

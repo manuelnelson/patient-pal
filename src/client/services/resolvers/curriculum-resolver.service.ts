@@ -7,6 +7,10 @@ import { Curriculum } from '../../models';
 export class CurriculumResolver implements Resolve<Array<Curriculum>> {
     constructor(private curriculumService: CurriculumService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<Curriculum>> {
-        return this.curriculumService.list().map(curriculums => curriculums).toPromise();
+        if(route.params.curriculumId){
+            return this.curriculumService.get(route.params.curriculumId).map(curriculums => new Array<Curriculum>(curriculums)).toPromise();
+        } else {
+            return this.curriculumService.list().map(curriculums => curriculums).toPromise();
+        }
     }
 }

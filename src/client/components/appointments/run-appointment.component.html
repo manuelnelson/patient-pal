@@ -1,14 +1,18 @@
-<main class="appointment-start">
-    <section class="detail-hero" >
-        <div class="hero-tint">
-        </div>
-        <div class="hero-text-content">
-            <h1>Appointment</h1>
-        </div>
-    </section>
-    <section class="appointment-module">
-        <appointment-detail class="appointment-detail">
-        </appointment-detail>
-        <router-outlet></router-outlet>
-    </section>
-</main>
+<div class="skills-list">
+    <h4>Curriculum Status</h4>
+    <div class="skills-item" *ngFor="let skill of curriculum.skills">
+        {{skill.name}}
+    </div>
+</div>
+<div class="data-collection">
+    <h4>{{currentSkill.name}}</h4>
+    <div class="input-section">
+        <!-- This will switch dependent on skill...waiting on Beth to get access to this -->
+    </div>
+    <div class="submit-input">
+        <button class="btn btn-primary" (click)="getNextSkill()">
+            Next Skill
+        </button>
+    </div>
+
+</div>

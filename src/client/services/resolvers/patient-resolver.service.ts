@@ -11,6 +11,6 @@ export class PatientResolver implements Resolve<Patient> {
         if(!userId)
             userId = this.authService.getLoggedInUser()._id;
 
-        return this.patientService.get(userId).map(patient => patient ? patient[0] : null).toPromise();
+        return this.patientService.get(userId).map(patient => patient).toPromise();
     }
 }

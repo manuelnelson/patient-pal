@@ -19,6 +19,7 @@ export class EditPatientComponent implements OnInit {
     constructor(private patientService:PatientService,private alertService:AlertService, private authService: AuthenticationService,
                 private route: ActivatedRoute, private datePipe: DatePipe){
         this.editPatient = this.route.snapshot.data['patient'];
+        console.log(this.route.snapshot)
     }
     ngOnInit(){
         let date = this.datePipe.transform(this.editPatient.birth, 'MM/dd/yyyy');

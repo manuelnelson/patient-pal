@@ -3,6 +3,7 @@ export * from './app/signup.component';
 export * from './app/alert.component';
 export * from './app/navigation.component';
 export * from './app/app.component';
+export * from './app/page-not-found.component';
 
 export * from './home/home.component';
 
@@ -24,6 +25,7 @@ export * from './appointments/add-appointment.component';
 export * from './appointments/appointment-list.component';
 export * from './appointments/start-appointment.component';
 export * from './appointments/appointment-detail.component';
+export * from './appointments/run-appointment.component';
 
 export * from './skills/skill-list.component';
 export * from './skills/add-skill.component';

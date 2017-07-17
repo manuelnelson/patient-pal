@@ -18,7 +18,8 @@ import {
     AddPatientComponent, AlertComponent, EditPatientComponent, ProfileComponent, CalendarComponent, LinksComponent,
     BackComponent, SkillsComponent, ClientsComponent, ReportsComponent, AddAppointmentComponent,
     AppointmentListComponent, SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
-    CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, AssignCurriculumComponent
+    CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, AssignCurriculumComponent, RunAppointmentComponent,
+    PageNotFoundComponent
 } from './components/';
 
 @NgModule({
@@ -28,7 +29,7 @@ import {
         CalendarComponent, LinksComponent, BackComponent, SkillsComponent, ClientsComponent, ReportsComponent,
         AddAppointmentComponent, AppointmentListComponent, SkillListComponent, AddSkillComponent, CurriculumListComponent,
         CreateCurriculumComponent, CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, StartAppointmentComponent,
-        AssignCurriculumComponent
+        AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent
     ],
     imports: [
         BrowserModule,
