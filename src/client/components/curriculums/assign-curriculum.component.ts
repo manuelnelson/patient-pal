@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { CurriculumService, SkillService, AlertService, AuthenticationService, ClientCurriculumService } from '../../services';
-import { Curriculum, ClientCurriculum, Appointment } from '../../models';
+import { Curriculum, ClientCurriculum, Appointment, ClientCurriculumApi } from '../../models';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -19,7 +19,7 @@ export class AssignCurriculumComponent implements OnInit {
     constructor(private curriculumService:CurriculumService,private alertService:AlertService,
         private router: Router, private authService: AuthenticationService, private route: ActivatedRoute,
         private clientCurriculumService: ClientCurriculumService){
-        this.appointment = route.snapshot.data["appointment"];
+        this.appointment = route.parent.snapshot.data["appointment"][0];
     }
     ngOnInit(){
         let keyword = new FormControl('');
@@ -33,13 +33,14 @@ export class AssignCurriculumComponent implements OnInit {
     }
     curriculum(curriculumValues:any){
         if(this.curriculumForm.valid){
-            let clientCurriculum = new ClientCurriculum();
-            clientCurriculum.client = this.appointment.patient;
-            clientCurriculum.curriculum = this.selectedCurriculum;
+            let clientCurriculum = new ClientCurriculumApi();
+            clientCurriculum.client = this.appointment.patient._id;
+            clientCurriculum.curriculum = this.selectedCurriculum._id;
+            clientCurriculum.appointment = this.appointment._id;
 
             this.clientCurriculumService.create(clientCurriculum).subscribe(
                 data => {
-                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/run']);
+                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/curriculum/' + this.selectedCurriculum._id + '/run']);
                 },
                 error => {
                     this.alertService.error(JSON.parse(error._body).message);

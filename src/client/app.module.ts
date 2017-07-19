@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule }  from './app.routing';
 import {
-            AuthenticationService, AlertService, UserService, PatientService, ProfessionalService, PatientResolver,
+            GlobalErrorHandler, AuthenticationService, AlertService, UserService, PatientService, ProfessionalService, PatientResolver,
             ProfessionalResolver, AppointmentService, AppointmentResolver, AddAppointmentResolver,
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, ClientCurriculumService, ClientCurriculumResolver
@@ -38,7 +38,12 @@ import {
         ReactiveFormsModule,
         CalendarModule.forRoot()
     ],
-    providers: [ AuthenticationService, AlertService, UserService, AuthGuard, PatientService,
+    providers: [
+        {
+          provide: ErrorHandler,
+          useClass: GlobalErrorHandler
+        },
+        AuthenticationService, AlertService, UserService, AuthGuard, PatientService,
         ProfessionalService, PatientResolver, ProfessionalResolver, AppointmentService, AppointmentResolver,
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver

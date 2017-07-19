@@ -7,7 +7,6 @@ import Constants from '../lib/constants';
 */
 function load(req, res, next, id) {
     Curriculum.get(id)
-        .populate('skills')
         .then((curriculum) => {
             req.curriculum = curriculum;
             return next();
