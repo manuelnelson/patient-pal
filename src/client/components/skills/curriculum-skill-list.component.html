@@ -1,0 +1,14 @@
+<div class="skill-list">
+    <div *ngIf="clientCurriculum.curriculum.skills.length == 0" class="no-skills">
+        <h4>You currently have no skills added.</h4>
+    </div>
+    <h4 *ngIf="clientCurriculum.curriculum.skills.length > 0">Skills</h4>
+    <div *ngIf="clientCurriculum.curriculum.skills.length > 0" class="skill-item">
+        <span class="skill-name bold">Target Name</span>
+        <span class="skill-target bold">Target Type</span>
+    </div>
+    <div class="skill-item" *ngFor="let skill of clientCurriculum.curriculum.skills">
+        <span class="skill-name">{{skill.targetName}}</span>
+        <span class="skill-target">{{skill.targetType.name}}</span>
+    </div>
+</div>

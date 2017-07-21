@@ -1,0 +1,35 @@
+.data-collection{
+    .input-section{
+        margin-bottom: px-to-rem(30px);
+    }
+    .skill-details{
+        span{
+            display: block;
+        }
+        .skill-goals{
+            &:before{
+                content: "Goals:";
+                margin-right: px-to-rem(4px);
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+        .skill-stimulus{
+            &:before{
+                content: "Stimulus:";
+                margin-right: px-to-rem(4px);
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+        .skill-instructions{
+            &:before{
+                content: "Instructions:";
+                margin-right: px-to-rem(4px);
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+    }
+
+}

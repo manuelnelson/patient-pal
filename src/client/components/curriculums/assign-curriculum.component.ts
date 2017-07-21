@@ -40,7 +40,7 @@ export class AssignCurriculumComponent implements OnInit {
 
             this.clientCurriculumService.create(clientCurriculum).subscribe(
                 data => {
-                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/curriculum/' + this.selectedCurriculum._id + '/run']);
+                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/curriculum/' + this.selectedCurriculum._id + '/navigation']);
                 },
                 error => {
                     this.alertService.error(JSON.parse(error._body).message);

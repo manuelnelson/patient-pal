@@ -12,7 +12,8 @@ import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
 } from './components';
 import { PatientResolver, ProfessionalResolver, AppointmentResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
-    ClientCurriculumResolver
+    ClientCurriculumResolver,
+    ClientCurriculumListResolver
 } from './services';
 
 const routes: Routes = [
@@ -65,8 +66,9 @@ const routes: Routes = [
         resolve:{appointment: AppointmentResolver},
         children: [
             { path: '', redirectTo: 'assign', pathMatch: 'full'},
-            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumResolver}},
-            { path: 'curriculum/:curriculumId/run', component: RunAppointmentComponent, pathMatch: 'full', resolve: {curriculums: CurriculumResolver}}
+            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumListResolver}},
+            { path: 'client-curriculum/:clientCurriculumId/navigation', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{clientCurriculum: ClientCurriculumResolver}},
+            { path: 'client-curriculum/:clientCurriculumId/run', component: RunAppointmentComponent, pathMatch: 'full', resolve: {clientCurriculum: ClientCurriculumResolver}}
         ]
     },
     { path: '**', component: PageNotFoundComponent }

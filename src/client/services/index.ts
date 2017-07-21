@@ -11,6 +11,7 @@ export * from './target-type.service';
 export * from './dtt-type.service';
 export * from './curriculum.service';
 export * from './client-curriculum.service';
+export * from './skill-data.service'; 
 
 //resolvers
 export * from './resolvers/patient-resolver.service';
@@ -22,3 +23,5 @@ export * from './resolvers/target-type-resolver.service';
 export * from './resolvers/dtt-type-resolver.service';
 export * from './resolvers/curriculum-resolver.service';
 export * from './resolvers/client-curriculum-resolver.service';
+export * from './resolvers/client-curriculum-resolver-list.service';
+export * from './resolvers/skill-data-resolver.service';

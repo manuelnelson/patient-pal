@@ -47,7 +47,7 @@ export class CreateCurriculumComponent implements OnInit {
         return control.invalid && control.touched || control.invalid && this.showErrors;
     }
     search(){
-        if(this.curriculumForm.controls.keyword.value.length > 2 && !this.searchInProgress){
+        if(this.curriculumForm.controls.keyword.value && this.curriculumForm.controls.keyword.value.length > 2 && !this.searchInProgress){
             this.searchInProgress = true;
             this.skillService.search(this.curriculumForm.controls.keyword.value)
                 .subscribe(results => {

@@ -27,7 +27,9 @@ curriculumSchema.statics = {
     */
     get(id) {
         return this.findById(id)
-        .populate('skills')
+        //Deep populate FTW - TODO look at performance of this
+        //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
+        .populate({path:'skills', populate:{ path: 'targetType'}})
         .exec()
         .then((curriculum) => {
             if (curriculum) {

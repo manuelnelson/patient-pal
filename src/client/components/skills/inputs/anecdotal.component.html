@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+    <textarea type="text" placeholder="Enter Text Here" formControlName='text' >
+    </textarea>
+</form>
+<div class="skill-details">
+    <span class="skill-goals" *ngIf="skill.goalName">
+        {{skill.goalName}}
+    </span>
+    <span class="skill-stimulus" *ngIf="skill.stimulus">
+        {{skill.stimulus}}
+    </span>
+    <span class="skill-instructions" *ngIf="skill.targetInstructions">
+        {{skill.targetInstructions}}
+    </span>
+</div>
+<div class="submit-input">
+    <button class="btn btn-primary">
+        Back To List
+    </button>
+    <button class="btn btn-primary" [disabled]="!form.valid" (click)="save()">
+        Save
+    </button>
+</div>

@@ -2,51 +2,52 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { ClientCurriculum, ClientCurriculumApi } from '../models';
+import { SkillData, SkillDataApi } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class ClientCurriculumService {
+export class SkillDataService {
     constructor(private http: Http, private authService: AuthenticationService) { }
-    private apiEndpointUrl: string = '/api/clientCurriculums';
+    private apiEndpointUrl: string = '/api/skillDatas';
 
-    create(clientCurriculum: ClientCurriculumApi) {
+    create(skillData: SkillDataApi) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.apiEndpointUrl, clientCurriculum, options)
+        return this.http.post(this.apiEndpointUrl, skillData, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let clientCurriculum = response.json();
-                if (clientCurriculum) {
-                    return clientCurriculum;
+                let skillData = response.json();
+                if (skillData) {
+                    return skillData;
                 }
             });
     }
-    update(clientCurriculum: ClientCurriculum) {
+    update(skillData: SkillData) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.apiEndpointUrl + '/' + clientCurriculum._id, clientCurriculum, options)
+        return this.http.put(this.apiEndpointUrl + '/' + skillData._id, skillData, options)
             .map((response: Response) => {
-                // update successful - return clientCurriculum
-                let clientCurriculum = response.json();
-                if (clientCurriculum) {
-                    return clientCurriculum;
+                // update successful - return skillData
+                let skillData = response.json();
+                if (skillData) {
+                    return skillData;
                 }
             });
     }
 
-    list(patientId: string) {
+    list() {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.apiEndpointUrl + '/' + patientId, options)
+        return this.http.get(this.apiEndpointUrl, options)
             .map((response: Response) => {
-                let clientCurriculums = response.json() as Array<ClientCurriculum>;
-                return clientCurriculums;
+                // login successful if there's a jwt token in the response
+                let skillDatas = response.json() as Array<SkillData>;
+                return skillDatas;
             });
     }
     get(id: string) {
@@ -56,8 +57,9 @@ export class ClientCurriculumService {
 
         return this.http.get(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
-                let clientCurriculum = response.json() as ClientCurriculum;
-                return clientCurriculum;
+                // login successful if there's a jwt token in the response
+                let skillData = response.json() as SkillData;
+                return skillData;
             });
     }
     delete(id: string) {
@@ -67,9 +69,19 @@ export class ClientCurriculumService {
 
         return this.http.delete(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
-                let clientCurriculum = response.json() as ClientCurriculum;
-                return clientCurriculum;
+                let skillData = response.json() as SkillData;
+                return skillData;
             });
     }
 
+    buildApiModel(skillId: string, clientCurriculumId:string, trial: number, numberData: number, stringData: string, notes:string) : SkillDataApi {
+        let skillData = new SkillDataApi();
+        skillData.skill = skillId;
+        skillData.clientCurriculum = clientCurriculumId;
+        skillData.trialNumber = trial;
+        skillData.numberData = numberData;
+        skillData.stringData = stringData;
+        skillData.notes = notes;
+        return skillData;
+    }
 }

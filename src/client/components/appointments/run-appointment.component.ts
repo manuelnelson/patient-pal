@@ -17,11 +17,18 @@ export class RunAppointmentComponent{
             this.appointment = this.route.snapshot.data["appointment"];
             //TODO: what to do if curriculum is null? Redirect to error page?
             this.curriculum = this.route.snapshot.data["curriculums"] ? this.route.snapshot.data["curriculums"][0] : null;
-            this.currentSkill = this.getNextSkill();
+            //this.currentSkill = this.getNextSkill();
+            this.currentSkill = this.curriculum.skills[this.skillNdx];
     }
 
     //TODO: this function should return the next skill not completed.  For now we are just cycling through them
     getNextSkill(){
-        return this.curriculum.skills[this.skillNdx];
+        this.skillNdx++;
+        //if(this.skillNdx > this.curriculum.skills.length)
+        this.currentSkill = this.curriculum.skills[this.skillNdx];
+    }
+
+    isTargetType(name:string){
+        return this.currentSkill.targetType.name.toLowerCase() == name.toLowerCase();
     }
 }

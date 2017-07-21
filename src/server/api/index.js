@@ -10,6 +10,7 @@ import dttTypeRoutes from './dtt-type-routes';
 import skillRoutes from './skill-routes';
 import curriculumRoutes from './curriculum-routes';
 import clientCurriculumRoutes from './client-curriculum-routes';
+import skillDataRoutes from './skill-data-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -25,6 +26,7 @@ export default ({ config, db }) => {
 	api.use('/skills', skillRoutes);
 	api.use('/curriculums', curriculumRoutes);
 	api.use('/clientcurriculums', clientCurriculumRoutes);
+	api.use('/skilldatas', skillDataRoutes);
 
 	// perhaps expose some API metadata at the root
 	api.get('/', (req, res) => {

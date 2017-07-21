@@ -54,8 +54,11 @@ function update(req, res, next) {
 * @returns {ClientCurriculum[]}
 */
 function list(req, res, next) {
+    console.log(req);
+    const client = req.params.client;
+    console.log(client);
     const { limit = 20, skip = 0 } = req.query;
-    ClientCurriculum.list({ limit, skip })
+    ClientCurriculum.list({ client, limit, skip })
     .then(clientCurriculums => res.json(clientCurriculums))
     .catch(e => next(e));
 }

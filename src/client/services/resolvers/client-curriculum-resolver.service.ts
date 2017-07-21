@@ -4,13 +4,11 @@ import { Router, Resolve, RouterStateSnapshot,
 import { AuthenticationService, ClientCurriculumService } from '../../services';
 import { ClientCurriculum } from '../../models';
 @Injectable()
-export class ClientCurriculumResolver implements Resolve<Array<ClientCurriculum>> {
+export class ClientCurriculumResolver implements Resolve<ClientCurriculum> {
     constructor(private clientCurriculumService: ClientCurriculumService, private router: Router, private authService: AuthenticationService) {}
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<ClientCurriculum>> {
-        let appointment = route.data["appointment"];
-        if(appointment){
-            let patientId = appointment._id;
-            return this.clientCurriculumService.list(patientId).map(clientCurriculums => clientCurriculums).toPromise();
-        }
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ClientCurriculum> {
+        let clientCurriculumId = route.params.clientCurriculumId;
+
+        return this.clientCurriculumService.get(clientCurriculumId).map(clientCurriculum => clientCurriculum).toPromise();
     }
 }

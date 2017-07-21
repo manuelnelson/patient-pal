@@ -7,6 +7,7 @@ import TargetType from './targetType';
 import DttType from './dttType';
 import Curriculum from './curriculum';
 import ClientCurriculum from './clientCurriculum';
+import SkillData from './skillData';
 
 export {
     Appointment,
@@ -17,5 +18,6 @@ export {
     ClientCurriculum,
     Skill,
     TargetType,
-    DttType
+    DttType,
+    SkillData
 }

@@ -8,12 +8,37 @@
     <h4>{{currentSkill.name}}</h4>
     <div class="input-section">
         <!-- This will switch dependent on skill...waiting on Beth to get access to this -->
-        <span>TEST</span>
+        <anecdotal-component [skill]="currentSkill" (goToNextSkill)="nextSkill($event)" *ngIf="isTargetType('anecdotal')" class="skill-input anecdotal">
+        </anecdotal-component>
+        <div *ngIf="isTargetType('dtt')" class="skill-input anecdotal">
+            Dtt
+        </div>
+        <div *ngIf="isTargetType('duration')" class="skill-input anecdotal">
+            Anecdotal
+        </div>
+        <div *ngIf="isTargetType('echoic')" class="skill-input anecdotal">
+            Anecdotal
+        </div>
+        <div *ngIf="isTargetType('Fluency/Rate')" class="skill-input anecdotal">
+            Anecdotal
+        </div>
+        <div *ngIf="isTargetType('Frequency')" class="skill-input anecdotal">
+            Frequency
+        </div>
+        <div *ngIf="isTargetType('Jump To')" class="skill-input anecdotal">
+            Jump To
+        </div>
+        <div *ngIf="isTargetType('Quantity')" class="skill-input anecdotal">
+            Quantity
+        </div>
+        <div *ngIf="isTargetType('Task Analysis')" class="skill-input anecdotal">
+            Task Analysis
+        </div>
+        <div *ngIf="isTargetType('Toileting')" class="skill-input anecdotal">
+            Toileting
+        </div>
+        <div *ngIf="isTargetType('Whole/Partial Interval')" class="skill-input anecdotal">
+            Whole/Partial Interval
+        </div>
     </div>
-    <div class="submit-input">
-        <button class="btn btn-primary" (click)="getNextSkill()">
-            Next Skill
-        </button>
-    </div>
-
 </div>

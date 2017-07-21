@@ -8,6 +8,7 @@ import DttTypeCtrl from './dtt-type-controller';
 import SkillCtrl from './skill-controller';
 import CurriculumCtrl from './curriculum-controller';
 import ClientCurriculumCtrl from './client-curriculum-controller';
+import SkillDataCtrl from './skill-data-controller';
 
 export {
     AppointmentCtrl,
@@ -19,5 +20,6 @@ export {
     TargetTypeCtrl,
     SkillCtrl,
     CurriculumCtrl,
-    DttTypeCtrl
+    DttTypeCtrl,
+    SkillDataCtrl
 }

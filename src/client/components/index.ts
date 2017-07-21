@@ -27,8 +27,11 @@ export * from './appointments/start-appointment.component';
 export * from './appointments/appointment-detail.component';
 export * from './appointments/run-appointment.component';
 
+export * from './skills/curriculum-skill-list.component';
 export * from './skills/skill-list.component';
 export * from './skills/add-skill.component';
+export * from './skills/inputs/anecdotal.component';
+
 
 export * from './curriculums/curriculum-list.component';
 export * from './curriculums/create-curriculum.component';

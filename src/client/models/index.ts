@@ -3,6 +3,7 @@
 //client side DTO. Custom serializer seems like the best bet here.
 export * from './appointment-api.model';
 export * from './client-curriculum-api.model';
+export * from './skill-data-api.model';
 
 export * from './home.model';
 export * from './user.model';
@@ -16,3 +17,4 @@ export * from './appointment.model';
 export * from './appointment-form.model';
 export * from './curriculum.model';
 export * from './client-curriculum.model';
+export * from './skill-data.model';

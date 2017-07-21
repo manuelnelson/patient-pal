@@ -41,6 +41,11 @@ clientCurriculumSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        //Deep populate FTW - TODO look at performance of this
+        //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
+        .populate({path:'curriculum', populate:{ path: 'skills', populate:{ path: 'targetType dttType'}}})
+
+        .populate({})
         .exec()
         .then((clientCurriculum) => {
             if (clientCurriculum) {
@@ -56,10 +61,13 @@ clientCurriculumSchema.statics = {
     * List clientCurriculums in descending order of 'createdAt' timestamp.
     * @param {number} skip - Number of clientCurriculums to be skipped.
     * @param {number} limit - Limit number of clientCurriculums to be returned.
+    * @param {number} client - Limit number of clientCurriculums to be returned.
     * @returns {Promise<clientCurriculum[]>}
     */
-    list({ skip = 0, limit = 50 } = {}) {
-        return this.find()
+    list({ client, skip = 0, limit = 50 } = {}) {
+        return this.find({
+            client: client
+        })        
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
