@@ -9,7 +9,7 @@
     "build:dev": "webpack --env=dev --config ./src/webpack/webpack.dev.js",
     "build:prod": "webpack --env=prod --config ./src/webpack/webpack.prod.js",
     "dev": "webpack-dev-server --config ./src/webpack/webpack.dev.js",
-    "start": "node dist",
+    "start": "node app.js",
     "prestart": "npm run -s build:backend",
     "test": "eslint src",
     "start:dev": "npm-run-all -p dev watch:backend"
