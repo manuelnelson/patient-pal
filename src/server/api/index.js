@@ -1,4 +1,4 @@
-import { version } from '../../../package.json';
+//import { version } from '../../../package.json';
 import { Router } from 'express';
 import userRoutes from './user-routes';
 import authRoutes from './auth-routes';
@@ -29,9 +29,9 @@ export default ({ config, db }) => {
 	api.use('/skilldatas', skillDataRoutes);
 
 	// perhaps expose some API metadata at the root
-	api.get('/', (req, res) => {
-		res.json({ version });
-	});
+	// api.get('/', (req, res) => {
+	// 	res.json({ version });
+	// });
 
 	return api;
 }
