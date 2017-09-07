@@ -29,7 +29,8 @@ router.route('/')
 .get(_userController2.default.list)
 
 /** POST /api/users - Create new user */
-.post((0, _expressValidation2.default)(_userValidation2.default.createUser), _userController2.default.create);
+.post(_userController2.default.create);
+// .post(validate(paramValidation.createUser), UserCtrl.create);
 
 router.route('/:userId')
 /** GET /api/users/:userId - Get user */

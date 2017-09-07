@@ -4,67 +4,44 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jsonwebtoken = require('jsonwebtoken');
+var _express = require('express');
 
-var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+var _express2 = _interopRequireDefault(_express);
 
-var _httpStatus = require('http-status');
+var _expressValidation = require('express-validation');
 
-var _httpStatus2 = _interopRequireDefault(_httpStatus);
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
-var _APIError = require('../lib/APIError');
+var _userValidation = require('../config/user-validation');
 
-var _APIError2 = _interopRequireDefault(_APIError);
+var _userValidation2 = _interopRequireDefault(_userValidation);
 
-var _config = require('../config');
-
-var _config2 = _interopRequireDefault(_config);
+var _controllers = require('../controllers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// sample user, used for authentication
-var user = {
-  username: 'react',
-  password: 'express'
-};
+var router = _express2.default.Router(); // eslint-disable-line new-cap
 
-/**
- * Returns jwt token if valid username and password is provided
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
-function login(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
-    var token = _jsonwebtoken2.default.sign({
-      username: user.username
-    }, _config2.default.jwtSecret);
-    return res.json({
-      token: token,
-      username: user.username
-    });
-  }
+router.route('/login')
+/** POST /api/auth/login - Create new user */
+.post((0, _expressValidation2.default)(_userValidation2.default.login), _controllers.AuthCtrl.login);
 
-  var err = new _APIError2.default('Authentication error', _httpStatus2.default.UNAUTHORIZED, true);
-  return next(err);
-}
+router.route('/update/:email')
+//TODO: require hash from email to update password
+.put(_controllers.AuthCtrl.updatePassword);
 
-/**
- * This is a protected route. Will return random number only if jwt token is provided in header.
- * @param req
- * @param res
- * @returns {*}
- */
-function getRandomNumber(req, res) {
-  // req.user is assigned by jwt middleware if valid token is provided
-  return res.json({
-    user: req.user,
-    num: Math.random() * 100
-  });
-}
+// router.route('/:userId')
+//   /** GET /api/users/:userId - Get user */
+//   .get(AuthCtrl.get)
+//
+//   /** PUT /api/users/:userId - Update user */
+//   .put(validate(paramValidation.updateUser), AuthCtrl.update)
+//
+//   /** DELETE /api/users/:userId - Delete user */
+//   .delete(AuthCtrl.remove);
+//
+// /** Load user when API with userId route parameter is hit */
+// router.param('userId', AuthCtrl.load);
 
-exports.default = { login: login, getRandomNumber: getRandomNumber };
+exports.default = router;
 //# sourceMappingURL=auth-routes.js.map

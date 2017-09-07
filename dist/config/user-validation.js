@@ -14,7 +14,6 @@ exports.default = {
     // POST /api/users
     createUser: {
         body: {
-            username: _joi2.default.string().required(),
             email: _joi2.default.string().email().required()
         }
     },
@@ -22,7 +21,6 @@ exports.default = {
     // UPDATE /api/users/:userId
     updateUser: {
         body: {
-            username: _joi2.default.string().required(),
             email: _joi2.default.string().email().required()
         },
         params: {
@@ -33,7 +31,7 @@ exports.default = {
     // POST /api/auth/login
     login: {
         body: {
-            username: _joi2.default.string().required(),
+            email: _joi2.default.string().email().required(),
             password: _joi2.default.string().required()
         }
     }

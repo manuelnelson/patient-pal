@@ -85,6 +85,7 @@ var app = (0, _express2.default)();
 
 	//static files
 	app.use(_express2.default.static(_path2.default.join(__dirname, 'public')));
+
 	// logger
 	if (_config2.default.env === 'development') {
 		app.use((0, _morgan2.default)('dev'));
@@ -120,6 +121,7 @@ var app = (0, _express2.default)();
 
 	// api router
 	app.use('/api', (0, _api2.default)({ config: _config2.default, db: db }));
+
 	// api router
 	app.use('/', _express2.default.static('/index.html'));
 
