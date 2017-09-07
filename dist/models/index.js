@@ -9,6 +9,10 @@ var _appointment = require('./appointment');
 
 var _appointment2 = _interopRequireDefault(_appointment);
 
+var _clientCurriculum = require('./client-curriculum');
+
+var _clientCurriculum2 = _interopRequireDefault(_clientCurriculum);
+
 var _patient = require('./patient');
 
 var _patient2 = _interopRequireDefault(_patient);
@@ -36,10 +40,6 @@ var _dttType2 = _interopRequireDefault(_dttType);
 var _curriculum = require('./curriculum');
 
 var _curriculum2 = _interopRequireDefault(_curriculum);
-
-var _clientCurriculum = require('./clientCurriculum');
-
-var _clientCurriculum2 = _interopRequireDefault(_clientCurriculum);
 
 var _skillData = require('./skillData');
 

@@ -71,7 +71,7 @@ clientCurriculumSchema.statics = {
         .limit(limit)
         .exec();
     }
-};
+}; 
 
 
 export default mongoose.model('ClientCurriculum', clientCurriculumSchema);

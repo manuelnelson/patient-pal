@@ -5,7 +5,7 @@
   "main": "dist",
   "scripts": {
     "watch:backend": "nodemon -w src/server --exec \"babel-node src/server --presets es2015,stage-0\"",
-    "build:backend": "babel src/server --ignore client,webpack,public -s -D -d dist --presets es2015,stage-0",
+    "build:backend": "babel src/server --ignore '/client/',webpack,public -s -D -d dist --presets es2015,stage-0",
     "build:dev": "webpack --env=dev --config ./src/webpack/webpack.dev.js",
     "build:prod": "webpack --env=prod --config ./src/webpack/webpack.prod.js",
     "dev": "webpack-dev-server --config ./src/webpack/webpack.dev.js",
