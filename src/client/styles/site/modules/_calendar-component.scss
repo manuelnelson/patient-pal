@@ -15,4 +15,13 @@ calendar-component {
         display: inline-block;
         margin-bottom: px-to-rem(20px);
     }
+    @include bp-max($bp-between){
+        width: 100%;
+        .calendar{
+            width: 100%;
+        }
+        .appointment-container{
+            flex-wrap: wrap;
+        }
+    }
 }

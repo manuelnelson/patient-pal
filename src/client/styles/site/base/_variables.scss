@@ -10,8 +10,8 @@ $heading-line-height: 1.2;
 $base-border-radius: 3px;
 $base-spacing: $base-line-height * 1rem;
 $small-spacing: $base-spacing / 2;
-$base-z-index: 0;
 $header-height: 80px;
+$header-height-between: 60px;
 $input-height: 36px;
 
 //small-spacing
@@ -25,5 +25,7 @@ $max-button-width:300px;
 
 //z-indexes
 $z-index-header: 100;
+$base-z-index: 0;
 
 $site-padding-desktop: 60px;
+$site-padding-between: 40px;

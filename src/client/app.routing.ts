@@ -7,19 +7,19 @@ import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
     SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent
 
 } from './components';
-import { PatientResolver, ProfessionalResolver, AppointmentResolver,
+import { PatientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
-    ClientCurriculumResolver,
-    ClientCurriculumListResolver
+    ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver
 } from './services';
 
 const routes: Routes = [
     // Root
     // { path: 'home',  component: HomeComponent},
     { path: '',  component: HomeComponent},
+    { path: 'loading',  component: LoadingComponent},
     {
         path: 'professional',
         component:ProfessionalDashboardComponent,
@@ -41,7 +41,8 @@ const routes: Routes = [
                 component: CurriculumsComponent,
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
-                    { path: 'list', pathMatch: 'full', component: CurriculumListComponent, resolve: {curriculums:CurriculumResolver}}
+                    { path: 'list', pathMatch: 'full', component: CurriculumListComponent, resolve: {curriculums:CurriculumListResolver}},
+                    { path: 'view/:curriculumId', component: SkillListComponent, resolve: {curriculum:CurriculumResolver}}
                 ]
             },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver} },
@@ -51,7 +52,7 @@ const routes: Routes = [
                 component: CalendarComponent,
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
-                    { path: 'list', pathMatch: 'full', component: AppointmentListComponent, resolve: {appointments: AppointmentResolver}},
+                    { path: 'list', pathMatch: 'full', component: AppointmentListComponent, resolve: {appointments: AppointmentListResolver}},
                     { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {patients: AddAppointmentResolver}}
                 ]
             },
@@ -66,9 +67,9 @@ const routes: Routes = [
         resolve:{appointment: AppointmentResolver},
         children: [
             { path: '', redirectTo: 'assign', pathMatch: 'full'},
-            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingCurriculums: ClientCurriculumListResolver}},
-            { path: 'client-curriculum/:clientCurriculumId/navigation', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{clientCurriculum: ClientCurriculumResolver}},
-            { path: 'client-curriculum/:clientCurriculumId/run', component: RunAppointmentComponent, pathMatch: 'full', resolve: {clientCurriculum: ClientCurriculumResolver}}
+            { path: 'assign', component: AssignCurriculumComponent, pathMatch: 'full', resolve:{existingClientCurriculums: ClientCurriculumListResolver}},
+            { path: 'client-curriculum/:clientCurriculumId/navigation', component: CurriculumSkillListComponent, pathMatch: 'full', resolve:{clientCurriculum: ClientCurriculumResolver, skillData: SkillDataListResolver}},
+            { path: 'client-curriculum/:clientCurriculumId/skill/:skillId', component: RunAppointmentComponent, pathMatch: 'full', resolve: {clientCurriculum: ClientCurriculumResolver, dttTypes: DttTypeResolver}}
         ]
     },
     { path: '**', component: PageNotFoundComponent }

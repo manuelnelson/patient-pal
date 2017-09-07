@@ -1,0 +1,7 @@
+<div class="curriculum-list">
+    <h4 *ngIf="curriculums?.length > 0">Previous Curriculums</h4>
+    <div class="curriculum-item" *ngFor="let curriculum of curriculums">
+        <span class="curriculum-name">{{curriculum.name}}</span>
+        <a (click)="goToNavigate(curriculum)" class="curriculum-action">Continue</a>
+    </div>
+</div>

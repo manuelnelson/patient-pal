@@ -31,6 +31,7 @@
             width: $line-width / $menu-shrink-ratio;
             background-color: $icon-color;
             bottom: (-($menu-button-height/2) + ($line-height/2) ) / $menu-shrink-ratio;
+            transition: opacity $transition-duration;
             &:before, &:after{
                 height:$line-height / $menu-shrink-ratio;
                 width: $line-width / $menu-shrink-ratio;
@@ -62,6 +63,7 @@
         margin:0 auto;
         bottom:-($menu-button-height/2) + ($line-height/2);
         transition: all $transition-duration ease-in-out;
+        opacity: 0;
         cursor:pointer;
         &:hover{
             background-color: $color-light-blue;
@@ -85,6 +87,7 @@
         }
         &.close{
             height:0;
+            opacity: 1;
             &:before{
                 transform:rotate(45deg);
                 top:.08rem;

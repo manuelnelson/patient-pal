@@ -6,6 +6,14 @@
         span{
             display: block;
         }
+        .skill-trial{
+            &:before{
+                content: "Trial:";
+                margin-right: px-to-rem(4px);
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
         .skill-goals{
             &:before{
                 content: "Goals:";

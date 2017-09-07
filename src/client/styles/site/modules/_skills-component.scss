@@ -4,4 +4,7 @@ skills-component{
     h4{
         text-align: center;
     }
+    @include bp-max($bp-between){
+        width: 100%;
+    }
 }

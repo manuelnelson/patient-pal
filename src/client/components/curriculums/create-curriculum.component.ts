@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { CurriculumService, SkillService, AlertService, AuthenticationService } from '../../services';
 import { Curriculum, Skill } from '../../models';
@@ -15,6 +15,8 @@ export class CreateCurriculumComponent implements OnInit {
     keyword: string = '';
     searchInProgress: boolean = false;
     showErrors: boolean = false;
+    @Output() curriculumCreated: EventEmitter<any> = new EventEmitter();
+
     constructor(private curriculumService:CurriculumService,private alertService:AlertService,
         private router: Router, private skillService: SkillService, private authService: AuthenticationService){
     }
@@ -30,14 +32,15 @@ export class CreateCurriculumComponent implements OnInit {
         });
     }
     curriculum(curriculumValues:any){
+        //this.router.navigate(['/professional/curriculums']);
         if(this.curriculumForm.valid){
             curriculumValues.skills = JSON.parse(curriculumValues.skills);
             this.curriculumService.create(curriculumValues).subscribe(
                 data => {
-                    this.router.navigate(['/professional/curriculums']);
+                    this.router.navigate(['/professional/curriculums'], {queryParams: {refresh: true}});
                 },
                 error => {
-                    this.alertService.error(JSON.parse(error._body).message);
+                    this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
         else
@@ -47,7 +50,7 @@ export class CreateCurriculumComponent implements OnInit {
         return control.invalid && control.touched || control.invalid && this.showErrors;
     }
     search(){
-        if(this.curriculumForm.controls.keyword.value && this.curriculumForm.controls.keyword.value.length > 2 && !this.searchInProgress){
+        if(this.curriculumForm.controls.keyword.value && this.curriculumForm.controls.keyword.value.length > 1 && !this.searchInProgress){
             this.searchInProgress = true;
             this.skillService.search(this.curriculumForm.controls.keyword.value)
                 .subscribe(results => {

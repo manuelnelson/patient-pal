@@ -12,6 +12,7 @@ export class AssignCurriculumComponent implements OnInit {
     curriculumForm: FormGroup;
     searchResults: Array<Curriculum> = null;
     selectedCurriculum: Curriculum;
+    existingClientCurriculums: Array<ClientCurriculum> = null;
     existingCurriculums: Array<Curriculum> = null;
     searchInProgress: boolean = false;
     showErrors: boolean = false;
@@ -19,7 +20,9 @@ export class AssignCurriculumComponent implements OnInit {
     constructor(private curriculumService:CurriculumService,private alertService:AlertService,
         private router: Router, private authService: AuthenticationService, private route: ActivatedRoute,
         private clientCurriculumService: ClientCurriculumService){
-        this.appointment = route.parent.snapshot.data["appointment"][0];
+        this.appointment = route.parent.snapshot.data["appointment"];
+        this.existingClientCurriculums = route.snapshot.data["existingClientCurriculums"];
+        
     }
     ngOnInit(){
         let keyword = new FormControl('');
@@ -37,13 +40,12 @@ export class AssignCurriculumComponent implements OnInit {
             clientCurriculum.client = this.appointment.patient._id;
             clientCurriculum.curriculum = this.selectedCurriculum._id;
             clientCurriculum.appointment = this.appointment._id;
-
             this.clientCurriculumService.create(clientCurriculum).subscribe(
                 data => {
-                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/curriculum/' + this.selectedCurriculum._id + '/navigation']);
+                    this.router.navigate(['/appointments/' + this.appointment._id + '/start/client-curriculum/' + data._id + '/navigation']);
                 },
                 error => {
-                    this.alertService.error(JSON.parse(error._body).message);
+                    this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
         else

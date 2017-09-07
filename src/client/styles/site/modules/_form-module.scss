@@ -18,4 +18,16 @@
             padding-right: $form-padding;
         }
     }
+    @include bp-max($bp-between){
+        .form-input{
+            width: 100%;
+            &:nth-child(even){
+                padding-left: 0;
+            }
+            &:nth-child(odd){
+                padding-right: 0;
+            }
+        }
+            
+    }
 }

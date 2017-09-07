@@ -1,5 +1,3 @@
-<h4 *ngIf="existingCurriculums">Continue Curriculums</h4>
-<curriculum-list *ngIf="existingCurriculums"></curriculum-list>
 <h4>Select Curriculum</h4>
 <section class="form-module">
     <form class="form" [formGroup]="curriculumForm" (ngSubmit)="curriculum(curriculumForm.value)" novalidate>
@@ -20,3 +18,4 @@
         </div>
     </form>
 </section>
+<select-curriculum-list *ngIf="existingClientCurriculums" [clientCurriculums]="existingClientCurriculums"></select-curriculum-list>

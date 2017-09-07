@@ -37,6 +37,9 @@ const SkillSchema = new mongoose.Schema({
         type: Number,
         default:0
     },
+    taskSteps: {
+        type: String        
+    },
     //specific to quantity target type
     maxThreshold: {
         type: Number,

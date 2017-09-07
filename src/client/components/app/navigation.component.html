@@ -1,5 +1,5 @@
 <header class="header">
-	<nav [ngClass]="{'menu-open':showMenu || showSignIn}">
+	<nav [ngClass]="{'menu-open':showMenu || showSignIn || showLogIn}">
 		<div class="menu-toggle" (click)="toggleMenu()">
 			<span class="menu-button" [ngClass]="{'close':showMenu || showSignIn || showLogIn}"></span>
 		</div>

@@ -2,7 +2,7 @@
     background-color: $color-blue;
     color: $color-white;
     position: fixed;
-    left:-100%;
+    left:-110vw;
     top: 0;
     height: 100vh;
     $transition-duration: 0.4s;
@@ -30,5 +30,8 @@
             @include link-transition($color-white, $color-red);
             font-family: $font-family-sans-serif;
         }
+    }
+    @include bp-max($bp-between){
+
     }
 }

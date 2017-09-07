@@ -46,7 +46,7 @@ export class AddAppointmentComponent implements OnInit {
                     this.router.navigate(['/professional/appointments']);
                 },
                 error => {
-                    this.alertService.error(JSON.parse(error._body).message);
+                    this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
     }

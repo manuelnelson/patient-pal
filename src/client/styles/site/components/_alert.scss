@@ -24,6 +24,9 @@ alert{
         &.alert-danger{
             background-color: $color-red;
         }
+        &.alert-warning{
+            background-color: $color-yellow;
+        }
         &.alert-success{
             background-color: $color-blue;
         }

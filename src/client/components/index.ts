@@ -2,6 +2,7 @@ export * from './app/login.component';
 export * from './app/signup.component';
 export * from './app/alert.component';
 export * from './app/navigation.component';
+export * from './app/loading.component';
 export * from './app/app.component';
 export * from './app/page-not-found.component';
 
@@ -31,8 +32,17 @@ export * from './skills/curriculum-skill-list.component';
 export * from './skills/skill-list.component';
 export * from './skills/add-skill.component';
 export * from './skills/inputs/anecdotal.component';
+export * from './skills/inputs/dtt.component';
+export * from './skills/inputs/duration.component';
+export * from './skills/inputs/rate.component';
+export * from './skills/inputs/frequency.component';
+export * from './skills/inputs/echoic.component';
+export * from './skills/inputs/quantity.component';
+export * from './skills/inputs/task-analysis.component';
+export * from './skills/inputs/whole-interval.component';
 
 
 export * from './curriculums/curriculum-list.component';
+export * from './curriculums/select-curriculum-list.component';
 export * from './curriculums/create-curriculum.component';
 export * from './curriculums/assign-curriculum.component';

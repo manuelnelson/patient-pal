@@ -16,7 +16,7 @@ export class AppointmentDetailComponent implements OnInit {
     constants: any;
     constructor(private appointmentService:AppointmentService,private alertService:AlertService,
         private router: Router, private route: ActivatedRoute){
-            this.appointment = this.route.snapshot.data["appointment"] != null ? this.route.snapshot.data["appointment"][0] : null;
+            this.appointment = this.route.snapshot.data["appointment"];
             this.constants = Constants;
     }
     ngOnInit(){

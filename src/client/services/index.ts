@@ -13,15 +13,24 @@ export * from './curriculum.service';
 export * from './client-curriculum.service';
 export * from './skill-data.service'; 
 
+//strategies
+export * from './route-reuse.strategy';
+
 //resolvers
 export * from './resolvers/patient-resolver.service';
 export * from './resolvers/professional-resolver.service';
+export * from './resolvers/appointment-resolver-list.service';
 export * from './resolvers/appointment-resolver.service';
 export * from './resolvers/skill-resolver.service';
 export * from './resolvers/add-appointment-resolver.service';
 export * from './resolvers/target-type-resolver.service';
 export * from './resolvers/dtt-type-resolver.service';
 export * from './resolvers/curriculum-resolver.service';
+export * from './resolvers/curriculum-resolver-list.service';
 export * from './resolvers/client-curriculum-resolver.service';
 export * from './resolvers/client-curriculum-resolver-list.service';
 export * from './resolvers/skill-data-resolver.service';
+export * from './resolvers/skill-data-resolver-list.service';
+
+//pipes
+export * from './pipes/clock-format.pipe';

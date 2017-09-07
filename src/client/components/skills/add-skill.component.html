@@ -35,6 +35,10 @@
                 </option>
             </select>
         </div>
+        <div class="form-input" *ngIf="showTaskAnalysis()" [ngClass]="{'error':invalidControl(skillForm.controls.taskSteps)}">
+            <label>Task Analysis Steps (separate with comma)<span *ngIf="invalidControl(skillForm.controls.taskSteps)">Task Analysis Steps Required</span></label>
+            <textarea type="text" formControlName="taskSteps" placeholder="Task Analysis Steps"></textarea>
+        </div>
         <div class="form-input" *ngIf="showInterval()" [ngClass]="{'error':invalidControl(skillForm.controls.interval)}">
             <label>Interval<span *ngIf="invalidControl(skillForm.controls.interval)">Interval Required</span></label>
             <input type="text" formControlName="interval" placeholder="Interval"/>

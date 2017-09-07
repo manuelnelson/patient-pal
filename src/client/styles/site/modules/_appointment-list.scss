@@ -29,4 +29,8 @@ appointment-list {
             background-color: $color-light-gray;
         }
     }
+    @include bp-max($bp-between){
+        width: 100%;
+        margin-left: 0;
+    }
 }

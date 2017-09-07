@@ -1,5 +1,11 @@
 .appointment-detail{
     width: 50%;
+    +router-outlet{
+        width: 0%;
+        +*{
+            width: 50%;
+        }
+    }
     .appointment-detail-container{
         display: flex;
         flex-wrap: wrap;

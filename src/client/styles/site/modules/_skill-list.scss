@@ -1,17 +1,74 @@
+skill-list{
+    min-width: 50%;    
+    @include bp-max($bp-between){
+        width: 100%;
+    }
+}
 .skill-list {
     margin-bottom: px-to-rem(40px);
     .skill-item{
         display: flex;
+        flex-wrap: wrap;
         padding: px-to-rem(10px);
         &:nth-child(odd){
             background-color: $color-light-gray;
         }
         span{
-            width: 20%;
+            width: 30%;
             display: inline-block;
             &.bold{
                 font-weight: bold;
             }
         }
+        &.expanded{
+            .expand-container{
+                height: auto;
+                max-height: 800px;
+                margin: px-to-rem(30px) 0 0 0;
+                transition: max-height 0.3s;    
+            }
+            .skill-expand{
+                &:before{
+                    transform: rotate(270deg);
+                }
+            }
+        
+        }
+
     }
+    .skill-expand{
+        text-align: right;
+        font-weight: bold;
+        &:before{
+            content: '\2716';
+            transition: transform 0.3s;
+            transform: rotate(45deg);
+            transform-origin: center;
+            display: inline-block;
+        }
+        cursor: pointer;
+    }
+    .skill-completed{
+        color: $color-green;
+    }
+    .expand-container{
+        width: 100%;
+        height: 0;
+        max-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        transition: max-height 0.3s, margin 0.3s;
+    }
+    .expand-item {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: px-to-rem(10px);
+        .expand-label {
+            display: block;
+            font-weight: bold;
+            width: 100%;
+        }
+    }
+
 }

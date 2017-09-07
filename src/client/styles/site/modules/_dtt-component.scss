@@ -1,0 +1,30 @@
+dtt-component{
+    .form{
+        display: flex;
+        flex-flow: wrap;
+    }
+    label{
+        display: inline-block;
+        width: 50%;
+        position: relative;
+        
+    }
+    .radio-btn{
+        position: absolute;
+        width: 80%;
+        height: 100%;
+        top: 0;
+        left:0;
+        opacity: 0; 
+        margin: 0; 
+        cursor: pointer;
+        &:checked{
+            +.btn-radio{
+                background-color: $color-blue;
+            }
+        }
+    }
+    .btn-radio{
+        float: none;
+    }
+}

@@ -1,5 +1,5 @@
 .dashboard-module{
-    padding: $site-padding-desktop;
+    padding: px-to-rem($site-padding-desktop);
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -12,5 +12,9 @@
             display: inline-block;
             margin-right: px-to-rem(8px);
         }
+    }
+    @include bp-max($bp-between){
+        padding: px-to-rem($site-padding-between);
+        padding-top: ($header-height-between + $site-padding-between);
     }
 }

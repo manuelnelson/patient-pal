@@ -1,4 +1,7 @@
 .header{
+    $header-font-size: px-to-rem($base-font-size*2);
+    $profile-radius: px-to-rem($base-font-size*2.5);
+    $h1-font-size: px-to-rem($base-font-size * 3);
     width: 100%;
     background-color: transparent;
     height: $header-height;
@@ -6,6 +9,12 @@
     top:0;
     left: 0;
     z-index: $z-index-header;
+    font-size: $header-font-size;
+    h1{
+        font-size: $h1-font-size;
+        line-height: $header-height;
+        margin-bottom: 0;
+    }
     nav{
         position: relative;
         z-index: 100;
@@ -18,16 +27,21 @@
         }
     }
     .profile-toggle{
-        font-size: $base-font-size*2;
+        //for now getting rid of the menu, these are the styles to remove if we add it back
+        position: absolute;
+        margin-left: 0;
+        left: $site-padding-desktop;
+        top: 20px;
+
         display: inline-block;
         visibility: visible;
         opacity: 1;
         color: $color-white;
-        margin-left: 20px;
+        //margin-left: 20px;
         border: solid 2px $color-white;
-        border-radius: $base-font-size * 2.5;
-        width: $base-font-size * 2.5;
-        height: $base-font-size * 2.5;
+        border-radius: $profile-radius;
+        width: $profile-radius;
+        height: $profile-radius;
         text-align: center;
         cursor: pointer;
         transition: border 0.3s ease-in-out, color 0.3s ease-in-out,opacity 0.3s ease-in-out,visibility 0.3s ease-in-out;
@@ -43,7 +57,6 @@
         height: 100%;
         color: $color-white;
         i{
-            font-size: $base-font-size*2;
             position: relative;
             bottom: 3px;
         }
@@ -65,6 +78,27 @@
             opacity: 0;
             height: 0;
             display: block;
+        }
+    }
+    @include bp-max($bp-between){
+        height: $header-height-between;
+        background-color: $color-dark-blue;
+        h1{
+            line-height: $header-height-between;
+            font-size: px-to-rem(32px);
+        }
+        .profile-toggle{
+        //for now getting rid of the menu, these are the styles to remove if we add it back
+            left: $site-padding-between;
+        // position:   relative;
+            // bottom: ($header-height-between / 2) - 10px; 
+        }
+        .menu-toggle{
+            height: $header-height-between;
+            top: 4px;
+        }
+        .logo{
+            right: 30px;
         }
     }
 }

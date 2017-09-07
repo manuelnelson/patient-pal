@@ -1,0 +1,26 @@
+<div class="form">
+    <div class="completed">
+    </div>
+</div>
+<div class="skill-details">
+    <span class="skill-trial" >
+        {{trialNumber}}
+    </span>
+    <span class="skill-goals" *ngIf="skill.goalName">
+        {{skill.goalName}}
+    </span>
+    <span class="skill-stimulus" *ngIf="skill.stimulus">
+        {{skill.stimulus}}
+    </span>
+    <span class="skill-instructions" *ngIf="skill.targetInstructions">
+        {{skill.targetInstructions}}
+    </span>
+</div>
+<div class="submit-input">
+    <button class="btn btn-primary" (click)="skillList()">
+        Back To List
+    </button>
+    <button class="btn btn-primary" [disabled]="!canSave()" (click)="save()">
+        Save
+    </button>
+</div>

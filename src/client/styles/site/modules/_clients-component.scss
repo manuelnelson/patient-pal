@@ -46,4 +46,14 @@ clients-component{
     .client-add{
         margin-top: px-to-rem(30px);
     }
+    @include bp-max($bp-between){
+        width: 100%;
+    }
+    @include bp-max($bp-mobile){
+        width: 100%;
+        .client-item {
+            width: 100%;
+            margin-right: 0;            
+        }
+    }
 }

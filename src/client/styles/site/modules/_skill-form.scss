@@ -15,4 +15,7 @@ skill-form {
         .form-input{
         }
     }
+    @include bp-max($bp-between){
+        width: 100%;
+    }
 }

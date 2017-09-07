@@ -16,6 +16,7 @@ export class SkillDataService {
         let options = new RequestOptions({ headers: headers });
 
         return this.http.post(this.apiEndpointUrl, skillData, options)
+        
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let skillData = response.json();
@@ -38,12 +39,12 @@ export class SkillDataService {
             });
     }
 
-    list() {
+    list(clientCurriculumId: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.apiEndpointUrl, options)
+        return this.http.get(this.apiEndpointUrl + '?clientCurriculum=' + clientCurriculumId, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let skillDatas = response.json() as Array<SkillData>;
@@ -62,6 +63,20 @@ export class SkillDataService {
                 return skillData;
             });
     }
+    getLatest(skillId: string, clientCurriculumId: string) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.apiEndpointUrl + '?skill=' + skillId + '&clientCurriculum=' + clientCurriculumId, options)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let skillData = response.json() as Array<SkillData>;
+                if(skillData && skillData.length > 0)
+                    return skillData[0];
+                return null;
+            });
+    }
     delete(id: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
@@ -74,7 +89,7 @@ export class SkillDataService {
             });
     }
 
-    buildApiModel(skillId: string, clientCurriculumId:string, trial: number, numberData: number, stringData: string, notes:string) : SkillDataApi {
+    buildApiModel(skillId: string, clientCurriculumId:string, trial: number, numberData: number, stringData: string, notes:string, timerValue: number) : SkillDataApi {
         let skillData = new SkillDataApi();
         skillData.skill = skillId;
         skillData.clientCurriculum = clientCurriculumId;
@@ -82,6 +97,7 @@ export class SkillDataService {
         skillData.numberData = numberData;
         skillData.stringData = stringData;
         skillData.notes = notes;
+        skillData.timerValue = timerValue;
         return skillData;
     }
 }

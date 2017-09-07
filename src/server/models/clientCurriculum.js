@@ -22,7 +22,8 @@ const clientCurriculumSchema = new mongoose.Schema({
         required:true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,
@@ -44,8 +45,6 @@ clientCurriculumSchema.statics = {
         //Deep populate FTW - TODO look at performance of this
         //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
         .populate({path:'curriculum', populate:{ path: 'skills', populate:{ path: 'targetType dttType'}}})
-
-        .populate({})
         .exec()
         .then((clientCurriculum) => {
             if (clientCurriculum) {
@@ -61,13 +60,12 @@ clientCurriculumSchema.statics = {
     * List clientCurriculums in descending order of 'createdAt' timestamp.
     * @param {number} skip - Number of clientCurriculums to be skipped.
     * @param {number} limit - Limit number of clientCurriculums to be returned.
-    * @param {number} client - Limit number of clientCurriculums to be returned.
+    * @param {number} query - Query of remaining properties
     * @returns {Promise<clientCurriculum[]>}
     */
-    list({ client, skip = 0, limit = 50 } = {}) {
-        return this.find({
-            client: client
-        })        
+    list({ skip = 0, limit = 50, query } = {}) {
+        return this.find(query)
+        .populate('curriculum client appointment')        
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)

@@ -1,0 +1,9 @@
+.patient-form{
+    padding: px-to-rem($site-padding-desktop);
+    @include bp-max($bp-between){
+        padding: px-to-rem($site-padding-between);
+        form{
+            width: calc(100% - 2*#{$site-padding-between})
+        }
+    }    
+}

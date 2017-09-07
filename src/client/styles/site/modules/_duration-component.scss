@@ -1,0 +1,45 @@
+duration-component, rate-component, frequency-component, quantity-component, task-analysis-component{
+    .timer{
+        display: block;
+        font-size: px-to-rem(34px);
+    }
+    .counter{
+        margin-bottom: px-to-rem(30px);
+        span{
+            display: block;
+            font-size: px-to-rem(34px);    
+        }
+    }
+    .form{
+        margin-bottom: px-to-rem(30px);
+        .btn-primary{
+            background-color: $color-green;
+        }    
+    }
+    .task-name{
+        font-weight: bold;
+        margin-right: px-to-rem(10px);
+        display: inline-block;
+        width: px-to-rem(100px);
+    }
+    .task-item{
+        margin-bottom: px-to-rem(8px);
+        display: flex;
+
+    }
+    .task-complete{
+        display: inline-block;
+        cursor: pointer;
+        font-size: px-to-rem(20px);
+        &:before{
+            content: '\2610';
+            color: $color-red;
+        }        
+        &.completed{
+            &:before{
+                content: '\2611';                
+                color: $color-green;
+            }
+        }
+    }
+}

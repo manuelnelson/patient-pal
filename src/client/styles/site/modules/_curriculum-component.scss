@@ -6,4 +6,10 @@ curriculums-component{
             width: 0;
         }
     }
+    @include bp-max($bp-between){
+        width: 100%;
+        .curriculum-container{
+            flex-wrap: wrap;
+        }
+    }
 }

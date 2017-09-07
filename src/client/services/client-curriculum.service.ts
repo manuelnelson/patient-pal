@@ -38,13 +38,16 @@ export class ClientCurriculumService {
             });
     }
 
-    list(patientId: string) {
+    list(patientId: string, completed?: boolean) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(this.apiEndpointUrl + '/' + patientId, options)
+        let url = this.apiEndpointUrl + '?client=' + patientId;
+        if(completed != undefined)
+            url += "&completed="+ completed;
+        return this.http.get(url, options)
             .map((response: Response) => {
+                
                 let clientCurriculums = response.json() as Array<ClientCurriculum>;
                 return clientCurriculums;
             });

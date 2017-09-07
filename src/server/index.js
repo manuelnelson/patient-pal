@@ -60,6 +60,7 @@ initializeDb( db => {
 
 	// api router
 	app.use('/api', api({ config, db }));
+	
 	// api router
 	app.use('/', express.static('/index.html'));
 

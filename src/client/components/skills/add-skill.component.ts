@@ -18,7 +18,8 @@ export class AddSkillComponent implements OnInit {
     fluencyId: string;
     wholeId: string;
     quantityId: string;
-
+    taskAnalysisId: string;
+    
     constructor(private skillService:SkillService,private alertService:AlertService,
         private router: Router, private route: ActivatedRoute, private authService: AuthenticationService){
         this.targetTypes = this.route.snapshot.data['targetTypes'];
@@ -30,6 +31,7 @@ export class AddSkillComponent implements OnInit {
         this.fluencyId = this.getId('fluency');
         this.wholeId = this.getId('whole');
         this.quantityId = this.getId('quantity');
+        this.taskAnalysisId = this.getId('task analysis');
     }
     ngOnInit(){
 
@@ -41,6 +43,7 @@ export class AddSkillComponent implements OnInit {
         let dttType = new FormControl('');
         let interval = new FormControl('');
         let maxThreshold = new FormControl('');
+        let taskSteps = new FormControl('');
         let masteryType = new FormControl('');
         let targetInstructions = new FormControl('');
 
@@ -54,6 +57,7 @@ export class AddSkillComponent implements OnInit {
             interval: interval,
             maxThreshold: maxThreshold,
             masteryType: masteryType,
+            taskSteps: taskSteps,
             targetInstructions: targetInstructions
         });
     }
@@ -65,7 +69,7 @@ export class AddSkillComponent implements OnInit {
                     this.router.navigate(['/professional/skills']);
                 },
                 error => {
-                    this.alertService.error(JSON.parse(error._body).message);
+                    this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
     }
@@ -85,7 +89,11 @@ export class AddSkillComponent implements OnInit {
     }
     showDtt() {
         let val = this.skillForm.controls.targetType.value;
-        return val === this.dttTypeId || val === this.jumpToId;
+        return val === this.dttTypeId;
+    }
+    showTaskAnalysis() {
+        let val = this.skillForm.controls.targetType.value;
+        return val === this.taskAnalysisId;
     }
     showInterval() {
         let val = this.skillForm.controls.targetType.value;

@@ -22,7 +22,11 @@ router.route('/:id')
   /** DELETE /api/clientCurriculums/:id - Delete clientCurriculum */
   .delete(ClientCurriculumCtrl.remove);
 
-/** Load user when API with userId route parameter is hit */
+router.route('/client/:clientId')
+  /** GET /api/clientCurriculums/:id - Get clientCurriculum */
+  .get(ClientCurriculumCtrl.getByClient)
+
+  /** Load user when API with userId route parameter is hit */
 router.param('id', ClientCurriculumCtrl.load);
 
 export default router;

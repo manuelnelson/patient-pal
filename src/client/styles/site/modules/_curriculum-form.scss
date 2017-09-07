@@ -22,4 +22,15 @@ curriculum-form{
             }
         }
     }
+    @include bp-max($bp-between){
+        width: 100%;
+        margin-top: px-to-rem(30px);
+        .form-module{
+            margin: 0 auto;
+            .form{
+                width: calc(100% - #{$form-padding}*2);
+                margin-left: 0;
+            }
+        }
+    }
 }

@@ -4,9 +4,10 @@ import { Router, Resolve, RouterStateSnapshot,
 import { AuthenticationService, SkillDataService } from '../../services';
 import { SkillData } from '../../models';
 @Injectable()
-export class SkillDataResolver implements Resolve<Array<SkillData>> {
+export class SkillDataResolver implements Resolve<SkillData> {
     constructor(private skillDataService: SkillDataService, private router: Router, private authService: AuthenticationService) {}
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<SkillData>> {
-        return this.skillDataService.list().map(skillDatas => skillDatas).toPromise();
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<SkillData> {
+        let skillDataId = route.params['skillDataId'];
+        return this.skillDataService.get(skillDataId).map(skillData => skillData).toPromise();
     }
 }

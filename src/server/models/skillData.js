@@ -14,21 +14,21 @@ const skillResultSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'ClientCurriculum'
     },
-    TrialNumber: {
+    trialNumber: {
         type: Number,
         default: 1
     },
     //like all timers, this represents the number of seconds
-    TimerValue: {
+    timerValue: {
         type: Number
     },
-    NumberData: {
+    numberData: {
         type: Number
     },
-    StringData: {
+    stringData: {
         type: String
     },
-    Notes: {
+    notes: {
         type: String
     },
     createdAt: {
@@ -65,9 +65,11 @@ skillResultSchema.statics = {
     * @param {number} limit - Limit number of skillResults to be returned.
     * @returns {Promise<skillResult[]>}
     */
-    list({ skip = 0, limit = 50 } = {}) {
-        return this.find()
-        .sort({ createdAt: -1 })
+//    list({ skip = 0, limit = 50 } = {}) {
+    list({ skip = 0, limit = 50, query } = {}) {
+        return this.find(query)
+        .populate('skill')
+        .sort({ trialNumber: -1 })
         .skip(skip)
         .limit(limit)
         .exec();

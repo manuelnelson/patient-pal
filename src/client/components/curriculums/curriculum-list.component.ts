@@ -14,5 +14,11 @@ export class CurriculumListComponent implements OnInit {
             this.curriculums = this.route.snapshot.data["curriculums"];
     }
     ngOnInit(){
+        this.route.queryParams.subscribe(
+            (queryParam: any) => {
+                if(queryParam['refresh']){
+                    this.curriculumService.list().subscribe(curriculums => this.curriculums = curriculums);                    
+                }
+        });
     }
 }

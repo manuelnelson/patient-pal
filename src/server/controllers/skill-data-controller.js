@@ -55,9 +55,13 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
-    SkillData.list({ limit, skip })
+    delete req.query.limit;
+    delete req.query.skip;
+    SkillData.list({ limit, skip, query: req.query })
     .then(skillDatas => res.json(skillDatas))
     .catch(e => next(e));
+
+    //SkillData.list({ limit, skip })
 }
 
 /**

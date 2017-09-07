@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+    <label *ngFor="let dtt of dttTypes">
+        <input type="radio" class="radio-btn" formControlName="dtt" value="{{dtt._id}}">
+        <span class="btn btn-radio">{{dtt.name}}</span>
+    </label>
+</form>
+<div class="skill-details">
+    <span class="skill-trial" >
+        {{trialNumber}}
+    </span>
+    <span class="skill-goals" *ngIf="skill.goalName">
+        {{skill.goalName}}
+    </span>
+    <span class="skill-stimulus" *ngIf="skill.stimulus">
+        {{skill.stimulus}}
+    </span>
+    <span class="skill-instructions" *ngIf="skill.targetInstructions">
+        {{skill.targetInstructions}}
+    </span>
+</div>
+<div class="submit-input">
+    <button class="btn btn-primary" (click)="skillList()">
+        Back To List
+    </button>
+    <button class="btn btn-primary" [disabled]="!form.valid" (click)="save()">
+        Save
+    </button>
+</div>

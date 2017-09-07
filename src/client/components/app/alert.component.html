@@ -1,4 +1,4 @@
-<div  [ngClass]="{ 'alert': message, 'alert-success': message?.type === 'success', 'alert-danger': message?.type === 'error' }">
+<div  [ngClass]="{ 'alert': message, 'alert-success': message?.type === 'success', 'alert-danger': message?.type === 'error', 'alert-warning': message?.type === 'warning' }">
     {{message?.text}}
     <span class="close" (click)="close();"></span>
 </div>

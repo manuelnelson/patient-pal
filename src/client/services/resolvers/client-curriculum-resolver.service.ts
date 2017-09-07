@@ -8,7 +8,6 @@ export class ClientCurriculumResolver implements Resolve<ClientCurriculum> {
     constructor(private clientCurriculumService: ClientCurriculumService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ClientCurriculum> {
         let clientCurriculumId = route.params.clientCurriculumId;
-
         return this.clientCurriculumService.get(clientCurriculumId).map(clientCurriculum => clientCurriculum).toPromise();
     }
 }

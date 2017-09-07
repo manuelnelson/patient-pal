@@ -30,4 +30,7 @@ links-component{
         display: block;
         font-size: px-to-rem(44px);
     }
+    @include bp-max($bp-between){
+        width: 100%;
+    }
 }

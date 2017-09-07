@@ -6,13 +6,26 @@ import Constants from '../lib/constants';
 * Load clientCurriculum and append to req.
 */
 function load(req, res, next, id) {
-    ClientCurriculum.get(id)
+    ClientCurriculum.get(id)    
     .then((clientCurriculum) => {
         req.clientCurriculum = clientCurriculum;
         return next();
     })
     .catch(e => next(e));
 }
+
+/**
+* Load clientCurriculum and append to req.
+*/
+function getByClient(req, res, next) {
+    ClientCurriculum.find({client: req.params.clientId})
+    .populate('client appointment curriculum')
+    .sort('-createdAt')
+    .exec()    
+    .then((clientCurriculums) => res.json(clientCurriculums))
+    .catch(e => next(e));
+}
+
 
 /**
 * Get clientCurriculum
@@ -54,11 +67,10 @@ function update(req, res, next) {
 * @returns {ClientCurriculum[]}
 */
 function list(req, res, next) {
-    console.log(req);
-    const client = req.params.client;
-    console.log(client);
     const { limit = 20, skip = 0 } = req.query;
-    ClientCurriculum.list({ client, limit, skip })
+    delete req.query.limit;
+    delete req.query.skip;
+    ClientCurriculum.list({ limit, skip, query: req.query })
     .then(clientCurriculums => res.json(clientCurriculums))
     .catch(e => next(e));
 }
@@ -74,4 +86,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, getByClient };

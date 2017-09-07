@@ -2,7 +2,7 @@ assign-curriculum{
     width: 50%;
     $form-padding: 30px;
     .form-module{
-        margin: 0 auto;
+        margin: 0 auto 30px;
         .form{
             padding: $form-padding;            
             width: calc(100% - #{$form-padding}*3);

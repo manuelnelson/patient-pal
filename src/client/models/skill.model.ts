@@ -14,7 +14,10 @@ export class Skill {
     interval: number;
     //specific to quantity target type
     maxThreshold: number;
+    //specific to task analysis
+    taskSteps: string;
     //two mastery types, 1 = Automatic, 2 = Manual
     masteryType: number;
     targetInstructions: string;
+    expanded: boolean;
 }

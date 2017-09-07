@@ -1,4 +1,11 @@
+import {Skill,ClientCurriculum} from '../models';
 export class SkillData {
     _id: string;
-    name: string;
+    skill: Skill;
+    clientCurriculum: ClientCurriculum;
+    trialNumber: number;
+    timerValue: number;
+    numberData: number;
+    stringData: string;
+    notes: string;
 }
