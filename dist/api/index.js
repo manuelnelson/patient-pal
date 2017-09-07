@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _package = require('../../../package.json');
-
 var _express = require('express');
 
 var _userRoutes = require('./user-routes');
@@ -54,6 +52,7 @@ var _skillDataRoutes2 = _interopRequireDefault(_skillDataRoutes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import { version } from '../../../package.json';
 exports.default = function (_ref) {
 	var config = _ref.config,
 	    db = _ref.db;
@@ -74,9 +73,9 @@ exports.default = function (_ref) {
 	api.use('/skilldatas', _skillDataRoutes2.default);
 
 	// perhaps expose some API metadata at the root
-	api.get('/', function (req, res) {
-		res.json({ version: _package.version });
-	});
+	// api.get('/', (req, res) => {
+	// 	res.json({ version });
+	// });
 
 	return api;
 };
