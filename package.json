@@ -10,7 +10,7 @@
     "build:prod": "webpack --env=prod --config ./src/webpack/webpack.prod.js",
     "dev": "webpack-dev-server --config ./src/webpack/webpack.dev.js",
     "start": "node dist",
-    "prestart": "npm run -s build:prod",
+    "postinstall": "npm run -s build:prod",
     "test": "eslint src",
     "start:dev": "npm-run-all -p dev watch:backend"
   },
@@ -75,6 +75,9 @@
     "typescript": "^2.3.4",
     "validator": "^7.0.0",
     "winston": "^2.3.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^3.0.0",
     "zone.js": "^0.8.5"
   },
   "devDependencies": {
@@ -101,10 +104,7 @@
     "ts-loader": "^2.0.1",
     "tslint": "^4.4.2",
     "tslint-loader": "^3.4.2",
-    "typings": "^2.1.0",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1",
-    "webpack-merge": "^3.0.0"
+    "typings": "^2.1.0"
   },
   "homepage": "https://github.com/manuelnelson/node-angular-2-boilerplate#readme",
   "keywords": [
