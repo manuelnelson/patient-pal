@@ -14,9 +14,9 @@ var _authRoutes = require('./auth-routes');
 
 var _authRoutes2 = _interopRequireDefault(_authRoutes);
 
-var _patientRoutes = require('./patient-routes');
+var _clientRoutes = require('./client-routes');
 
-var _patientRoutes2 = _interopRequireDefault(_patientRoutes);
+var _clientRoutes2 = _interopRequireDefault(_clientRoutes);
 
 var _professionalRoutes = require('./professional-routes');
 
@@ -62,7 +62,7 @@ exports.default = function (_ref) {
 	// mount user routes at /users
 	api.use('/users', _userRoutes2.default);
 	api.use('/auth', _authRoutes2.default);
-	api.use('/patients', _patientRoutes2.default);
+	api.use('/clients', _clientRoutes2.default);
 	api.use('/professionals', _professionalRoutes2.default);
 	api.use('/appointments', _appointmentRoutes2.default);
 	api.use('/targettypes', _targetTypeRoutes2.default);

@@ -4,6 +4,12 @@
     $profile-picture-height:200px;
     $profile-picture-width: 30%;
     $profile-margin: 25px;
+    cursor: pointer;
+    &:hover{
+        .icon{
+            opacity: 1;
+        }
+    }
     h4{
         margin-bottom: 0;
     }
@@ -35,5 +41,19 @@
         .date{
             display: block;
         }
+    }
+    input[type=text]{
+        box-shadow: 0 0 5px $color-blue;
+    }
+    .icon{
+        opacity: 0;
+        transition: opacity 0.3s;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        font-size: px-to-rem(24px);
+        float: right;
+        margin-top: px-to-rem(20px);
+        cursor: pointer;
     }
 }

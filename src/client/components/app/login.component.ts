@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { AuthenticationService, AlertService } from '../../services';
 import { Router } from '@angular/router';
+import { Constants } from '../../constants';
 import { User } from '../../models';
 @Component({
     selector: 'login-form',
@@ -30,8 +31,9 @@ export class LoginComponent implements OnInit {
         if(this.loginForm.valid){
             this.authService.login(loginValues.email,loginValues.password).subscribe(
                 data => {
+                    this.loginForm.reset();
                     this.user = data;
-                    this.closeLogin.emit();
+                    this.goToDashboard();
                 },
                 error => {
                     this.alertService.error(error);
@@ -49,7 +51,10 @@ export class LoginComponent implements OnInit {
     }
     goToDashboard(){
         this.closeLogin.emit();
-        this.router.navigate(['/professional']);
+        if(this.user.role == Constants.Roles.Admin || this.user.role == Constants.Roles.Professional)
+            this.router.navigate(['/professional']);
+        else
+            this.router.navigate(['/client']);
     }
     goToSignup(){
         this.showSignUp.emit();

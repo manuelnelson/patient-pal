@@ -1,0 +1,60 @@
+<main class="edit-client">
+    <section class="detail-hero" >
+        <div class="hero-tint">
+        </div>
+        <div class="hero-text-content">
+            <h1>Update Your Information</h1>
+        </div>
+    </section>
+    <section *ngIf="!formSucess && !formError" class="form-success form-module client-form">
+        <p>
+            As you create the client, a client will automatically be added for the client.  You should pass along the email address provided to the client so that they can login and update the appropriate fields.
+        </p>
+        <form class="form" [formGroup]="editClientForm" (ngSubmit)="client(editClientForm.value)" novalidate>
+            <div class="form-input">
+                <label>First Name</label>
+                <input type="text" formControlName="firstname" placeholder="First Name"/>
+            </div>
+            <div class="form-input">
+                <label>Last Name</label>
+                <input type="text" formControlName="lastname" placeholder="Last Name"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(editClientForm.controls.email)}">
+                <label>Email<span *ngIf="invalidControl(editClientForm.controls.email)">Invalid Email</span></label>
+                <input type="text" formControlName="email" placeholder="Email"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(editClientForm.controls.birth)}">
+                <label>Date of Birth<span *ngIf="invalidControl(editClientForm.controls.birth)">Invalid Date</span></label>
+                <input type="text" formControlName="birth" placeholder="Date of Birth (MM/dd/yyyy)"/>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(editClientForm.controls.sex)}">
+                <label>Sex<span *ngIf="invalidControl(editClientForm.controls.sex)">Invalid selection</span></label>
+                <select formControlName="sex">
+                    <option value="" disabled selected>Sex</option>
+                    <option value="male">
+                        Male
+                    </option>
+                    <option value="female">
+                        Female
+                    </option>
+                </select>
+            </div>
+            <div class="form-input" [ngClass]="{'error':invalidControl(editClientForm.controls.insurance)}">
+                <label>Insurance<span *ngIf="invalidControl(editClientForm.controls.insurance)">Invalid insurance type</span></label>
+                <input type="text" formControlName="insurance" placeholder="Insurance"/>
+            </div>
+            <div class="submit-input">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </section>
+    <section *ngIf="formSucess" class="form-module client-form">
+        <h3>The client information you submitted was successfully updated.</h3>
+        <a class="btn btn-primary" *ngIf="!isProfessional" routerLink="/client/links">To Dashboard</a>
+        <a class="btn btn-primary" *ngIf="isProfessional" routerLink="/professional/links">To Dashboard</a>
+    </section>
+    <section *ngIf="formError" class="form-error form-module client-form">
+        <h3>We're sorry, the form did submit properly. Refresh the page and try again, or contact us describing the error in detail</h3>
+        <a class="btn btn-primary" href="mailto:info@emmanuelnelson.com">Contact Us</a>
+    </section>
+</main>

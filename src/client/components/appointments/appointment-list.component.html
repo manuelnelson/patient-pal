@@ -4,11 +4,12 @@
     </div>
     <h4 *ngIf="appointments.length > 0">Upcoming Appointments</h4>
     <div class="appointment-item" *ngFor="let appointment of appointments">
-        <span class="appointment-patient">{{appointment.patient.firstname}} {{appointment.patient.lastname}}</span>
+        <span class="appointment-client" *ngIf="isProfessional">{{appointment.client.firstname}} {{appointment.client.lastname}}</span>
+        <span class="appointment-client" *ngIf="!isProfessional">{{appointment.professional.firstname}} {{appointment.professional.lastname}}</span>
         <span class="appointment-date start-time">{{appointment.startDate | date: "MMMM dd"}} <br />{{appointment.startDate | date: "hh:mm a"}}-{{appointment.endDate | date: "hh:mm a"}}</span>
-        <span class="appointment-actions">
+        <span class="appointment-actions" *ngIf="isProfessional">
             <a routerLink="/appointments/{{appointment._id}}/start">Start</a>
         </span>
     </div>
-    <a class="btn btn-primary btn-add" routerLink="/professional/appointments/add">Add Appointment</a>
+    <a class="btn btn-primary btn-add" routerLink="/professional/appointments/add" *ngIf="isProfessional">Add Appointment</a>
 </div>

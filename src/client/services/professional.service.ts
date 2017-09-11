@@ -27,6 +27,33 @@ export class ProfessionalService {
                 }
             });
     }
+    update(professional: Professional) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+        console.log(professional);
+        return this.http.put(this.apiEndpointUrl + '/' + professional._id, professional, options)
+            .map((response: Response) => {
+                // update successful - return curriculum
+                let professional = response.json();
+                if (professional) {
+                    return professional;
+                }
+            });
+    }
+
+    list() {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.apiEndpointUrl, options)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let professionals = response.json() as Array<Professional>;
+                return professionals;
+            });
+    }
     getAppointments(professionalId: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });

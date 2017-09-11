@@ -1,6 +1,7 @@
-import {User, Patient} from '../models';
+import {User, Client} from '../models';
 export interface Professional extends User {
-    patients: Array<Patient>;
+    clients: Array<Client>;
     firstname: string;
     lastname: string;
+    title: string;
 }

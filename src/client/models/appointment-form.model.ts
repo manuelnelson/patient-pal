@@ -1,8 +1,8 @@
-import { Professional, Patient } from '../models';
+import { Professional, Client } from '../models';
 export interface AppointmentForm {
     date: Date;
     startTime: string;
     endTime: string;
-    patient: string;
+    client: string;
     location: string;
 }

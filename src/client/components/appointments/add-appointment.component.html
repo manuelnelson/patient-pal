@@ -13,13 +13,13 @@
             <label>End Time<span *ngIf="invalidControl(appointmentForm.controls.endTime)">End Time Required</span></label>
             <input type="text" formControlName="endTime" placeholder="End Time (hh:mm am/pm)"/>
         </div>
-        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.patient)}">
-            <label>Patient<span *ngIf="invalidControl(appointmentForm.controls.patient)">Invalid selection</span></label>
-            <select *ngIf="patients" formControlName="patient">
-                <option value="" disabled selected>Patient</option>
-                <!-- TODO load available patients -->
-                <option *ngFor="let patient of patients" [value]="patient._id">
-                    {{patient.firstname}} {{patient.lastname}}
+        <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.client)}">
+            <label>Client<span *ngIf="invalidControl(appointmentForm.controls.client)">Invalid selection</span></label>
+            <select *ngIf="clients" formControlName="client">
+                <option value="" disabled selected>Client</option>
+                <!-- TODO load available clients -->
+                <option *ngFor="let client of clients" [value]="client._id">
+                    {{client.firstname}} {{client.lastname}}
                 </option>
             </select>
         </div>

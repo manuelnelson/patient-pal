@@ -46,4 +46,17 @@ export class AppointmentService {
                 return appointment;
             });
     }
+    list(query: string) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+        query = query && query.length > 0 ? '?' + query : ''; 
+        return this.http.get(this.apiEndpointUrl + query, options)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let appointments = response.json() as Array<Appointment>;
+                return appointments;
+            });
+    }
+
 }

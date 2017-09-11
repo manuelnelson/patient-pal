@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    back-component{
+    back-component, client-back-component{
         margin-bottom: px-to-rem(20px);
         display: block;
     }

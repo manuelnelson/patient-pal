@@ -12,7 +12,7 @@ export class AuthenticationService {
     // @Output LoggedIn:
     constructor(private http: Http, private router: Router) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
 
@@ -27,8 +27,8 @@ export class AuthenticationService {
                     if(user.role == Constants.Roles.Professional)
                         this.router.navigate(['/professional']);
                     else{
-                        //TODO: add route to patient page
-                        console.log('is patient!');
+                        //TODO: add route to client page
+                        console.log('is client!');
                     }
                     this.token = user.token;
                     return user;
@@ -42,13 +42,21 @@ export class AuthenticationService {
         this.token = null;
     }
     getLoggedInUser(){
-        var user = localStorage.getItem('currentUser');
+        let user = localStorage.getItem('currentUser');
         if(user)
             return JSON.parse(user) as User;
         return null;
     }
+    isProfessional(){
+        let user = localStorage.getItem('currentUser');
+        if(user){
+            let role = (JSON.parse(user) as User).role;            
+            return role !== Constants.Roles.Client;
+        }
+        return false;
+    }
     isLoggedIn(){
-        var user = localStorage.getItem('currentUser');
+        let user = localStorage.getItem('currentUser');
         if(user) return true;
         return false;
     }

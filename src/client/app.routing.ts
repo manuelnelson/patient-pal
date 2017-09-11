@@ -1,16 +1,17 @@
+import { ClientBackComponent } from './components/client-dashboard-components/back.component';
 import { NgModule }                from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Components
-import { HomeComponent, ProfessionalDashboardComponent, AddPatientComponent,
-    EditPatientComponent, LinksComponent, CalendarComponent, SkillsComponent,
+import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
+    EditClientComponent, LinksComponent, CalendarComponent, SkillsComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
     SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
-    PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent
+    PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, ClientReportsComponent, ClientCalendarComponent
 
 } from './components';
-import { PatientResolver, ProfessionalResolver, AppointmentListResolver,
+import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
     ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver
 } from './services';
@@ -53,14 +54,33 @@ const routes: Routes = [
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
                     { path: 'list', pathMatch: 'full', component: AppointmentListComponent, resolve: {appointments: AppointmentListResolver}},
-                    { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {patients: AddAppointmentResolver}}
+                    { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {clients: AddAppointmentResolver}}
                 ]
             },
         ]
     },
-    { path: 'patients/add',  component:AddPatientComponent },
-    { path: 'patients/edit/:userId',  component:EditPatientComponent, pathMatch: 'full', resolve:{patient:PatientResolver} },
-    { path: 'patients/edit',  component:EditPatientComponent, pathMatch: 'full' },
+    {
+        path: 'client',
+        component:ClientDashboardComponent,
+        resolve: {client: ClientResolver},
+        children: [
+            { path: '', redirectTo: 'links', pathMatch: 'full' },
+            { path: 'links', component: ClientLinksComponent },
+            { path: 'reports', component: ClientReportsComponent },
+            {
+                path: 'appointments',
+                component: ClientCalendarComponent,
+                children: [
+                    { path: '', redirectTo: 'list', pathMatch: 'full'},
+                    { path: 'list', pathMatch: 'full', component: AppointmentListComponent, resolve: {appointments: AppointmentListResolver}}, 
+                    { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {clients: AddAppointmentResolver}}
+                ]
+            },
+        ]
+    },
+    { path: 'clients/add',  component:AddClientComponent },
+    { path: 'clients/edit/:userId',  component:EditClientComponent, pathMatch: 'full', resolve:{client:ClientResolver} },
+    { path: 'clients/edit',  component:EditClientComponent, pathMatch: 'full' },
     {
         path: 'appointments/:appointmentId/start',
         component:StartAppointmentComponent,

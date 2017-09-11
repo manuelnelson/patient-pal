@@ -1,0 +1,14 @@
+<main class="professional-dashboard">
+    <section class="detail-hero" >
+        <div class="hero-tint">
+        </div>
+        <div class="hero-text-content">
+            <h1>Your Dashboard</h1>
+        </div>
+    </section>
+    <section class="dashboard-module">
+        <client-profile-component class="dashboard-tile profile-tile" *ngIf="client" [profile]="client">
+        </client-profile-component>
+        <router-outlet></router-outlet>
+    </section>
+</main>

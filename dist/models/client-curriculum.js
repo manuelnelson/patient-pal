@@ -33,7 +33,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var clientCurriculumSchema = new _mongoose2.default.Schema({
     client: {
         type: _mongoose2.default.Schema.ObjectId,
-        ref: 'Patient',
+        ref: 'Client',
         required: true
     },
     curriculum: {

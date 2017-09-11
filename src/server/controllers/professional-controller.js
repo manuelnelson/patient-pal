@@ -29,7 +29,7 @@ function get(req, res) {
 */
 function getAppointments(req, res, next) {
     Appointment.find({professional: req.professional._id})
-        .populate('patient')
+        .populate('client')
         .sort('startDate')
         .exec()
         .then(appointments => res.json(appointments));
@@ -89,16 +89,18 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     //we may have to get user based off this.
-    const professional = req.professional;
-    professional.email = req.body.email;
-    professional.firstName = req.body.firstName;
-    professional.lastName = req.body.lastName;
-    professional.insurance = req.body.insurance;
-    professional.sex = req.body.sex;
-    professional.birth = req.body.birth;
+    let professional = req.professional;
+    console.log(req.professional)
+    
+    // professional.email = req.body.email;
+    professional.firstname = req.body.firstname;
+    professional.lastname = req.body.lastname;
+    // professional.insurance = req.body.insurance;
+    // professional.sex = req.body.sex;
+    // professional.birth = req.body.birth;
 
-    professional.save()
-    .then(savedProfessional => res.json(savedProfessional))
+    return professional.save()
+    .then(savedProfessional => {console.log('test'); res.json(savedProfessional);})
     .catch(e => next(e));
 }
 

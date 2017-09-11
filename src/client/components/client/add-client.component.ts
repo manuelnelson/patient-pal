@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { PatientService, AlertService } from '../../services';
-import { Patient } from '../../models';
+import { ClientService, AlertService } from '../../services';
+import { Client } from '../../models';
 import { Router } from "@angular/router";
 @Component({
-    selector: 'patient-form',
-    template: require('./add-patient.component.html')
+    selector: 'client-form',
+    template: require('./add-client.component.html')
 })
-export class AddPatientComponent implements OnInit {
-    patientForm: FormGroup;
-    patientFormString: string;
-    constructor(private patientService:PatientService,private alertService:AlertService,
+export class AddClientComponent implements OnInit {
+    clientForm: FormGroup;
+    clientFormString: string;
+    constructor(private clientService:ClientService,private alertService:AlertService,
         private router: Router){
 
     }
@@ -22,7 +22,7 @@ export class AddPatientComponent implements OnInit {
         let sex = new FormControl('');
         let insurance = new FormControl('');
 
-        this.patientForm = new FormGroup({
+        this.clientForm = new FormGroup({
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -31,9 +31,9 @@ export class AddPatientComponent implements OnInit {
             insurance: insurance
         });
     }
-    patient(patientValues:Patient){
-        if(this.patientForm.valid){
-            this.patientService.create(patientValues).subscribe(
+    client(clientValues:Client){
+        if(this.clientForm.valid){
+            this.clientService.create(clientValues).subscribe(
                 data => {
                     this.router.navigate(['/professional/clients']);
                 },

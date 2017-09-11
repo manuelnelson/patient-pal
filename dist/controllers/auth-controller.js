@@ -53,7 +53,7 @@ function login(req, res, next) {
             var token = _jsonwebtoken2.default.sign({
                 email: existingUser.email
             }, _config2.default.jwtSecret);
-            var id = existingUser.professional ? existingUser.professional : existingUser.patient;
+            var id = existingUser.professional ? existingUser.professional : existingUser.client;
             return res.json({
                 _id: id,
                 token: token,

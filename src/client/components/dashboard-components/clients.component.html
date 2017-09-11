@@ -1,18 +1,18 @@
 <back-component></back-component>
 <h4>Your Clients</h4>
 <div class="clients-list">
-    <span *ngIf="!professional.patients || professional.patients.length == 0" class="no-clients">You currently do not have any clients assigned to you.</span>
-    <div class="client-item" *ngFor="let patient of professional.patients">
+    <span *ngIf="!professional.clients || professional.clients.length == 0" class="no-clients">You currently do not have any clients assigned to you.</span>
+    <div class="client-item" *ngFor="let client of professional.clients">
         <div class="client-picture">
-            <img *ngIf="patient.img" src="{{patient.img.url}}" alt="patient.firstname" />
-            <div *ngIf="!patient.img" class="no-picture" ></div>
+            <img *ngIf="client.img" src="{{client.img.url}}" alt="client.firstname" />
+            <div *ngIf="!client.img" class="no-picture" ></div>
         </div>
         <div class="client-info">
-            <!-- TODO: Rotue to patient -->
-            <a class="client-name" *ngIf="patient.firstname" routerLink="['/patient/']">{{patient.firstname}} {{patient.lastname}}</a>
-            <a class="client-name" *ngIf="!patient.firstname" routerLink="['/patient/']">No Name</a>
-            <a class="client-edit" routerLink="/patients/edit/{{patient._id}}">Edit</a>
+            <!-- TODO: Rotue to client -->
+            <a class="client-name" *ngIf="client.firstname" routerLink="['/client/']">{{client.firstname}} {{client.lastname}}</a>
+            <a class="client-name" *ngIf="!client.firstname" routerLink="['/client/']">No Name</a>
+            <a class="client-edit" routerLink="/clients/edit/{{client._id}}">Edit</a>
         </div>
     </div>
 </div>
-<a class="btn btn-primary client-add" routerLink="/patients/add">Add Client</a>
+<a class="btn btn-primary client-add" routerLink="/clients/add">Add Client</a>

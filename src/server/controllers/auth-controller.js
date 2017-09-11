@@ -31,16 +31,8 @@ function login(req, res, next) {
                 const err = new APIError('Authentication error: Invalid Credentials ', httpStatus.UNAUTHORIZED, true);
                 return next(err);
             }
-            const token = jwt.sign({
-                email: existingUser.email
-            }, config.jwtSecret);
-            var id = existingUser.professional ? existingUser.professional : existingUser.patient;
-            return res.json({
-                _id: id,
-                token,
-                email: existingUser.email,
-                role: existingUser.role
-            });
+            let authToken  = createToken(existingUser);
+            return res.json(authToken);
         })
     })
     .catch(e => next(e));
@@ -80,6 +72,21 @@ function verifyToken(req,res,next){
     next();
 }
 
+// creates the token from a user
+function createToken(user){
+    const token = jwt.sign({
+        email: user.email
+    }, config.jwtSecret);
+    var person = user.professional ? user.professional : user.client;
+    return {
+        _id: person._id,
+        token,
+        email: user.email,
+        role: user.role
+    };
+
+}
+
 /**
 * This is a protected route. Will return random number only if jwt token is provided in header.
 * @param req
@@ -93,5 +100,5 @@ function getRandomNumber(req, res) {
         num: Math.random() * 100
     });
 }
-let AuthCtrl = { login, getRandomNumber, verifyToken, updatePassword };
+let AuthCtrl = { login, getRandomNumber, verifyToken, updatePassword, createToken };
 export default AuthCtrl;

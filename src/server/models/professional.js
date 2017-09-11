@@ -18,7 +18,10 @@ const ProfessionalSchema = new mongoose.Schema({
     lastname: {
         type: String,
     },
-    patients:[{type:mongoose.Schema.ObjectId,ref:'Patient'}],
+    title: {
+        type: String,
+    },
+    clients:[{type:mongoose.Schema.ObjectId,ref:'Client'}],
     //1 = active, 0 = disabled or disactive
     status: {
         type: Boolean
@@ -40,7 +43,7 @@ ProfessionalSchema.statics = {
     */
     get(id) {
         return this.findById(id)
-        .populate('patients')
+        .populate('clients')
         .exec()
         .then((Professional) => {
             if (Professional) {
@@ -57,7 +60,7 @@ ProfessionalSchema.statics = {
     */
     getByEmail(email) {
         return this.findOne({email:email})
-        .populate('patients')
+        .populate('clients')
         .exec().then((Professional) => {
             if (Professional) {
                 return Professional;

@@ -26,13 +26,21 @@
 $icon-profile: "\e923";
 $icon-user: "\e971";
 $icon-users: "\e972";
-$icon-hammer: "\996";
-$icon-calendar2: "\905";
-$icon-paste: "\900";
-$icon-documents: "\901";
+$icon-hammer: "\e996";
+$icon-calendar2: "\e905";
+$icon-paste: "\e900";
+$icon-documents: "\e901";
 $icon-left-arrow: "\ea40";
 $icon-address-book: "\e944";
+$icon-edit: "\e906";
+$icon-professional: "\e976";
 
+.icon-edit:before {
+  content: $icon-edit;
+}
+.icon-professional:before {
+  content: $icon-professional;
+}
 .icon-profile:before {
   content: $icon-profile;
 }
@@ -40,19 +48,19 @@ $icon-address-book: "\e944";
   content: $icon-user;
 }
 .icon-users:before {
-  content: "\e972";
+  content: $icon-users;
 }
 .icon-hammer:before {
-  content: "\e996";
+  content: $icon-hammer;
 }
 .icon-calendar2:before {
-  content: "\e905";
+  content: $icon-calendar2;
 }
 .icon-paste:before {
-  content: "\e900";
+  content: $icon-paste;
 }
 .icon-documents:before {
-  content: "\e901";
+  content: $icon-documents;
 }
 .icon-left-arrow:before {
   content: $icon-left-arrow;

@@ -2,13 +2,36 @@
   <div class="no-picture" *ngIf="!profile.picture">
   </div>
 </div>
-<div class="profile-info">
-  <h4 class="name" *ngIf="profile.firstName && profile.firstName.length > 0">{{profile.firstName}} {{profile.lastName}}</h4>
-  <h4 class="name" *ngIf="!profile.firstName || !profile.firstName.length > 0">No Name Entered</h4>
-  <span class="email">{{profile.email}}</span>
-  <span class="title" *ngIf="profile.title && profile.title.length > 0">{{profile.title}}</span>
-  <div class="upcoming-appointment">
-      <span class="label">Upcoming Appointments</span>
-      <span class="date">August 1st, 2017 8:00am-9:00am</span>
+<div class="profile-info" >
+  <form *ngIf="editMode" class="form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm.value)" novalidate>
+      <div class="form-input">
+          <input type="text" formControlName="firstname" placeholder="First Name"/>
+      </div>
+      <div class="form-input">
+          <input type="text" formControlName="lastname" placeholder="Last Name"/>
+      </div>
+      <div class="form-input">
+          <input type="text" formControlName="title" placeholder="Title"/>
+      </div>
+      <div class="submit-input">
+          <input type="submit" class="btn btn-primary" (click)="updateProfile(profileForm.value)"/>
+      </div>
+  </form>
+  <div *ngIf="!editMode">
+      <h4 class="name" *ngIf="profile.firstname && profile.firstname.length > 0">{{profile.firstname}} {{profile.lastname}}</h4>
+      <h4 class="name" *ngIf="!profile.firstname || !profile.firstname.length > 0">No Name Entered</h4>
+      <span class="email">{{profile.email}}</span>
+      <span class="title" *ngIf="profile.title && profile.title.length > 0">{{profile.title}}</span>    
   </div>
+  <div class="upcoming-appointment" *ngIf="upcomingAppointment">
+      <span class="label">Upcoming Appointments</span>
+      <a routerLink="/appointments/{{upcomingAppointment._id}}/start">
+        <span class="client">{{upcomingAppointment.client.firstname}} {{upcomingAppointment.client.lastname}}</span> 
+        <span class="date">{{upcomingAppointment.startDate | date: constants.DateTimeFormat}}</span> 
+      </a>
+  </div>
+  <div class="upcoming-appointment" *ngIf="!upcomingAppointment">
+      <span class="label">You have no upcoming appointments</span>
+  </div>
+  <button class="icon icon-edit" (click)="enableEditMode()"></button>
 </div>

@@ -28,9 +28,9 @@ var _bcryptNodejs = require('bcrypt-nodejs');
 
 var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
-var _patient = require('./patient');
+var _client = require('./client');
 
-var _patient2 = _interopRequireDefault(_patient);
+var _client2 = _interopRequireDefault(_client);
 
 var _professional = require('./professional');
 
@@ -52,14 +52,14 @@ var UserSchema = new _mongoose2.default.Schema({
         // match: /(?=.*[a-zA-Z])(?=.*[0-9]+).*/,
         // minlength:
     },
-    //admin = 1, office/health professional = 2, patient = 10 (gaps added in case we add more)
+    //admin = 1, office/health professional = 2, client = 10 (gaps added in case we add more)
     role: {
         type: Number,
         required: true
     },
-    patient: {
+    client: {
         type: _mongoose2.default.Schema.ObjectId,
-        ref: 'Patient'
+        ref: 'Client'
     },
     professional: {
         type: _mongoose2.default.Schema.ObjectId,

@@ -57,7 +57,7 @@ function create(req, res, next) {
 * @returns {Appointment}
 */
 function update(req, res, next) {
-    var appointment = req.appointment;
+    let appointment = req.appointment;
     for (var prop in req.appointment) {
         appointment[prop] = req.appointment[prop];
     }

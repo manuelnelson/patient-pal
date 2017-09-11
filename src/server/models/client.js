@@ -5,7 +5,7 @@ import APIError from '../lib/APIError';
 import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
 
-const PatientSchema = new mongoose.Schema({
+const ClientSchema = new mongoose.Schema({
     email:{
         type: String,
         required: true,
@@ -40,45 +40,45 @@ const PatientSchema = new mongoose.Schema({
 /**
 * Statics
 */
-PatientSchema.statics = {
+ClientSchema.statics = {
     /**
-    * Get Patient
-    * @param {ObjectId} id - The objectId of Patient.
-    * @returns {Promise<Patient, APIError>}
+    * Get Client
+    * @param {ObjectId} id - The objectId of Client.
+    * @returns {Promise<Client, APIError>}
     */
     get(id) {
         return this.findById(id)
         .exec()
-        .then((Patient) => {
-            if (Patient) {
-                return Patient;
+        .then((Client) => {
+            if (Client) {
+                return Client;
             }
             return null;
-            // const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
     },
     /**
-    * Get Patient by Email
-    * @param {string} email - The email of Patient.
-    * @returns {Promise<Patient, APIError>}
+    * Get Client by Email
+    * @param {string} email - The email of Client.
+    * @returns {Promise<Client, APIError>}
     */
     getByEmail(email) {
-        return this.findOne({email:email}).exec().then((Patient) => {
-            if (Patient) {
-                return Patient;
+        return this.findOne({email:email}).exec().then((Client) => {
+            if (Client) {
+                return Client;
             }
             return null;
-            // const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
     },
 
     /**
-    * List Patients in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of Patients to be skipped.
-    * @param {number} limit - Limit number of Patients to be returned.
-    * @returns {Promise<Patient[]>}
+    * List Clients in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of Clients to be skipped.
+    * @param {number} limit - Limit number of Clients to be returned.
+    * @returns {Promise<Client[]>}
     */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
@@ -90,4 +90,4 @@ PatientSchema.statics = {
 };
 
 
-export default mongoose.model('Patient', PatientSchema);
+export default mongoose.model('Client', ClientSchema);

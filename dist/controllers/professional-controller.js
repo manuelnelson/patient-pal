@@ -49,7 +49,7 @@ function get(req, res) {
 * @returns {Appointment[]}
 */
 function getAppointments(req, res, next) {
-    _models.Appointment.find({ professional: req.professional._id }).populate('patient').sort('startDate').exec().then(function (appointments) {
+    _models.Appointment.find({ professional: req.professional._id }).populate('client').sort('startDate').exec().then(function (appointments) {
         return res.json(appointments);
     });
 }

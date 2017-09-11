@@ -1,6 +1,6 @@
 import AppointmentCtrl from './appointment-controller';
 import AuthCtrl from './auth-controller';
-import PatientCtrl from './patient-controller';
+import ClientCtrl from './client-controller';
 import ProfessionalCtrl from './professional-controller';
 import UserCtrl from './user-controller';
 import TargetTypeCtrl from './target-type-controller';
@@ -14,7 +14,7 @@ export {
     AppointmentCtrl,
     AuthCtrl,
     ClientCurriculumCtrl,
-    PatientCtrl,
+    ClientCtrl,
     ProfessionalCtrl,
     UserCtrl,
     TargetTypeCtrl,

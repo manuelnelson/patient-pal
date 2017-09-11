@@ -18,7 +18,7 @@ router.route('/:userId')
   .get(ProfessionalCtrl.get)
 
   /** PUT /api/users/:userId - Update user */
-  .put(validate(paramValidation.updateUser), ProfessionalCtrl.update)
+  .put(ProfessionalCtrl.update)
 
   /** DELETE /api/users/:email - Delete user */
   .delete(ProfessionalCtrl.remove);

@@ -30,7 +30,7 @@ var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var PatientSchema = new _mongoose2.default.Schema({
+var ClientSchema = new _mongoose2.default.Schema({
     email: {
         type: String,
         required: true,
@@ -65,45 +65,45 @@ var PatientSchema = new _mongoose2.default.Schema({
 /**
 * Statics
 */
-PatientSchema.statics = {
+ClientSchema.statics = {
     /**
-    * Get Patient
-    * @param {ObjectId} id - The objectId of Patient.
-    * @returns {Promise<Patient, APIError>}
+    * Get Client
+    * @param {ObjectId} id - The objectId of Client.
+    * @returns {Promise<Client, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).exec().then(function (Patient) {
-            if (Patient) {
-                return Patient;
+        return this.findById(id).exec().then(function (Client) {
+            if (Client) {
+                return Client;
             }
             return null;
-            // const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
     },
 
     /**
-    * Get Patient by Email
-    * @param {string} email - The email of Patient.
-    * @returns {Promise<Patient, APIError>}
+    * Get Client by Email
+    * @param {string} email - The email of Client.
+    * @returns {Promise<Client, APIError>}
     */
     getByEmail: function getByEmail(email) {
-        return this.findOne({ email: email }).exec().then(function (Patient) {
-            if (Patient) {
-                return Patient;
+        return this.findOne({ email: email }).exec().then(function (Client) {
+            if (Client) {
+                return Client;
             }
             return null;
-            // const err = new APIError('No such Patient exists!', httpStatus.NOT_FOUND);
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
     },
 
 
     /**
-    * List Patients in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of Patients to be skipped.
-    * @param {number} limit - Limit number of Patients to be returned.
-    * @returns {Promise<Patient[]>}
+    * List Clients in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of Clients to be skipped.
+    * @param {number} limit - Limit number of Clients to be returned.
+    * @returns {Promise<Client[]>}
     */
     list: function list() {
         var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -116,5 +116,5 @@ PatientSchema.statics = {
     }
 };
 
-exports.default = _mongoose2.default.model('Patient', PatientSchema);
-//# sourceMappingURL=patient.js.map
+exports.default = _mongoose2.default.model('Client', ClientSchema);
+//# sourceMappingURL=client.js.map

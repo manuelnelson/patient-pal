@@ -24,24 +24,24 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/users - Get list of users */
-.get(_controllers.PatientCtrl.list)
+.get(_controllers.ClientCtrl.list)
 
 /** POST /api/users - Create new user */
-.post(_controllers.AuthCtrl.verifyToken, _controllers.PatientCtrl.create);
-// .post(validate(paramValidation.createUser), PatientCtrl.create);
+.post(_controllers.AuthCtrl.verifyToken, _controllers.ClientCtrl.create);
+// .post(validate(paramValidation.createUser), ClientCtrl.create);
 
 router.route('/:userId')
 /** GET /api/users/:userId - Get user */
-.get(_controllers.PatientCtrl.get)
+.get(_controllers.ClientCtrl.get)
 
 /** PUT /api/users/:userId - Update user */
-.put(_controllers.PatientCtrl.update)
+.put(_controllers.ClientCtrl.update)
 
 /** DELETE /api/users/:userId - Delete user */
-.delete(_controllers.PatientCtrl.remove);
+.delete(_controllers.ClientCtrl.remove);
 
 /** Load user when API with userId route parameter is hit */
-router.param('userId', _controllers.PatientCtrl.load);
+router.param('userId', _controllers.ClientCtrl.load);
 
 exports.default = router;
-//# sourceMappingURL=patient-routes.js.map
+//# sourceMappingURL=client-routes.js.map

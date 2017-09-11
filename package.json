@@ -105,11 +105,11 @@
     "npm-run-all": "^4.0.2",
     "parallelshell": "^2.0.0"
   },
-  "homepage": "https://github.com/manuelnelson/node-angular-2-boilerplate#readme",
+  "homepage": "https://github.com/manuelnelson/practice-pal#readme",
   "keywords": [
     "node",
     "angular",
     "2",
-    "boilerplate"
+    "practice pal"
   ]
 }

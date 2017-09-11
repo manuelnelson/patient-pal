@@ -2,42 +2,42 @@ import { Injectable, Output } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { Patient } from '../models';
+import { Client, Appointment } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class PatientService {
+export class ClientService {
     // @Output LoggedIn:
     constructor(private http: Http, private authService: AuthenticationService) { }
-    private apiEndpointUrl: string = '/api/patients';
+    private apiEndpointUrl: string = '/api/clients';
 
-    create(patient: Patient) {
+    create(client: Client) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.apiEndpointUrl, patient, options)
+        return this.http.post(this.apiEndpointUrl, client, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patient = response.json();
-                if (patient) {
-                    return patient;
+                let client = response.json();
+                if (client) {
+                    return client;
                 }
             });
     }
-    update(patient: Patient) {
+    update(client: Client) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.apiEndpointUrl + '/' + patient._id, patient, options)
+        return this.http.put(this.apiEndpointUrl + '/' + client._id, client, options)
             .map((response: Response) => {
-                // update successful - return patient
-                let patient = response.json();
-                if (patient) {
-                    return patient;
+                // update successful - return client
+                let client = response.json();
+                if (client) {
+                    return client;
                 }
             });
-    }
+    } 
 
     list() {
         // add authorization header with jwt token
@@ -47,8 +47,8 @@ export class PatientService {
         return this.http.get(this.apiEndpointUrl, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patients = response.json() as Array<Patient>;
-                return patients;
+                let clients = response.json() as Array<Client>;
+                return clients;
             });
     }
     get(id: string) {
@@ -59,8 +59,8 @@ export class PatientService {
         return this.http.get(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let patient = response.json() as Patient;
-                return patient;
+                let client = response.json() as Client;
+                return client;
             });
     }
     delete(id: string) {
@@ -70,8 +70,20 @@ export class PatientService {
 
         return this.http.delete(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
-                let patient = response.json() as Patient;
-                return patient;
+                let client = response.json() as Client;
+                return client;
+            });
+    }
+    getAppointments(clientId: string) {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'Authorization': this.authService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.apiEndpointUrl + '/' + clientId + '/appointments', options)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let appointments = response.json() as Appointment[];
+                return appointments;
             });
     }
 

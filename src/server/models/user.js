@@ -4,7 +4,7 @@ import httpStatus from 'http-status';
 import APIError from '../lib/APIError';
 import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
-import Patient from './patient';
+import Client from './client';
 import Professional from './professional';
 const UserSchema = new mongoose.Schema({
     email: {
@@ -20,14 +20,14 @@ const UserSchema = new mongoose.Schema({
         // match: /(?=.*[a-zA-Z])(?=.*[0-9]+).*/,
         // minlength:
     },
-    //admin = 1, office/health professional = 2, patient = 10 (gaps added in case we add more)
+    //admin = 1, office/health professional = 2, client = 10 (gaps added in case we add more)
     role: {
         type: Number,
         required: true
     },
-    patient: {
+    client: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Patient'
+        ref: 'Client'
     },
     professional: {
         type: mongoose.Schema.ObjectId,
@@ -38,6 +38,28 @@ const UserSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+//Delete hooks - will remove associated entities 
+UserSchema.pre('remove', function(next) {
+    var that = this;
+    if(that.professional){
+        Professional.get(that.professional)        
+        .then((prof) => {
+            prof.remove(prof._id);
+            next();            
+        })
+        .catch(e => next(e));
+    }
+    if(that.client){
+        Client.get(that.client)        
+        .then((client) => {
+            client.remove(client._id);
+            next();            
+        })
+        .catch(e => next(e));
+    }
+});
+
 
 /* the callback function (2nd parameter below) accepts a parameter which we
 are calling "next". This is ALSO a callback function that needs to be executed
@@ -90,6 +112,7 @@ UserSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        .populate('professional client')
         .exec()
         .then((user) => {
             if (user) {
@@ -110,6 +133,7 @@ UserSchema.statics = {
         var query = this.findOne({email:email});
         if(includePassword)
             query = query.select('+password');
+        query = query.populate('professional client')
         return query.exec().then((user) => {
             if (user) {
                 return user;

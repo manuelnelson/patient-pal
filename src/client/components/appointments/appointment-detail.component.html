@@ -5,7 +5,7 @@
     <span class="label">Time:</span>
     <span class="info time">{{appointment.startDate | date: constants.TimeFormat}}-{{appointment.endDate | date: constants.TimeFormat}}</span>
     <span class="label">Client:</span>
-    <span class="info client">{{appointment.patient.firstname}} {{appointment.patient.lastname}}</span>
+    <span class="info client">{{appointment.client.firstname}} {{appointment.client.lastname}}</span>
     <span class="label">Professional:</span>
     <span class="info client" *ngIf="appointment.professional.firstname">{{appointment.professional.firstname}} {{appointment.professional.lastname}}</span>
     <span class="info client" *ngIf="!appointment.professional.firstname">No Name Provided</span>

@@ -43,7 +43,7 @@ var ProfessionalSchema = new _mongoose2.default.Schema({
     lastname: {
         type: String
     },
-    patients: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Patient' }],
+    clients: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Client' }],
     //1 = active, 0 = disabled or disactive
     status: {
         type: Boolean
@@ -64,7 +64,7 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).populate('patients').exec().then(function (Professional) {
+        return this.findById(id).populate('clients').exec().then(function (Professional) {
             if (Professional) {
                 return Professional;
             }
@@ -79,7 +79,7 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     getByEmail: function getByEmail(email) {
-        return this.findOne({ email: email }).populate('patients').exec().then(function (Professional) {
+        return this.findOne({ email: email }).populate('clients').exec().then(function (Professional) {
             if (Professional) {
                 return Professional;
             }

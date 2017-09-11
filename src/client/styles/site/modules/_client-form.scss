@@ -1,5 +1,8 @@
-.patient-form{
+.client-form{
     padding: px-to-rem($site-padding-desktop);
+    .btn-back{
+        margin-bottom: px-to-rem(30px);
+    }
     @include bp-max($bp-between){
         padding: px-to-rem($site-padding-between);
         form{

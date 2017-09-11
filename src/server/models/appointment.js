@@ -14,9 +14,9 @@ const AppointmentSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    patient: {
+    client: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Patient'
+        ref: 'Client'
     },
     professional: {
         type: mongoose.Schema.ObjectId,
@@ -42,7 +42,7 @@ AppointmentSchema.statics = {
     */
     get(id) {
         return this.findById(id)
-        .populate('professional patient')
+        .populate('professional client')
         .exec()
         .then((Appointment) => {
             if (Appointment) {

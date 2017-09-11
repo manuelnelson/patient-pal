@@ -10,8 +10,15 @@ export * from './home/home.component';
 
 export * from './professional/dashboard.component';
 
-export * from './client/add-patient.component';
-export * from './client/edit-patient.component';
+export * from './client/add-client.component';
+export * from './client/edit-client.component';
+export * from './client/dashboard.component';
+
+export * from './client-dashboard-components/back.component';
+export * from './client-dashboard-components/calendar.component';
+export * from './client-dashboard-components/links.component';
+export * from './client-dashboard-components/profile.component';
+export * from './client-dashboard-components/reports.component';
 
 export * from './dashboard-components/calendar.component';
 export * from './dashboard-components/profile.component';

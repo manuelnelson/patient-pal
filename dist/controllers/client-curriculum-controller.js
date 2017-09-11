@@ -68,7 +68,7 @@ function create(req, res, next) {
 * @returns {ClientCurriculum}
 */
 function update(req, res, next) {
-    var clientCurriculum = req.clientCurriculum;
+    let clientCurriculum = req.clientCurriculum;
     for (var prop in req.clientCurriculum) {
         clientCurriculum[prop] = req.clientCurriculum[prop];
     }

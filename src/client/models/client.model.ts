@@ -1,5 +1,5 @@
 import {User} from './user.model';
-export interface Patient extends User {
+export interface Client extends User {
     firstname: String;
     lastname: String;
     birth: Date;

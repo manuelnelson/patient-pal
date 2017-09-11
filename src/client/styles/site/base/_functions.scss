@@ -1,6 +1,6 @@
-@function px-to-em($px, $base: $base-font-size) {
-	@return ($px / $base) * 1em;
-}
+// @function px-to-em($px, $base: $base-font-size) {
+// 	@return ($px / $base) * 1em;
+// }
 @function px-to-rem($px, $base: $base-font-size) {
 	@return ($px / $base) * 1rem;
 }

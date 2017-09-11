@@ -1,16 +1,17 @@
-<main class="add-patient">
+<main class="add-client">
     <section class="detail-hero" >
         <div class="hero-tint">
         </div>
         <div class="hero-text-content">
-            <h1>Create Patient</h1>
+            <h1>Create Client</h1>
         </div>
     </section>
-    <section class="form-module patient-form">
+    <section class="form-module client-form">
+        <a routerLink="/professional/links" class="btn btn-primary btn-back">Back To Dashboard</a>
         <p>
-            As you create the patient, a patient will automatically be added for the patient.  You should pass along the email address provided to the patient so that they can login and update the appropriate fields.
+            As you create the client, a client will automatically be added for the client.  You should pass along the email address provided to the client so that they can login and update the appropriate fields.
         </p>
-        <form class="form" [formGroup]="patientForm" (ngSubmit)="patient(patientForm.value)" novalidate>
+        <form class="form" [formGroup]="clientForm" (ngSubmit)="client(clientForm.value)" novalidate>
             <div class="form-input">
                 <label>First Name</label>
                 <input type="text" formControlName="firstname" placeholder="First Name"/>
@@ -19,16 +20,16 @@
                 <label>Last Name</label>
                 <input type="text" formControlName="lastname" placeholder="Last Name"/>
             </div>
-            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.email)}">
-                <label>Email<span *ngIf="invalidControl(patientForm.controls.email)">Invalid Email</span></label>
+            <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.email)}">
+                <label>Email<span *ngIf="invalidControl(clientForm.controls.email)">Invalid Email</span></label>
                 <input type="text" formControlName="email" placeholder="Email"/>
             </div>
-            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.birth)}">
-                <label>Date of Birth<span *ngIf="invalidControl(patientForm.controls.birth)">Invalid Date</span></label>
+            <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.birth)}">
+                <label>Date of Birth<span *ngIf="invalidControl(clientForm.controls.birth)">Invalid Date</span></label>
                 <input type="text" formControlName="birth" placeholder="Date of Birth (MM/dd/yyyy)"/>
             </div>
-            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.sex)}">
-                <label>Sex<span *ngIf="invalidControl(patientForm.controls.sex)">Invalid selection</span></label>
+            <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.sex)}">
+                <label>Sex<span *ngIf="invalidControl(clientForm.controls.sex)">Invalid selection</span></label>
                 <select formControlName="sex">
                     <option value="" disabled selected>Sex</option>
                     <option value="male">
@@ -39,8 +40,8 @@
                     </option>
                 </select>
             </div>
-            <div class="form-input" [ngClass]="{'error':invalidControl(patientForm.controls.insurance)}">
-                <label>Insurance<span *ngIf="invalidControl(patientForm.controls.insurance)">Invalid insurance type</span></label>
+            <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.insurance)}">
+                <label>Insurance<span *ngIf="invalidControl(clientForm.controls.insurance)">Invalid insurance type</span></label>
                 <input type="text" formControlName="insurance" placeholder="Insurance"/>
             </div>
             <div class="submit-input">

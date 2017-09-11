@@ -9,7 +9,7 @@ import { AppRoutingModule }  from './app.routing';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import {
-            GlobalErrorHandler, AuthenticationService, AlertService, UserService, PatientService, ProfessionalService, PatientResolver,
+            GlobalErrorHandler, AuthenticationService, AlertService, UserService, ClientService, ProfessionalService, ClientResolver,
             ProfessionalResolver, AppointmentService, AppointmentListResolver, AddAppointmentResolver,
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
@@ -21,24 +21,25 @@ import { AuthGuard } from './guards/index';
 
 import {
     HomeComponent, NavigationComponent, AppComponent, LoginComponent, SignupComponent, ProfessionalDashboardComponent,
-    AddPatientComponent, AlertComponent, EditPatientComponent, ProfileComponent, CalendarComponent, LinksComponent,
+    AddClientComponent, AlertComponent, EditClientComponent, ProfileComponent, CalendarComponent, LinksComponent,
     BackComponent, SkillsComponent, ClientsComponent, ReportsComponent, AddAppointmentComponent,
     AppointmentListComponent, SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
     CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
-    RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent
+    RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
+    ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent
 } from './components/';
 
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [ HomeComponent, NavigationComponent, AppComponent, LoginComponent, SignupComponent,
-        ProfessionalDashboardComponent, AddPatientComponent, EditPatientComponent, AlertComponent, ProfileComponent,
+        ProfessionalDashboardComponent, AddClientComponent, EditClientComponent, AlertComponent, ProfileComponent,
         CalendarComponent, LinksComponent, BackComponent, SkillsComponent, ClientsComponent, ReportsComponent,
         AddAppointmentComponent, AppointmentListComponent, SkillListComponent, AddSkillComponent, CurriculumListComponent,
         CreateCurriculumComponent, CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, StartAppointmentComponent,
         AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, 
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
-        WholeIntervalComponent
+        WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent
     ],
     imports: [
         BrowserModule,
@@ -64,8 +65,8 @@ import {
             provide: RouteReuseStrategy, 
             useClass: CustomRouteReuseStrategy
         },
-        AuthenticationService, AlertService, UserService, AuthGuard, PatientService,
-        ProfessionalService, PatientResolver, ProfessionalResolver, AppointmentService, AppointmentListResolver,
+        AuthenticationService, AlertService, UserService, AuthGuard, ClientService,
+        ProfessionalService, ClientResolver, ProfessionalResolver, AppointmentService, AppointmentListResolver,
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver

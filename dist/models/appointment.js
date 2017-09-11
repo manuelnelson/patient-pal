@@ -39,9 +39,9 @@ var AppointmentSchema = new _mongoose2.default.Schema({
         type: Date,
         required: true
     },
-    patient: {
+    client: {
         type: _mongoose2.default.Schema.ObjectId,
-        ref: 'Patient'
+        ref: 'Client'
     },
     professional: {
         type: _mongoose2.default.Schema.ObjectId,
@@ -66,7 +66,7 @@ AppointmentSchema.statics = {
     * @returns {Promise<Appointment, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).populate('professional patient').exec().then(function (Appointment) {
+        return this.findById(id).populate('professional client').exec().then(function (Appointment) {
             if (Appointment) {
                 return Appointment;
             }

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SkillData = exports.DttType = exports.TargetType = exports.Skill = exports.ClientCurriculum = exports.User = exports.Professional = exports.Curriculum = exports.Patient = exports.Appointment = undefined;
+exports.SkillData = exports.DttType = exports.TargetType = exports.Skill = exports.ClientCurriculum = exports.User = exports.Professional = exports.Curriculum = exports.Client = exports.Appointment = undefined;
 
 var _appointment = require('./appointment');
 
@@ -13,9 +13,9 @@ var _clientCurriculum = require('./client-curriculum');
 
 var _clientCurriculum2 = _interopRequireDefault(_clientCurriculum);
 
-var _patient = require('./patient');
+var _client = require('./client');
 
-var _patient2 = _interopRequireDefault(_patient);
+var _client2 = _interopRequireDefault(_client);
 
 var _professional = require('./professional');
 
@@ -48,7 +48,7 @@ var _skillData2 = _interopRequireDefault(_skillData);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Appointment = _appointment2.default;
-exports.Patient = _patient2.default;
+exports.Client = _client2.default;
 exports.Curriculum = _curriculum2.default;
 exports.Professional = _professional2.default;
 exports.User = _user2.default;

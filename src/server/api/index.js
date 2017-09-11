@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import userRoutes from './user-routes';
 import authRoutes from './auth-routes';
-import patientRoutes from './patient-routes';
+import clientRoutes from './client-routes';
 import professionalRoutes from './professional-routes';
 import appointmentRoutes from './appointment-routes';
 import targetTypeRoutes from './target-type-routes';
@@ -18,7 +18,7 @@ export default ({ config, db }) => {
 	// mount user routes at /users
 	api.use('/users', userRoutes);
 	api.use('/auth', authRoutes);
-	api.use('/patients', patientRoutes);
+	api.use('/clients', clientRoutes);
 	api.use('/professionals', professionalRoutes);
 	api.use('/appointments', appointmentRoutes);
 	api.use('/targettypes', targetTypeRoutes);

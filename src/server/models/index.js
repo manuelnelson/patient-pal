@@ -1,6 +1,6 @@
 import Appointment from './appointment';
 import ClientCurriculum from './client-curriculum';
-import Patient from './patient';
+import Client from './client';
 import Professional from './professional';
 import User from './user';
 import Skill from './skill';
@@ -11,7 +11,7 @@ import SkillData from './skillData';
 
 export {
     Appointment,
-    Patient,
+    Client,
     Curriculum,
     Professional,
     User,

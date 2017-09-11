@@ -64,6 +64,7 @@
         bottom:-($menu-button-height/2) + ($line-height/2);
         transition: all $transition-duration ease-in-out;
         opacity: 0;
+        z-index: -1;
         cursor:pointer;
         &:hover{
             background-color: $color-light-blue;
@@ -88,6 +89,7 @@
         &.close{
             height:0;
             opacity: 1;
+            z-index: 10;            
             &:before{
                 transform:rotate(45deg);
                 top:.08rem;

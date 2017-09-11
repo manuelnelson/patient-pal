@@ -1,4 +1,4 @@
-Patient Pal
+Client Pal
 ==================================
 
 
@@ -10,8 +10,8 @@ Getting Started
 
 ```sh
 # clone it
-git clone git@github.com:manuelnelson/patient-pal.git
-cd patient-pal
+git clone git@github.com:manuelnelson/client-pal.git
+cd client-pal
 
 # Make it your own
 rm -rf .git && git init && npm init
@@ -29,7 +29,7 @@ npm start
 Docker Support
 ------
 ```sh
-cd patient-pal.git  
+cd client-pal.git  
 
 # Build your docker
 docker build -t es6/api-service .

@@ -4,24 +4,24 @@
         <label>Email: <span *ngIf="invalidControl(signupForm.controls.email)">Invalid Email</span></label>
         <input type="text" formControlName="email" placeholder="Email"/>
     </div>
-    <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.role)}">
-        <label>Are you a patient or health professional?: <span *ngIf="invalidControl(signupForm.controls.role)">Invalid Role</span></label>
+    <!-- <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.role)}">
+        <label>Are you a client or health professional?: <span *ngIf="invalidControl(signupForm.controls.role)">Invalid Role</span></label>
         <select formControlName="role">
             <option value="" disabled selected>Role</option>
             <option value="10">
-                Patient
+                Client
             </option>
             <option value="2">
                 Professional
             </option>
         </select>
-    </div>
+    </div> -->
     <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.password)}">
         <label>Password: <span *ngIf="invalidControl(signupForm.controls.password)">Password must be 7 characters long</span></label>
         <input type="password" formControlName="password" placeholder="Password"/>
     </div>
     <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.confirmPassword)}">
-        <label>Confirm Password: <span *ngIf="invalidControl(signupForm.controls.confirmPassword)">Passwords must match</span></label>
+        <label>Confirm Password: <span *ngIf="passwordMismatch">Passwords must match</span></label>
         <input type="password" formControlName="confirmPassword" placeholder="Confirm Password"/>
     </div>
     <input type="submit" class="btn btn-primary" />

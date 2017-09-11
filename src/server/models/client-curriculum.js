@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt-nodejs';
 const clientCurriculumSchema = new mongoose.Schema({
     client: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Patient',
+        ref: 'Client',
         required:true
     },
     curriculum: {

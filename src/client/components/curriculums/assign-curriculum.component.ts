@@ -37,7 +37,7 @@ export class AssignCurriculumComponent implements OnInit {
     curriculum(curriculumValues:any){
         if(this.curriculumForm.valid){
             let clientCurriculum = new ClientCurriculumApi();
-            clientCurriculum.client = this.appointment.patient._id;
+            clientCurriculum.client = this.appointment.client._id;
             clientCurriculum.curriculum = this.selectedCurriculum._id;
             clientCurriculum.appointment = this.appointment._id;
             this.clientCurriculumService.create(clientCurriculum).subscribe(

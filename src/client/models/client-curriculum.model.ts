@@ -1,7 +1,7 @@
-import {Patient, Curriculum, Appointment} from '../models';
+import {Client, Curriculum, Appointment} from '../models';
 export class ClientCurriculum {
     _id: string;
-    client: Patient;
+    client: Client;
     curriculum: Curriculum;
     appointment: Appointment;
     completed: boolean;

@@ -3,7 +3,7 @@ export * from './global-error.service';
 export * from './authentication.service';
 export * from './user.service';
 export * from './alert.service';
-export * from './patient.service';
+export * from './client.service';
 export * from './professional.service';
 export * from './appointment.service';
 export * from './skill.service';
@@ -17,7 +17,7 @@ export * from './skill-data.service';
 export * from './route-reuse.strategy';
 
 //resolvers
-export * from './resolvers/patient-resolver.service';
+export * from './resolvers/client-resolver.service';
 export * from './resolvers/professional-resolver.service';
 export * from './resolvers/appointment-resolver-list.service';
 export * from './resolvers/appointment-resolver.service';

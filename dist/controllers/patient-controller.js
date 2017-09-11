@@ -25,11 +25,11 @@ var _constants2 = _interopRequireDefault(_constants);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
-* Load patient and append to req.
+* Load client and append to req.
 */
 function load(req, res, next, userId) {
-    _models.Patient.get(userId).then(function (patient) {
-        req.patient = patient;
+    _models.Client.get(userId).then(function (client) {
+        req.client = client;
         return next();
     }).catch(function (e) {
         return next(e);
@@ -37,24 +37,24 @@ function load(req, res, next, userId) {
 }
 
 /**
-* Get patient
-* @returns {Patient}
+* Get client
+* @returns {Client}
 */
 function get(req, res) {
-    return res.json(req.patient);
+    return res.json(req.client);
 }
 
 /**
-* Checks if user exists with same email as patient.  If not, it creates a new User with the email provided and a default password. Then creates the Patient to reside in the new user
-* @returns {Patient}
+* Checks if user exists with same email as client.  If not, it creates a new User with the email provided and a default password. Then creates the Client to reside in the new user
+* @returns {Client}
 */
 function create(req, res, next) {
-    _models.Patient.getByEmail(req.body.email).then(function (existingPatient) {
-        if (existingPatient) {
-            var err = new _APIError2.default('Error: Patient Already Exists', _httpStatus2.default.FORBIDDEN, true);
+    _models.Client.getByEmail(req.body.email).then(function (existingClient) {
+        if (existingClient) {
+            var err = new _APIError2.default('Error: Client Already Exists', _httpStatus2.default.FORBIDDEN, true);
             return next(err);
         } else {
-            var patient = new _models.Patient({
+            var client = new _models.Client({
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
@@ -62,26 +62,26 @@ function create(req, res, next) {
                 sex: req.body.sex,
                 insurance: req.body.insurance,
                 status: 1
-            }).save().then(function (savedPatient) {
-                //asynchronously add patient to current professional
-                _models.Professional.findOneAndUpdate({ email: req.locals.sessionUserEmail }, { $push: { patients: savedPatient } }, function (err, result) {});
+            }).save().then(function (savedClient) {
+                //asynchronously add client to current professional
+                _models.Professional.findOneAndUpdate({ email: req.locals.sessionUserEmail }, { $push: { clients: savedClient } }, function (err, result) {});
 
                 //check if user already exists
                 _models.User.getByEmail(req.body.email).then(function (existingUser) {
                     if (existingUser && existingUser.length > 0) {
-                        existingUser.patient = savedPatient._id;
+                        existingUser.client = savedClient._id;
                         existingUser.update().then(function (savedUser) {
-                            return res.json(savedPatient);
+                            return res.json(savedClient);
                         });
                     } else {
-                        //create new user.  Attach patient
+                        //create new user.  Attach client
                         var user = new _models.User({
                             role: _constants2.default.roles.Client,
                             email: req.body.email,
                             password: _constants2.default.defaultPassword,
-                            patient: savedPatient._id
+                            client: savedClient._id
                         }).save().then(function (savedUser) {
-                            return res.json(savedPatient);
+                            return res.json(savedClient);
                         }).catch(function (e) {
                             return next(e);
                         });
@@ -99,32 +99,32 @@ function create(req, res, next) {
 }
 
 /**
-* Update existing patient
-* @property {string} req.body.email - The email of patient.
-* @returns {Patient}
+* Update existing client
+* @property {string} req.body.email - The email of client.
+* @returns {Client}
 */
 function update(req, res, next) {
     //we may have to get user based off this.
-    var patient = req.patient;
-    patient.email = req.body.email;
-    patient.firstname = req.body.firstname;
-    patient.lastname = req.body.lastname;
-    patient.insurance = req.body.insurance;
-    patient.sex = req.body.sex;
-    patient.birth = req.body.birth;
+    var client = req.client;
+    client.email = req.body.email;
+    client.firstname = req.body.firstname;
+    client.lastname = req.body.lastname;
+    client.insurance = req.body.insurance;
+    client.sex = req.body.sex;
+    client.birth = req.body.birth;
 
-    patient.save().then(function (savedPatient) {
-        return res.json(savedPatient);
+    client.save().then(function (savedClient) {
+        return res.json(savedClient);
     }).catch(function (e) {
         return next(e);
     });
 }
 
 /**
-* Get patient list.
-* @property {number} req.query.skip - Number of patients to be skipped.
-* @property {number} req.query.limit - Limit number of patients to be returned.
-* @returns {Patient[]}
+* Get client list.
+* @property {number} req.query.skip - Number of clients to be skipped.
+* @property {number} req.query.limit - Limit number of clients to be returned.
+* @returns {Client[]}
 */
 function list(req, res, next) {
     var _req$query = req.query,
@@ -133,25 +133,25 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Patient.list({ limit: limit, skip: skip }).then(function (patients) {
-        return res.json(patients);
+    _models.Client.list({ limit: limit, skip: skip }).then(function (clients) {
+        return res.json(clients);
     }).catch(function (e) {
         return next(e);
     });
 }
 
 /**
-* Delete patient.
-* @returns {Patient}
+* Delete client.
+* @returns {Client}
 */
 function remove(req, res, next) {
-    var patient = req.patient;
-    patient.remove().then(function (deletedPatient) {
-        return res.json(deletedPatient);
+    var client = req.client;
+    client.remove().then(function (deletedClient) {
+        return res.json(deletedClient);
     }).catch(function (e) {
         return next(e);
     });
 }
 
 exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove };
-//# sourceMappingURL=patient-controller.js.map
+//# sourceMappingURL=client-controller.js.map

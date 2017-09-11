@@ -3,6 +3,6 @@ export class AppointmentApi {
     startDate: Date;
     endDate: Date;
     professional: string;
-    patient: string;
+    client: string;
     location: string;
 }

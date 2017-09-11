@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import {User, Professional} from '../models';
+import AuthCtrl from './auth-controller';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import config from '../config';
@@ -46,7 +47,7 @@ function create(req, res, next) {
         } else {
             user.save()
             .then(savedUser => {
-                if(savedUser.role == constants.roles.Professional){
+                if(savedUser.role == constants.roles.Professional || savedUser.role == constants.roles.Admin){
                     //create the professional asynchronously
                     const professional = new Professional({
                         email: req.body.email,
@@ -54,17 +55,25 @@ function create(req, res, next) {
                     }).save().then(savedProfessional =>{
                         savedUser.professional = savedProfessional;
                         savedUser.save();
+                        //log user in
+                        let authToken = AuthCtrl.createToken(savedUser);
+                        return res.json(authToken);
                     });
                 }
-                //log user in
-                const token = jwt.sign({
-                  email: savedUser.email
-                }, config.jwtSecret);
-                return res.json({
-                  token,
-                  email: savedUser.email,
-                  role: savedUser.role
-                });
+                else{
+                    //create the professional asynchronously
+                    const client = new Client({
+                        email: req.body.email,
+                        status: 1
+                    }).save().then(savedClient =>{
+                        savedUser.client = savedClient;
+                        savedUser.save();
+                        //log user in
+                        let authToken = AuthCtrl.createToken(savedUser);
+                        return res.json(authToken);
+                    });
+                    
+                }
             })
             .catch(e => next(e));
         }
