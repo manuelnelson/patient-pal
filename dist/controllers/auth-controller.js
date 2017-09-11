@@ -50,16 +50,8 @@ function login(req, res, next) {
                 var _err3 = new _APIError2.default('Authentication error: Invalid Credentials ', _httpStatus2.default.UNAUTHORIZED, true);
                 return next(_err3);
             }
-            var token = _jsonwebtoken2.default.sign({
-                email: existingUser.email
-            }, _config2.default.jwtSecret);
-            var id = existingUser.professional ? existingUser.professional : existingUser.client;
-            return res.json({
-                _id: id,
-                token: token,
-                email: existingUser.email,
-                role: existingUser.role
-            });
+            var authToken = createToken(existingUser);
+            return res.json(authToken);
         });
     }).catch(function (e) {
         return next(e);
@@ -102,6 +94,20 @@ function verifyToken(req, res, next) {
     next();
 }
 
+// creates the token from a user
+function createToken(user) {
+    var token = _jsonwebtoken2.default.sign({
+        email: user.email
+    }, _config2.default.jwtSecret);
+    var person = user.professional ? user.professional : user.client;
+    return {
+        _id: person._id,
+        token: token,
+        email: user.email,
+        role: user.role
+    };
+}
+
 /**
 * This is a protected route. Will return random number only if jwt token is provided in header.
 * @param req
@@ -115,6 +121,6 @@ function getRandomNumber(req, res) {
         num: Math.random() * 100
     });
 }
-var AuthCtrl = { login: login, getRandomNumber: getRandomNumber, verifyToken: verifyToken, updatePassword: updatePassword };
+var AuthCtrl = { login: login, getRandomNumber: getRandomNumber, verifyToken: verifyToken, updatePassword: updatePassword, createToken: createToken };
 exports.default = AuthCtrl;
 //# sourceMappingURL=auth-controller.js.map

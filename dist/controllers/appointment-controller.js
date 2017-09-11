@@ -18,6 +18,10 @@ var _constants = require('../lib/constants');
 
 var _constants2 = _interopRequireDefault(_constants);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -57,7 +61,7 @@ function create(req, res, next) {
 * @returns {Appointment}
 */
 function update(req, res, next) {
-    let appointment = req.appointment;
+    var appointment = req.appointment;
     for (var prop in req.appointment) {
         appointment[prop] = req.appointment[prop];
     }
@@ -77,15 +81,41 @@ function update(req, res, next) {
 function list(req, res, next) {
     var _req$query = req.query,
         _req$query$limit = _req$query.limit,
-        limit = _req$query$limit === undefined ? 20 : _req$query$limit,
+        limit = _req$query$limit === undefined ? 10 : _req$query$limit,
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Appointment.list({ limit: limit, skip: skip }).then(function (appointments) {
+    delete req.query.limit;
+    delete req.query.skip;
+    var query = _models.Appointment;
+    query = buildQuery(req, query);
+    return query.skip(parseInt(skip)).limit(parseInt(limit)).populate('client professional').sort('startDate').then(function (appointments) {
         return res.json(appointments);
     }).catch(function (e) {
         return next(e);
     });
+}
+
+//list of fields that are relationships of type many
+var dateKeys = ['startDate', 'endDate'];
+
+//builds a query for 
+function buildQuery(req, query) {
+    if (Object.keys(req.query).length === 0) return query.find();
+    //otherwise it runs it as an OR statement
+    var seriesObj = {};
+    for (var key in req.query) {
+        var obj = {};
+        if (_lodash2.default.indexOf(dateKeys, key) > -1) {
+            if (key == 'startDate') obj[key] = { $gt: req.query[key] };
+            if (key == 'endDate') obj[key] = { $lt: req.query[key] };
+            query = query.find(obj);
+        } else {
+            seriesObj[key] = req.query[key];
+        }
+    }
+    if (Object.keys(seriesObj).length > 0) query = query.find(seriesObj);
+    return query;
 }
 
 /**

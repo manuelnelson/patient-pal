@@ -30,7 +30,7 @@ var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ProfessionalSchema = new _mongoose2.default.Schema({
+var ClientSchema = new _mongoose2.default.Schema({
     email: {
         type: String,
         required: true,
@@ -43,10 +43,15 @@ var ProfessionalSchema = new _mongoose2.default.Schema({
     lastname: {
         type: String
     },
-    title: {
+    birth: {
+        type: Date
+    },
+    sex: {
         type: String
     },
-    clients: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Client' }],
+    insurance: {
+        type: String
+    },
     //1 = active, 0 = disabled or disactive
     status: {
         type: Boolean
@@ -60,43 +65,45 @@ var ProfessionalSchema = new _mongoose2.default.Schema({
 /**
 * Statics
 */
-ProfessionalSchema.statics = {
+ClientSchema.statics = {
     /**
-    * Get Professional
-    * @param {ObjectId} email - The email of Professional.
-    * @returns {Promise<Professional, APIError>}
+    * Get Client
+    * @param {ObjectId} id - The objectId of Client.
+    * @returns {Promise<Client, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).populate('clients').exec().then(function (Professional) {
-            if (Professional) {
-                return Professional;
+        return this.findById(id).exec().then(function (Client) {
+            if (Client) {
+                return Client;
             }
-            var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
-            return _bluebird2.default.reject(err);
+            return null;
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 
     /**
-    * Get Professional by Email
-    * @param {string} email - The email of Professional.
-    * @returns {Promise<Professional, APIError>}
+    * Get Client by Email
+    * @param {string} email - The email of Client.
+    * @returns {Promise<Client, APIError>}
     */
     getByEmail: function getByEmail(email) {
-        return this.findOne({ email: email }).populate('clients').exec().then(function (Professional) {
-            if (Professional) {
-                return Professional;
+        return this.findOne({ email: email }).exec().then(function (Client) {
+            if (Client) {
+                return Client;
             }
-            var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
-            return _bluebird2.default.reject(err);
+            return null;
+            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 
 
     /**
-    * List Professionals in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of Professionals to be skipped.
-    * @param {number} limit - Limit number of Professionals to be returned.
-    * @returns {Promise<Professional[]>}
+    * List Clients in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of Clients to be skipped.
+    * @param {number} limit - Limit number of Clients to be returned.
+    * @returns {Promise<Client[]>}
     */
     list: function list() {
         var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -109,5 +116,5 @@ ProfessionalSchema.statics = {
     }
 };
 
-exports.default = _mongoose2.default.model('Professional', ProfessionalSchema);
-//# sourceMappingURL=professional.js.map
+exports.default = _mongoose2.default.model('Client', ClientSchema);
+//# sourceMappingURL=client.js.map

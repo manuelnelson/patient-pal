@@ -71,6 +71,27 @@ var UserSchema = new _mongoose2.default.Schema({
     }
 });
 
+//Delete hooks - will remove associated entities 
+UserSchema.pre('remove', function (next) {
+    var that = this;
+    if (that.professional) {
+        _professional2.default.get(that.professional).then(function (prof) {
+            prof.remove(prof._id);
+            next();
+        }).catch(function (e) {
+            return next(e);
+        });
+    }
+    if (that.client) {
+        _client2.default.get(that.client).then(function (client) {
+            client.remove(client._id);
+            next();
+        }).catch(function (e) {
+            return next(e);
+        });
+    }
+});
+
 /* the callback function (2nd parameter below) accepts a parameter which we
 are calling "next". This is ALSO a callback function that needs to be executed
 when we would like to move on from this pre-save hook. If we do not invoke the
@@ -122,7 +143,7 @@ UserSchema.statics = {
     * @returns {Promise<User, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).exec().then(function (user) {
+        return this.findById(id).populate('professional client').exec().then(function (user) {
             if (user) {
                 return user;
             }
@@ -141,6 +162,7 @@ UserSchema.statics = {
     getByEmail: function getByEmail(email, includePassword) {
         var query = this.findOne({ email: email });
         if (includePassword) query = query.select('+password');
+        query = query.populate('professional client');
         return query.exec().then(function (user) {
             if (user) {
                 return user;

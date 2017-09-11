@@ -24,26 +24,26 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/users - Get list of users */
-.get(_controllers.ProfessionalCtrl.list);
+.get(_controllers.ClientCtrl.list)
 
 /** POST /api/users - Create new user */
-//new professionals only created through user controller.
-//.post(AuthCtrl.verifyToken,ProfessionalCtrl.create);
-// .post(validate(paramValidation.createUser), ProfessionalCtrl.create);
+.post(_controllers.AuthCtrl.verifyToken, _controllers.ClientCtrl.create);
+// .post(validate(paramValidation.createUser), ClientCtrl.create);
 
 router.route('/:userId')
-/** GET /api/users/:email - Get user */
-.get(_controllers.ProfessionalCtrl.get)
+/** GET /api/users/:userId - Get user */
+.get(_controllers.ClientCtrl.get)
 
 /** PUT /api/users/:userId - Update user */
-.put(_controllers.ProfessionalCtrl.update)
+.put(_controllers.ClientCtrl.update)
 
-/** DELETE /api/users/:email - Delete user */
-.delete(_controllers.ProfessionalCtrl.remove);
+/** DELETE /api/users/:userId - Delete user */
+.delete(_controllers.ClientCtrl.remove);
 
-router.route('/:userId/appointments').get(_controllers.ProfessionalCtrl.getAppointments);
+router.route('/:userId/appointments').get(_controllers.ClientCtrl.getAppointments);
+
 /** Load user when API with userId route parameter is hit */
-router.param('userId', _controllers.ProfessionalCtrl.load);
+router.param('userId', _controllers.ClientCtrl.load);
 
 exports.default = router;
-//# sourceMappingURL=professional-routes.js.map
+//# sourceMappingURL=client-routes.js.map

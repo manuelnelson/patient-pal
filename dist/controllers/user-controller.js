@@ -10,6 +10,10 @@ var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 var _models = require('../models');
 
+var _authController = require('./auth-controller');
+
+var _authController2 = _interopRequireDefault(_authController);
+
 var _APIError = require('../lib/APIError');
 
 var _APIError2 = _interopRequireDefault(_APIError);
@@ -66,7 +70,7 @@ function create(req, res, next) {
             return next(err);
         } else {
             user.save().then(function (savedUser) {
-                if (savedUser.role == _constants2.default.roles.Professional) {
+                if (savedUser.role == _constants2.default.roles.Professional || savedUser.role == _constants2.default.roles.Admin) {
                     //create the professional asynchronously
                     var professional = new _models.Professional({
                         email: req.body.email,
@@ -74,17 +78,23 @@ function create(req, res, next) {
                     }).save().then(function (savedProfessional) {
                         savedUser.professional = savedProfessional;
                         savedUser.save();
+                        //log user in
+                        var authToken = _authController2.default.createToken(savedUser);
+                        return res.json(authToken);
+                    });
+                } else {
+                    //create the professional asynchronously
+                    var client = new Client({
+                        email: req.body.email,
+                        status: 1
+                    }).save().then(function (savedClient) {
+                        savedUser.client = savedClient;
+                        savedUser.save();
+                        //log user in
+                        var authToken = _authController2.default.createToken(savedUser);
+                        return res.json(authToken);
                     });
                 }
-                //log user in
-                var token = _jsonwebtoken2.default.sign({
-                    email: savedUser.email
-                }, _config2.default.jwtSecret);
-                return res.json({
-                    token: token,
-                    email: savedUser.email,
-                    role: savedUser.role
-                });
             }).catch(function (e) {
                 return next(e);
             });
