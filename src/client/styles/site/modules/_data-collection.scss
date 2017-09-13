@@ -22,6 +22,14 @@
                 font-weight: bold;
             }
         }
+        .skill-interval{
+            &:before{
+                content: "Interval:";
+                margin-right: px-to-rem(4px);
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
         .skill-stimulus{
             &:before{
                 content: "Stimulus:";

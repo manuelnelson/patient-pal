@@ -18,11 +18,9 @@ let docArray = [
     "Echoic",
     "Fluency/Rate",
     "Frequency",
-    "Jump To",
     "Quantity",
     "Task Analysis",
-    "Toileting",
-    "Whole/Partial Interval",
+    "Whole/Partial Interval"
 ]
 function run(targets) {
     let promiseArray = [];

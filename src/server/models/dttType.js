@@ -45,7 +45,7 @@ dttTypeSchema.statics = {
     */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
-        .sort({ createdAt: -1 })
+        .sort('name')
         .skip(skip)
         .limit(limit)
         .exec();

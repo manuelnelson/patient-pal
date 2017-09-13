@@ -39,7 +39,7 @@ const routes: Routes = [
             },
             {
                 path: 'curriculums',
-                component: CurriculumsComponent,
+                component: CurriculumsComponent, 
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
                     { path: 'list', pathMatch: 'full', component: CurriculumListComponent, resolve: {curriculums:CurriculumListResolver}},

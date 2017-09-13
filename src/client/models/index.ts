@@ -19,3 +19,4 @@ export * from './curriculum.model';
 export * from './client-curriculum.model';
 export * from './skill-data.model';
 export * from './task-step.model';
+export * from './timer.model';

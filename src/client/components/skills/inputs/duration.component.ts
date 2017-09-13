@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Skill, ClientCurriculum, SkillDataApi, DttType } from '../../../models';
-import { SkillDataService, AlertService } from '../../../services';
+import { Skill, ClientCurriculum, SkillDataApi, DttType, Timer } from '../../../models';
+import { SkillDataService, AlertService, TimerService } from '../../../services';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, Subscription } from 'rxjs/Rx';
@@ -17,15 +17,16 @@ export class DurationComponent implements OnInit{
     @Output() goToSkillList =  new EventEmitter<boolean>();
     
     trialNumber: number;
-    stopped: boolean = true;
-    timerValue: number = 0;
-    timer = Observable.timer(0,1000);
-    timerSubscription: Subscription;
-    constructor(private skillDataService: SkillDataService, private router: Router, private alertService: AlertService){
+    timer: Timer;
+    constructor(private skillDataService: SkillDataService, private router: Router, private alertService: AlertService, private timerService: TimerService){
     }
 
     ngOnInit(){
-    this.skillDataService.getLatest(this.skill._id, this.clientCurriculum._id)
+        this.timer = this.timerService.getTimer(this.skill._id);
+        if(!this.timer){
+            this.timer = this.timerService.addTimer(this.skill._id);            
+        }
+        this.skillDataService.getLatest(this.skill._id, this.clientCurriculum._id)
             .subscribe(skillData => {
                 if(skillData == null)
                     this.trialNumber = 1;
@@ -38,25 +39,23 @@ export class DurationComponent implements OnInit{
     }
 
     save(){
-        let skillData = this.skillDataService.buildApiModel(this.skill._id, this.clientCurriculum._id,this.trialNumber,null,null, '', this.timerValue);
+        let skillData = this.skillDataService.buildApiModel(this.skill._id, this.clientCurriculum._id,this.trialNumber,null,null, '', this.timer.totalValue);
         this.skillDataService.create(skillData)
             .subscribe(skill => {
                 //increase trial number
                 this.trialNumber++;
-                this.timerValue = 0;
+                this.timer.clear();
                 this.checkMaximum();
             })
     }
     start(){
-        this.stopped = false;
-        this.timerSubscription = this.timer.subscribe(t=>this.timerValue = t)
+        this.timer.start();
     }
     stop(){
-        this.stopped = true;
-        this.timerSubscription.unsubscribe();
+        this.timer.stop();
     }
     clear(){
-        this.timerValue = 0;
+        this.timer.clear();
     }
     //check if we hit max trials
     checkMaximum(){       
@@ -66,9 +65,8 @@ export class DurationComponent implements OnInit{
             this.skillList();
         }
     }
-
     canSave(){
-        return this.stopped && this.timerValue > 0;
+        return this.timer.stopped && this.timer.totalValue > 0;
     }
     //send event to let know to move to next skill
     nextSkill(){

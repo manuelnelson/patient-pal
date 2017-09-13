@@ -1,8 +1,17 @@
 <div class="form">
     <div class="counter">
+        <span class="timer">
+            {{timer?.totalValue | clockFormat}}                 
+        </span>
+        <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="start()">Start</button>
+        <button class="btn btn-primary" *ngIf="!timer?.stopped" (click)="stop()">Stop</button>
+        <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="clear()">Clear</button>
+
+        <span class="task-complete" (click)="toggle()" [ngClass]="{completed: completed}"></span>            
+<!--         
         <span>{{counter}}</span>
-        <button class="btn btn-primary" [disabled]="stopped" (click)="increment()">&#43;</button>
         <button class="btn btn-primary" [disabled]="stopped" (click)="decrement()">&#8722;</button>
+        <button class="btn btn-primary" [disabled]="stopped" (click)="increment()">&#43;</button> -->
     </div>
 </div>
 <div class="skill-details">

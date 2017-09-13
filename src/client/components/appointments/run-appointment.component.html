@@ -11,7 +11,7 @@
         </anecdotal-component>
         <dtt-component [skill]="currentSkill" [dttTypes]="dttTypes" [clientCurriculum]="clientCurriculum" (goToNextSkill)="nextSkill($event)" (goToSkillList)="skillList($event)" *ngIf="isTargetType('dtt')" class="skill-input dtt">
         </dtt-component>
-        <duration-component [skill]="currentSkill" [clientCurriculum]="clientCurriculum" (goToNextSkill)="nextSkill($event)" (goToSkillList)="skillList($event)" *ngIf="isTargetType('duration')" class="skill-input duration">
+        <duration-component [skill]="currentSkill" [clientCurriculum]="clientCurriculum" (goToNextSkill)="nextSkill($event)" (goToSkillList)="skillList($event)" [hidden]="!isTargetType('duration')" class="skill-input duration">
 
         </duration-component>
         <echoic-component [skill]="currentSkill" [clientCurriculum]="clientCurriculum" (goToNextSkill)="nextSkill($event)" (goToSkillList)="skillList($event)" *ngIf="isTargetType('echoic')" class="skill-input echoic">

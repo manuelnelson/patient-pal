@@ -74,7 +74,7 @@ dttTypeSchema.statics = {
             _ref$limit = _ref.limit,
             limit = _ref$limit === undefined ? 50 : _ref$limit;
 
-        return this.find().sort({ createdAt: -1 }).skip(skip).limit(limit).exec();
+        return this.find().sort('name').skip(skip).limit(limit).exec();
     }
 };
 

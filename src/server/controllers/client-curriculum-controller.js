@@ -70,7 +70,7 @@ function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
     delete req.query.limit;
     delete req.query.skip;
-    ClientCurriculum.list({ limit, skip, query: req.query })
+    ClientCurriculum.list({ limit, skip, query: req.query }) 
     .then(clientCurriculums => res.json(clientCurriculums))
     .catch(e => next(e));
 }

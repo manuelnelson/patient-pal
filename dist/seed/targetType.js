@@ -17,7 +17,7 @@ function insert(name) {
         return newTargetType;
     });
 }
-var docArray = ["Anecdotal", "DTT", "Duration", "Echoic", "Fluency/Rate", "Frequency", "Jump To", "Quantity", "Task Analysis", "Toileting", "Whole/Partial Interval"];
+var docArray = ["Anecdotal", "DTT", "Duration", "Echoic", "Fluency/Rate", "Frequency", "Quantity", "Task Analysis", "Whole/Partial Interval"];
 function run(targets) {
     var promiseArray = [];
     if (targets.length == 0) {

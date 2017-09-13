@@ -1,5 +1,14 @@
 <div class="form">
-    <div class="completed">
+    <div class="counter">
+        <span class="timer">
+            {{timer?.countdownValue | clockFormat}}                 
+        </span>
+        <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="start()">Start</button>
+        <button class="btn btn-primary" *ngIf="!timer?.stopped" (click)="stop()">Stop</button>
+        <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="clear()">Clear</button>
+
+        <span class="task-complete" (click)="toggle()" *ngIf="!timer?.stopped" [ngClass]="{completed: completed}"></span>            
+
     </div>
 </div>
 <div class="skill-details">
@@ -8,6 +17,9 @@
     </span>
     <span class="skill-goals" *ngIf="skill.goalName">
         {{skill.goalName}}
+    </span>
+    <span class="skill-interval" *ngIf="skill.interval">
+            {{skill.interval}} seconds
     </span>
     <span class="skill-stimulus" *ngIf="skill.stimulus">
         {{skill.stimulus}}

@@ -12,6 +12,7 @@ export * from './dtt-type.service';
 export * from './curriculum.service';
 export * from './client-curriculum.service';
 export * from './skill-data.service'; 
+export * from './timer.service'; 
 
 //strategies
 export * from './route-reuse.strategy';

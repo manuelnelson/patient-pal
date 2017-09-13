@@ -1,10 +1,10 @@
 <div class="form">
     <span class="timer">
-            {{timerValue | clockFormat}}                
+            {{timer?.totalValue | clockFormat}}                
     </span>
-    <button class="btn btn-primary" *ngIf="stopped" (click)="start()">Start</button>
-    <button class="btn btn-primary" *ngIf="!stopped" (click)="stop()">Stop</button>
-    <button class="btn btn-primary" *ngIf="stopped" (click)="clear()">Clear</button>
+    <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="start()">Start</button>
+    <button class="btn btn-primary" *ngIf="!timer?.stopped" (click)="stop()">Stop</button>
+    <button class="btn btn-primary" *ngIf="timer?.stopped" (click)="clear()">Clear</button>
 </div>
 <div class="skill-details">
     <span class="skill-trial" >
