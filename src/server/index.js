@@ -16,8 +16,20 @@ import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import APIError from './lib/APIError';
+import fs from 'fs';
+import routes from './routes';
 
 let app = express();
+
+// import handlebars  from 'express-handlebars';
+// let hbs = handlebars.create({
+//     defaultLayout: 'main',
+// 	extname: '.hbs', 
+// 	layoutsDir: path.join(__dirname, 'views/layouts/')
+// });
+// app.set('views', path.join(__dirname, 'views/'));
+// app.set('view engine', '.hbs');
+// app.engine('.hbs', hbs.engine);
 
 // connect to db
 initializeDb( db => {
@@ -60,8 +72,10 @@ initializeDb( db => {
 
 	// api router
 	app.use('/api', api({ config, db }));
+
+    app.get('/server/reports', routes.reports);
 	
-	// api router
+	// serve index page for spa
 	app.use('/', express.static('/index.html'));
 
 	// if error is not an instanceOf APIError, convert it.

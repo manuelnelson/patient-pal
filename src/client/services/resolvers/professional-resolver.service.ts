@@ -8,6 +8,6 @@ export class ProfessionalResolver implements Resolve<Professional> {
     constructor(private professionalService: ProfessionalService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Professional> {
         let id = this.authService.getLoggedInUser()._id;
-        return this.professionalService.get(id).map(professional => professional).toPromise();
+        return this.professionalService.get(id).map(professional => professional).toPromise(); 
     }
 }

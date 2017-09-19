@@ -8,6 +8,7 @@
         background-color: $color-light-gray;
         padding: 40px;
         border-radius: 10px;
+        box-sizing: border-box;
     }
     .form-input{
         width: calc(50% - #{$form-padding});

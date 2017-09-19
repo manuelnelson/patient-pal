@@ -53,3 +53,5 @@ export * from './curriculums/curriculum-list.component';
 export * from './curriculums/select-curriculum-list.component';
 export * from './curriculums/create-curriculum.component';
 export * from './curriculums/assign-curriculum.component';
+
+export * from './reports/default.component';

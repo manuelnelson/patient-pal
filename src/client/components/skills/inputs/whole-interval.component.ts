@@ -51,7 +51,7 @@ export class WholeIntervalComponent implements OnInit{
             .subscribe(skill => {
                 //increase trial number
                 this.trialNumber++;
-                this.counter = 0;
+                this.clear();
                 this.checkMaximum();
             })
     }

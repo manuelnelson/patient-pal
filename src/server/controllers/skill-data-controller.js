@@ -1,6 +1,7 @@
-import {SkillData} from '../models';
+import {SkillData, ClientCurriculum} from '../models';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
+import _ from 'lodash';
 import Constants from '../lib/constants';
 /**
 * Load skillData and append to req.
@@ -19,7 +20,7 @@ function load(req, res, next, id) {
 * @returns {SkillData}
 */
 function get(req, res) {
-    return res.json(req.skillData);
+    return (req.skillData);
 }
 
 /**
@@ -29,7 +30,7 @@ function get(req, res) {
 function create(req, res, next) {
     const skillData = new SkillData(req.body)
         .save()
-        .then(savedSkillData => res.json(savedSkillData))
+        .then(savedSkillData => (savedSkillData))
         .catch(e => next(e));
 }
 
@@ -43,9 +44,11 @@ function update(req, res, next) {
         skillData[prop] = req.skillData[prop];
     }
     skillData.save()
-    .then(savedSkillData => res.json(savedSkillData))
+    .then(savedSkillData => (savedSkillData))
     .catch(e => next(e));
 }
+let dateKeys = ['startDate', 'endDate'];
+let clientCurriculumKeys = ['client'];
 
 /**
 * Get skillData list.
@@ -57,12 +60,86 @@ function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
     delete req.query.limit;
     delete req.query.skip;
-    SkillData.list({ limit, skip, query: req.query })
-    .then(skillDatas => res.json(skillDatas))
-    .catch(e => next(e));
-
-    //SkillData.list({ limit, skip })
+    let query = SkillData;
+    query = buildQuery(req, query);
+    return query.populate('skill')
+        .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+        .sort({ trialNumber: -1 })
+        .skip(parseInt(skip)).limit(parseInt(limit))
+        .exec()
+        .then(skillDatas => skillDatas)
+        .catch(e => next(e));
 }
+
+//this query is specific enough i want to separate it out from rest of traditional REST responses
+function listReport(req, res, next){
+    const { limit = 20, skip = 0 } = req.query;
+    delete req.query.limit;
+    delete req.query.skip;
+    //if we are searching by client, we need to do a nested query by client curriculum
+    let clientId = req.query.client ? req.query.client : null;
+    delete req.query.client;
+
+    let query = SkillData;
+    let queryArray = buildQueryObj(req, query);
+    return ClientCurriculum.find({client: clientId}).exec()
+        .then(clientCurriculums => {
+            let ids = clientCurriculums.map(curriculum => curriculum._id);  
+            queryArray.push({clientCurriculum: {$in: ids}});
+            query = query.find({$and: queryArray});
+            console.log(queryArray)
+            return query.populate('skill')
+                .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+                .sort({ trialNumber: -1 })
+                .skip(parseInt(skip)).limit(parseInt(limit))
+                .exec()
+                .then(skillDatas => skillDatas)
+                .catch(e => next(e));
+        })        
+}
+
+//list of fields that are relationships of type many
+//builds a query for 
+function buildQueryObj(req, query){
+    if(Object.keys(req.query).length === 0)
+        return [];
+    let array = [];
+    for(let key in req.query){
+        if(_.indexOf(dateKeys, key) > -1){
+            if(key == 'startDate'){
+                array.push({createdAt: {$gt: req.query[key]}});
+            }                
+            if(key == 'endDate')
+                array.push({createdAt: {$lt: req.query[key]}});
+        } 
+        else{
+            let obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
+        }
+    }
+    return array;
+}
+
+//builds a query for 
+function buildQuery(req, query){
+    if(Object.keys(req.query).length === 0)
+        return query.find();
+    for(let key in req.query){
+        let obj = {};
+        if(_.indexOf(dateKeys, key) > -1){
+            if(key == 'startDate')
+                obj[key] = {$gt: req.query[key]};
+            if(key == 'endDate')
+                obj[key] = {$lt: req.query[key]};
+            query = query.find(obj);    
+        } else{
+            obj[key] = req.query[key];
+        }
+    }    
+    return query.find(obj);
+}
+
 
 /**
 * Delete skillData.
@@ -71,8 +148,8 @@ function list(req, res, next) {
 function remove(req, res, next) {
     const skillData = req.skillData;
     skillData.remove()
-    .then(deletedSkillData => res.json(deletedSkillData))
+    .then(deletedSkillData => (deletedSkillData))
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, listReport };

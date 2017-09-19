@@ -10,7 +10,8 @@ module.exports = function(env) {
             port: 9000,
             historyApiFallback: true,
             proxy: {
-              "/api": "http://localhost:3000" // proxy all api calls to proper dev port
+              "/api": "http://localhost:3000",
+              "/server": "http://localhost:3000" // proxy all api calls to proper dev port
             }
         },
         devtool: 'source-map'

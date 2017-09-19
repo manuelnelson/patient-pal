@@ -80,25 +80,6 @@ skillResultSchema.statics = {
             // const err = new APIError('No such skillResult exists!', httpStatus.NOT_FOUND);
             // return Promise.reject(err);
         });
-    },
-
-
-    /**
-    * List skillResults in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of skillResults to be skipped.
-    * @param {number} limit - Limit number of skillResults to be returned.
-    * @returns {Promise<skillResult[]>}
-    */
-    //    list({ skip = 0, limit = 50 } = {}) {
-    list: function list() {
-        var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-            _ref$skip = _ref.skip,
-            skip = _ref$skip === undefined ? 0 : _ref$skip,
-            _ref$limit = _ref.limit,
-            limit = _ref$limit === undefined ? 50 : _ref$limit,
-            query = _ref.query;
-
-        return this.find(query).populate('skill').sort({ trialNumber: -1 }).skip(skip).limit(limit).exec();
     }
 };
 

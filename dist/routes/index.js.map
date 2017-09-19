@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/server/routes/index.js"],"names":["reports"],"mappings":";;;;;;AAAA;;;;;;kBAEe;AACXA;AADW,C","file":"index.js","sourcesContent":["import reports from './reports';\r\n\r\nexport default {\r\n    reports: reports\r\n}"]}

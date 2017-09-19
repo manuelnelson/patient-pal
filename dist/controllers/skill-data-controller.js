@@ -14,6 +14,10 @@ var _httpStatus = require('http-status');
 
 var _httpStatus2 = _interopRequireDefault(_httpStatus);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _constants = require('../lib/constants');
 
 var _constants2 = _interopRequireDefault(_constants);
@@ -37,7 +41,7 @@ function load(req, res, next, id) {
 * @returns {SkillData}
 */
 function get(req, res) {
-    return res.json(req.skillData);
+    return req.skillData;
 }
 
 /**
@@ -46,7 +50,7 @@ function get(req, res) {
 */
 function create(req, res, next) {
     var skillData = new _models.SkillData(req.body).save().then(function (savedSkillData) {
-        return res.json(savedSkillData);
+        return savedSkillData;
     }).catch(function (e) {
         return next(e);
     });
@@ -62,11 +66,13 @@ function update(req, res, next) {
         skillData[prop] = req.skillData[prop];
     }
     skillData.save().then(function (savedSkillData) {
-        return res.json(savedSkillData);
+        return savedSkillData;
     }).catch(function (e) {
         return next(e);
     });
 }
+var dateKeys = ['startDate', 'endDate'];
+var clientCurriculumKeys = ['client'];
 
 /**
 * Get skillData list.
@@ -83,13 +89,80 @@ function list(req, res, next) {
 
     delete req.query.limit;
     delete req.query.skip;
-    _models.SkillData.list({ limit: limit, skip: skip, query: req.query }).then(function (skillDatas) {
-        return res.json(skillDatas);
+    var query = _models.SkillData;
+    query = buildQuery(req, query);
+    return query.populate('skill').populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillDatas) {
+        return skillDatas;
     }).catch(function (e) {
         return next(e);
     });
+}
 
-    //SkillData.list({ limit, skip })
+//this query is specific enough i want to separate it out from rest of traditional REST responses
+function listReport(req, res, next) {
+    var _req$query2 = req.query,
+        _req$query2$limit = _req$query2.limit,
+        limit = _req$query2$limit === undefined ? 20 : _req$query2$limit,
+        _req$query2$skip = _req$query2.skip,
+        skip = _req$query2$skip === undefined ? 0 : _req$query2$skip;
+
+    delete req.query.limit;
+    delete req.query.skip;
+    //if we are searching by client, we need to do a nested query by client curriculum
+    var clientId = req.query.client ? req.query.client : null;
+    delete req.query.client;
+
+    var query = _models.SkillData;
+    var queryArray = buildQueryObj(req, query);
+    return _models.ClientCurriculum.find({ client: clientId }).exec().then(function (clientCurriculums) {
+        var ids = clientCurriculums.map(function (curriculum) {
+            return curriculum._id;
+        });
+        queryArray.push({ clientCurriculum: { $in: ids } });
+        query = query.find({ $and: queryArray });
+        console.log(queryArray);
+        return query.populate('skill').populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillDatas) {
+            return skillDatas;
+        }).catch(function (e) {
+            return next(e);
+        });
+    });
+}
+
+//list of fields that are relationships of type many
+//builds a query for 
+function buildQueryObj(req, query) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        if (_lodash2.default.indexOf(dateKeys, key) > -1) {
+            if (key == 'startDate') {
+                array.push({ createdAt: { $gt: req.query[key] } });
+            }
+            if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        } else {
+            var _obj = {};
+            _obj[key] = req.query[key];
+            array.push(_obj);
+        }
+    }
+    return array;
+}
+
+//builds a query for 
+function buildQuery(req, query) {
+    if (Object.keys(req.query).length === 0) return query.find();
+    for (var key in req.query) {
+        var _obj2 = {};
+        if (_lodash2.default.indexOf(dateKeys, key) > -1) {
+            if (key == 'startDate') _obj2[key] = { $gt: req.query[key] };
+            if (key == 'endDate') _obj2[key] = { $lt: req.query[key] };
+            query = query.find(_obj2);
+        } else {
+            _obj2[key] = req.query[key];
+        }
+    }
+    return query.find(obj);
 }
 
 /**
@@ -99,11 +172,11 @@ function list(req, res, next) {
 function remove(req, res, next) {
     var skillData = req.skillData;
     skillData.remove().then(function (deletedSkillData) {
-        return res.json(deletedSkillData);
+        return deletedSkillData;
     }).catch(function (e) {
         return next(e);
     });
 }
 
-exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove };
+exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, listReport: listReport };
 //# sourceMappingURL=skill-data-controller.js.map

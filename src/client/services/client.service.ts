@@ -39,12 +39,13 @@ export class ClientService {
             });
     } 
 
-    list() {
+    list(query: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.apiEndpointUrl, options)
+        query = query && query.length > 0 ? '?' + query : ''; 
+        return this.http.get(this.apiEndpointUrl + query, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let clients = response.json() as Array<Client>;

@@ -26,7 +26,7 @@
             </div>
             <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.birth)}">
                 <label>Date of Birth<span *ngIf="invalidControl(clientForm.controls.birth)">Invalid Date</span></label>
-                <input type="text" formControlName="birth" placeholder="Date of Birth (MM/dd/yyyy)"/>
+                <input type="date" formControlName="birth" placeholder="Date of Birth (MM/dd/yyyy)"/>
             </div>
             <div class="form-input" [ngClass]="{'error':invalidControl(clientForm.controls.sex)}">
                 <label>Sex<span *ngIf="invalidControl(clientForm.controls.sex)">Invalid selection</span></label>

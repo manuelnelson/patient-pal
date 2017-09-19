@@ -63,7 +63,8 @@ module.exports = {
         new ExtractTextPlugin("site.css"),
         new CopyWebpackPlugin([
             // Copy directory contents to {output}/to/directory/
-            { from: './src/client/public' }
+            { from: './src/client/public' },
+            { from: './src/server/views' }
         ], {
             // By default, we only copy modified files during
             // a watch or webpack-dev-server build. Setting this

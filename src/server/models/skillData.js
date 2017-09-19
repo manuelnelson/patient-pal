@@ -66,14 +66,15 @@ skillResultSchema.statics = {
     * @returns {Promise<skillResult[]>}
     */
 //    list({ skip = 0, limit = 50 } = {}) {
-    list({ skip = 0, limit = 50, query } = {}) {
-        return this.find(query)
-        .populate('skill')
-        .sort({ trialNumber: -1 })
-        .skip(skip)
-        .limit(limit)
-        .exec();
-    }
+    // list({ skip = 0, limit = 50, query } = {}) {
+    //     return this.find(query)
+    //     .populate('skill')
+    //     .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+    //     .sort({ trialNumber: -1 })
+    //     .skip(skip)
+    //     .limit(limit)
+    //     .exec();
+    // }
 };
 
 

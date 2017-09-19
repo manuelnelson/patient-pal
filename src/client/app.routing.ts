@@ -8,7 +8,8 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     ClientsComponent, ReportsComponent, AddAppointmentComponent, AppointmentListComponent,
     SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
-    PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, ClientReportsComponent, ClientCalendarComponent
+    PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, 
+    ClientReportsComponent, ClientCalendarComponent, DefaultComponent
 
 } from './components';
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
@@ -47,7 +48,7 @@ const routes: Routes = [
                 ]
             },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver} },
-            { path: 'reports', component: ReportsComponent },
+            { path: 'reports', component: ReportsComponent, resolve: {professional: ProfessionalResolver} },
             {
                 path: 'appointments',
                 component: CalendarComponent,
@@ -92,6 +93,7 @@ const routes: Routes = [
             { path: 'client-curriculum/:clientCurriculumId/skill/:skillId', component: RunAppointmentComponent, pathMatch: 'full', resolve: {clientCurriculum: ClientCurriculumResolver, dttTypes: DttTypeResolver}}
         ]
     },
+    { path: 'reports',  component:DefaultComponent, pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
 ];
 

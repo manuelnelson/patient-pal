@@ -1,5 +1,35 @@
 <back-component></back-component>
-<div class="reports-list">
-    <h4>Your Generated Reports</h4>
-    <span class="no-reports">You currently have not generated any reports</span>
+<div class="reports-list form-module">
+    <h4>Generate Reports</h4>
+    <form class="form" [formGroup]="reportsForm" (ngSubmit)="generateReport(reportsForm.value)" novalidate>
+        <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.student)}">
+            <label>Select Student<span *ngIf="invalidControl(reportsForm.controls.student)">Invalid selection</span></label>
+            <select *ngIf="students" formControlName="student" required>
+                <option value="" disabled selected>Select Student</option>
+                <option *ngFor="let student of students" [value]="student._id">
+                    {{student.firstname}} {{student.lastname}}
+                </option>
+            </select>
+        </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.startDate)}">
+            <label>Start Date<span *ngIf="invalidControl(reportsForm.controls.startDate)">Start Date Required</span></label>
+            <input type="date" formControlName="startDate" placeholder="Start Date" required/>
+        </div>
+        <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.endDate)}">
+            <label>End Date<span *ngIf="invalidControl(reportsForm.controls.endDate)">End Date Required</span></label>
+            <input type="date" formControlName="endDate" placeholder="End Date"/>
+        </div>
+        <!-- <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.reportType)}">
+            <label>Report Type<span *ngIf="invalidControl(reportsForm.controls.reportType)">Invalid selection</span></label>
+            <select *ngIf="reportTypes" formControlName="reportType" required>
+                <option value="" disabled selected>Select Report Type</option>
+                <option *ngFor="let reportType of reportTypes" [value]="reportType._id">
+                    {{reportType.name}}
+                </option>
+            </select>
+        </div> -->
+        <div class="submit-input">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
 </div>

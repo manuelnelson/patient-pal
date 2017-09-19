@@ -76,9 +76,27 @@ var _APIError = require('./lib/APIError');
 
 var _APIError2 = _interopRequireDefault(_APIError);
 
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _routes = require('./routes');
+
+var _routes2 = _interopRequireDefault(_routes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
+
+// import handlebars  from 'express-handlebars';
+// let hbs = handlebars.create({
+//     defaultLayout: 'main',
+// 	extname: '.hbs', 
+// 	layoutsDir: path.join(__dirname, 'views/layouts/')
+// });
+// app.set('views', path.join(__dirname, 'views/'));
+// app.set('view engine', '.hbs');
+// app.engine('.hbs', hbs.engine);
 
 // connect to db
 (0, _db2.default)(function (db) {
@@ -122,7 +140,9 @@ var app = (0, _express2.default)();
 	// api router
 	app.use('/api', (0, _api2.default)({ config: _config2.default, db: db }));
 
-	// api router
+	app.get('/server/reports', _routes2.default.reports);
+
+	// serve index page for spa
 	app.use('/', _express2.default.static('/index.html'));
 
 	// if error is not an instanceOf APIError, convert it.
