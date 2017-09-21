@@ -1,0 +1,19 @@
+<back-component></back-component>
+<h4>{{administrator.organization.name}} Employees</h4>
+<div class="professionals-list">
+    <span *ngIf="!professionals || professionals.length == 0" class="no-professionals">You currently do not have any professionals assigned to you.</span>
+    <div class="professional-item" *ngFor="let professional of professionals">
+        <div class="professional-picture">
+            <img *ngIf="professional.img" src="{{professional.img.url}}" alt="professional.firstname" />
+            <div *ngIf="!professional.img" class="no-picture" ></div>
+        </div>
+        <div class="professional-info">
+            <!-- TODO: Rotue to professional -->
+            <span class="professional-name" *ngIf="professional.firstname">{{professional.firstname}} {{professional.lastname}}</span>
+            <span class="professional-name" *ngIf="!professional.firstname">No Name</span>
+            <span class="professional-title" *ngIf="professional.title">{{professional.title}}</span>
+            <!-- <a class="professional-edit" routerLink="/professionals/edit/{{professional._id}}">Edit</a> -->
+        </div>
+    </div>
+</div>
+<a class="btn btn-primary professional-add" routerLink="/professionals/add">Add professional</a>

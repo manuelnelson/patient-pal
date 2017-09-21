@@ -24,11 +24,11 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/users - Get list of users */
-.get(_controllers.ProfessionalCtrl.list);
+.get(_controllers.ProfessionalCtrl.list)
 
 /** POST /api/users - Create new user */
 //new professionals only created through user controller.
-//.post(AuthCtrl.verifyToken,ProfessionalCtrl.create);
+.post(_controllers.ProfessionalCtrl.create);
 // .post(validate(paramValidation.createUser), ProfessionalCtrl.create);
 
 router.route('/:userId')

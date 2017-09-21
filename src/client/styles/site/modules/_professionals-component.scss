@@ -1,0 +1,63 @@
+professionals-component{
+    width: (100% * 2 / 3);
+    font-size: px-to-rem(18px);
+    h4{
+        text-align: center;
+    }
+    .professional-list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    $item-width: 45%;
+    .professional-item {
+        display: inline-flex;
+        width: $item-width;
+        margin-right: (50% - $item-width);
+        margin-bottom: px-to-rem(20px);
+        background-color: $color-light-gray;
+    }
+    $width-spacing: 3%;
+    .professional-picture {
+        width: 30%;
+        display: inline-block;
+        //margin-right: $width-spacing;
+    }
+    $profile-picture-height: 120px;
+    .no-picture{
+        background-color: $color-green;
+        color: $color-white;
+        font-size: $profile-picture-height * .75;
+        text-align: center;
+        height: 100%;
+        @include font-icomoon($icon-user);
+        &:before{
+            margin-top: $profile-picture-height * .25;
+        }
+    }
+    a{
+        display: block;
+    }
+    .professional-info{
+        padding: px-to-rem(10px);
+    }
+    .professional-name {
+        display: block;
+        font-weight: bold; 
+    }
+    .professional-title{
+        display: block;
+    }
+    .professional-add{
+        margin-top: px-to-rem(30px);
+    }
+    @include bp-max($bp-between){
+        width: 100%;
+    }
+    @include bp-max($bp-mobile){
+        width: 100%;
+        .professional-item {
+            width: 100%;
+            margin-right: 0;            
+        }
+    }
+}

@@ -10,7 +10,7 @@ router.route('/')
 
   /** POST /api/users - Create new user */
   //new professionals only created through user controller.
-  //.post(AuthCtrl.verifyToken,ProfessionalCtrl.create);
+  .post(ProfessionalCtrl.create); 
   // .post(validate(paramValidation.createUser), ProfessionalCtrl.create);
 
 router.route('/:userId')

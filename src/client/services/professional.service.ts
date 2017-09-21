@@ -2,7 +2,7 @@ import { Injectable, Output } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { Professional, Appointment } from '../models';
+import { Professional, Appointment, ProfessionalApi } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ProfessionalService {
                 return response.json() as Professional;
             });
     }
-    create(professional: Professional) {
+    create(professional: ProfessionalApi) {
         return this.http.post(this.apiEndpointUrl, professional, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
@@ -42,12 +42,13 @@ export class ProfessionalService {
             });
     }
 
-    list() {
+    list(query: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
+        query = query && query.length > 0 ? '?' + query : ''; 
 
-        return this.http.get(this.apiEndpointUrl, options)
+        return this.http.get(this.apiEndpointUrl + query, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let professionals = response.json() as Array<Professional>;

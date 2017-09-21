@@ -9,6 +9,7 @@ export * from './app/page-not-found.component';
 export * from './home/home.component';
 
 export * from './professional/dashboard.component';
+export * from './professional/add-professional.component';
 
 export * from './client/add-client.component';
 export * from './client/edit-client.component';
@@ -28,6 +29,7 @@ export * from './dashboard-components/skills.component';
 export * from './dashboard-components/clients.component';
 export * from './dashboard-components/reports.component';
 export * from './dashboard-components/curriculums.component';
+export * from './dashboard-components/professionals.component';
 
 export * from './appointments/add-appointment.component';
 export * from './appointments/appointment-list.component';

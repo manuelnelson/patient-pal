@@ -14,6 +14,10 @@ var _authController = require('./auth-controller');
 
 var _authController2 = _interopRequireDefault(_authController);
 
+var _organizationController = require('./organization-controller');
+
+var _organizationController2 = _interopRequireDefault(_organizationController);
+
 var _APIError = require('../lib/APIError');
 
 var _APIError2 = _interopRequireDefault(_APIError);
@@ -64,27 +68,25 @@ function create(req, res, next) {
     });
 
     //check if user already exists
-    _models.User.getByEmail(user.email).then(function (existingUser) {
+    return _models.User.getByEmail(user.email).then(function (existingUser) {
         if (existingUser) {
             var err = new _APIError2.default('Authentication error: User Already Exists', _httpStatus2.default.UNAUTHORIZED, true);
             return next(err);
         } else {
             user.save().then(function (savedUser) {
                 if (savedUser.role == _constants2.default.roles.Professional || savedUser.role == _constants2.default.roles.Admin) {
-                    //create the professional asynchronously
-                    var professional = new _models.Professional({
-                        email: req.body.email,
-                        status: 1
-                    }).save().then(function (savedProfessional) {
-                        savedUser.professional = savedProfessional;
-                        savedUser.save();
-                        //log user in
-                        var authToken = _authController2.default.createToken(savedUser);
-                        return res.json(authToken);
+                    //get organization if it exists, otherwise create
+                    return _organizationController2.default.list({ query: { name: req.body.name } }, res, next).then(function (org) {
+                        if (!org || org.length === 0) {
+                            return _organizationController2.default.create(req, res, next).then(function (org) {
+                                return createProfessional(req, res, next, savedUser, org);
+                            });
+                        }
+                        return createProfessional(req, res, next, savedUser, org[0]);
                     });
                 } else {
                     //create the professional asynchronously
-                    var client = new Client({
+                    return new Client({
                         email: req.body.email,
                         status: 1
                     }).save().then(function (savedClient) {
@@ -104,6 +106,22 @@ function create(req, res, next) {
     });
 }
 
+function createProfessional(req, res, next, savedUser, organization) {
+    return new _models.Professional({
+        email: req.body.email,
+        organization: organization._id,
+        status: 1
+    }).save().then(function (savedProfessional) {
+        savedUser.professional = savedProfessional;
+        savedUser.save();
+        //log user in
+        var authToken = _authController2.default.createToken(savedUser);
+        return res.json(authToken);
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+
 /**
 * Update existing user
 * @property {string} req.body.email - The email of user.
@@ -113,7 +131,7 @@ function update(req, res, next) {
     var user = req.user;
     user.email = req.body.email;
 
-    user.save().then(function (savedUser) {
+    return user.save().then(function (savedUser) {
         return res.json(savedUser);
     }).catch(function (e) {
         return next(e);
@@ -133,7 +151,7 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.User.list({ limit: limit, skip: skip }).then(function (users) {
+    return _models.User.list({ limit: limit, skip: skip }).then(function (users) {
         return res.json(users);
     }).catch(function (e) {
         return next(e);
@@ -145,8 +163,9 @@ function list(req, res, next) {
 * @returns {User}
 */
 function remove(req, res, next) {
+    console.log('testt');
     var user = req.user;
-    user.remove().then(function (deletedUser) {
+    return user.remove().then(function (deletedUser) {
         return res.json(deletedUser);
     }).catch(function (e) {
         return next(e);

@@ -29,6 +29,9 @@
             margin-top: $profile-picture-height * .25;
         }
     }
+    .email, .title, .organization{
+        display: block;
+    }
     .profile-info{
         width: (100% - $profile-picture-width);
     }

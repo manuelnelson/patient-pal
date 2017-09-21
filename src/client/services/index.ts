@@ -13,6 +13,7 @@ export * from './curriculum.service';
 export * from './client-curriculum.service';
 export * from './skill-data.service'; 
 export * from './timer.service'; 
+export * from './organization.service'; 
 
 //strategies
 export * from './route-reuse.strategy';
@@ -20,6 +21,7 @@ export * from './route-reuse.strategy';
 //resolvers
 export * from './resolvers/client-resolver.service';
 export * from './resolvers/professional-resolver.service';
+export * from './resolvers/professional-resolver-list.service';
 export * from './resolvers/appointment-resolver-list.service';
 export * from './resolvers/appointment-resolver.service';
 export * from './resolvers/skill-resolver.service';
@@ -32,6 +34,8 @@ export * from './resolvers/client-curriculum-resolver.service';
 export * from './resolvers/client-curriculum-resolver-list.service';
 export * from './resolvers/skill-data-resolver.service';
 export * from './resolvers/skill-data-resolver-list.service';
+export * from './resolvers/organization-resolver.service';
+export * from './resolvers/organization-resolver-list.service';
 
 //pipes
 export * from './pipes/clock-format.pipe';

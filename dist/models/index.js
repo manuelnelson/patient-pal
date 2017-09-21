@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SkillData = exports.DttType = exports.TargetType = exports.Skill = exports.ClientCurriculum = exports.User = exports.Professional = exports.Curriculum = exports.Client = exports.Appointment = undefined;
+exports.Organization = exports.SkillData = exports.DttType = exports.TargetType = exports.Skill = exports.ClientCurriculum = exports.User = exports.Professional = exports.Curriculum = exports.Client = exports.Appointment = undefined;
 
 var _appointment = require('./appointment');
 
@@ -45,6 +45,10 @@ var _skillData = require('./skillData');
 
 var _skillData2 = _interopRequireDefault(_skillData);
 
+var _organization = require('./organization');
+
+var _organization2 = _interopRequireDefault(_organization);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Appointment = _appointment2.default;
@@ -57,4 +61,5 @@ exports.Skill = _skill2.default;
 exports.TargetType = _targetType2.default;
 exports.DttType = _dttType2.default;
 exports.SkillData = _skillData2.default;
+exports.Organization = _organization2.default;
 //# sourceMappingURL=index.js.map

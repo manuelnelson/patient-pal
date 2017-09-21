@@ -20,4 +20,8 @@
         <span>Reports</span>
         <i class="icon-paste"></i>
     </a>
+    <a *ngIf="isAdministrator" [routerLink]="['/professional/professionals']" class="dashboard-icon">
+        <span>Professionals</span>
+        <i class="icon-professional"></i>
+    </a>
 </div>

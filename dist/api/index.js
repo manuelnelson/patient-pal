@@ -50,9 +50,12 @@ var _skillDataRoutes = require('./skill-data-routes');
 
 var _skillDataRoutes2 = _interopRequireDefault(_skillDataRoutes);
 
+var _organizationRoutes = require('./organization-routes');
+
+var _organizationRoutes2 = _interopRequireDefault(_organizationRoutes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import { version } from '../../../package.json';
 exports.default = function (_ref) {
 	var config = _ref.config,
 	    db = _ref.db;
@@ -71,6 +74,7 @@ exports.default = function (_ref) {
 	api.use('/curriculums', _curriculumRoutes2.default);
 	api.use('/clientcurriculums', _clientCurriculumRoutes2.default);
 	api.use('/skilldatas', _skillDataRoutes2.default);
+	api.use('/organizations', _organizationRoutes2.default);
 
 	// perhaps expose some API metadata at the root
 	// api.get('/', (req, res) => {
@@ -78,5 +82,5 @@ exports.default = function (_ref) {
 	// });
 
 	return api;
-};
+}; //import { version } from '../../../package.json';
 //# sourceMappingURL=index.js.map

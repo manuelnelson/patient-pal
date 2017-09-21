@@ -9,6 +9,7 @@ import SkillCtrl from './skill-controller';
 import CurriculumCtrl from './curriculum-controller';
 import ClientCurriculumCtrl from './client-curriculum-controller';
 import SkillDataCtrl from './skill-data-controller';
+import OrganizationCtrl from './organization-controller';
 
 export {
     AppointmentCtrl,
@@ -21,5 +22,6 @@ export {
     SkillCtrl,
     CurriculumCtrl,
     DttTypeCtrl,
-    SkillDataCtrl
+    SkillDataCtrl,
+    OrganizationCtrl
 }

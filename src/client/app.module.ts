@@ -14,7 +14,7 @@ import {
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
-            CustomRouteReuseStrategy, TimerService
+            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver
         } from './services';
 import { CalendarModule } from 'angular-calendar';
 import { AuthGuard } from './guards/index';
@@ -27,7 +27,8 @@ import {
     CurriculumsComponent, StartAppointmentComponent, AppointmentDetailComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
     RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
-    ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent
+    ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent,
+    AddProfessionalComponent
 } from './components/';
 
 @NgModule({
@@ -40,7 +41,7 @@ import {
         AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, 
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
         WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent,
-        DefaultComponent
+        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent
     ],
     imports: [
         BrowserModule,
@@ -71,7 +72,7 @@ import {
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService
+        TimerService, ProfessionalListResolver
     ]
 })
 

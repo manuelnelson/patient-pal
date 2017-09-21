@@ -55,6 +55,14 @@ export class AuthenticationService {
         }
         return false;
     }
+    isAdministrator(){
+        let user = localStorage.getItem('currentUser');
+        if(user){
+            let role = (JSON.parse(user) as User).role;            
+            return role === Constants.Roles.Admin;
+        }
+        return false;
+    }
     isLoggedIn(){
         let user = localStorage.getItem('currentUser');
         if(user) return true;

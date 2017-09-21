@@ -59,27 +59,30 @@ function getAppointments(req, res, next) {
 * @returns {Professional}
 */
 function create(req, res, next) {
-    _models.Professional.getByEmail(req.body.email).then(function (existingProfessional) {
+
+    return _models.Professional.getByEmail(req.body.email).then(function (existingProfessional) {
         if (existingProfessional) {
             var err = new _APIError2.default('Error: Professional Already Exists', _httpStatus2.default.FORBIDDEN, true);
             return next(err);
         } else {
-            var professional = new _models.Professional({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
+            return new _models.Professional({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 email: req.body.email,
+                title: req.body.title,
+                organization: req.body.organization,
                 status: 1
             }).save().then(function (savedProfessional) {
                 //check if user already exists
-                _models.User.getByEmail(req.body.email).then(function (existingUser) {
+                return _models.User.getByEmail(req.body.email).then(function (existingUser) {
                     if (existingUser && existingUser.length > 0) {
                         existingUser.professional = savedProfessional._id;
-                        existingUser.update().then(function (savedUser) {
+                        return existingUser.update().then(function (savedUser) {
                             return res.json(savedProfessional);
                         });
                     } else {
                         //create new user.  Attach professional
-                        var user = new _models.User({
+                        return new _models.User({
                             role: _constants2.default.roles.Client,
                             email: req.body.email,
                             password: _constants2.default.defaultPassword,
@@ -115,6 +118,7 @@ function update(req, res, next) {
     // professional.email = req.body.email;
     professional.firstname = req.body.firstname;
     professional.lastname = req.body.lastname;
+    professional.title = req.body.title;
     // professional.insurance = req.body.insurance;
     // professional.sex = req.body.sex;
     // professional.birth = req.body.birth;
@@ -139,11 +143,31 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Professional.list({ limit: limit, skip: skip }).then(function (professionals) {
+    var queryObj = buildQuery(req);
+
+    return _models.Professional.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (professionals) {
         return res.json(professionals);
     }).catch(function (e) {
         return next(e);
     });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**

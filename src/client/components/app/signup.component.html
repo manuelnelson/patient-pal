@@ -4,6 +4,10 @@
         <label>Email: <span *ngIf="invalidControl(signupForm.controls.email)">Invalid Email</span></label>
         <input type="text" formControlName="email" placeholder="Email"/>
     </div>
+    <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.organization)}">
+        <label>Organization Name: <span *ngIf="invalidControl(signupForm.controls.organization)">Invalid Organization</span></label>
+        <input type="text" formControlName="organization" placeholder="Organization Name"/>
+    </div>
     <!-- <div class="form-input" [ngClass]="{'error':invalidControl(signupForm.controls.role)}">
         <label>Are you a client or health professional?: <span *ngIf="invalidControl(signupForm.controls.role)">Invalid Role</span></label>
         <select formControlName="role">

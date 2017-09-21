@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import {User, Professional} from '../models';
 import AuthCtrl from './auth-controller';
+import OrganizationCtrl from './organization-controller';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import config from '../config';
@@ -38,7 +39,7 @@ function create(req, res, next) {
     });
 
     //check if user already exists
-    User.getByEmail(user.email)
+    return User.getByEmail(user.email)
     .then(existingUser=>{
         if(existingUser)
         {
@@ -48,21 +49,19 @@ function create(req, res, next) {
             user.save()
             .then(savedUser => {
                 if(savedUser.role == constants.roles.Professional || savedUser.role == constants.roles.Admin){
-                    //create the professional asynchronously
-                    const professional = new Professional({
-                        email: req.body.email,
-                        status: 1
-                    }).save().then(savedProfessional =>{
-                        savedUser.professional = savedProfessional;
-                        savedUser.save();
-                        //log user in
-                        let authToken = AuthCtrl.createToken(savedUser);
-                        return res.json(authToken);
-                    });
+                    //get organization if it exists, otherwise create
+                    return OrganizationCtrl.list({query: {name: req.body.name}},res,next).then(org => {
+                        if(!org || org.length === 0){
+                            return OrganizationCtrl.create(req,res,next).then(org =>{
+                              return createProfessional(req,res,next,savedUser,org);  
+                            })        
+                        } 
+                        return createProfessional(req,res,next,savedUser,org[0]);  
+                    })
                 }
                 else{
                     //create the professional asynchronously
-                    const client = new Client({
+                    return new Client({
                         email: req.body.email,
                         status: 1
                     }).save().then(savedClient =>{
@@ -81,6 +80,23 @@ function create(req, res, next) {
     .catch(e => next(e));
 }
 
+function createProfessional(req,res,next, savedUser, organization){
+    return new Professional({
+        email: req.body.email,
+        organization: organization._id,
+        status: 1
+    }).save()
+    .then(savedProfessional =>{
+        savedUser.professional = savedProfessional;
+        savedUser.save();
+        //log user in
+        let authToken = AuthCtrl.createToken(savedUser);
+        return res.json(authToken);
+    })
+    .catch(e => next(e));
+
+}
+
 /**
 * Update existing user
 * @property {string} req.body.email - The email of user.
@@ -90,7 +106,7 @@ function update(req, res, next) {
     const user = req.user;
     user.email = req.body.email;
 
-    user.save()
+    return user.save()
     .then(savedUser => res.json(savedUser))
     .catch(e => next(e));
 }
@@ -103,7 +119,7 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 50, skip = 0 } = req.query;
-    User.list({ limit, skip })
+    return User.list({ limit, skip })
     .then(users => res.json(users))
     .catch(e => next(e));
 }
@@ -113,9 +129,11 @@ function list(req, res, next) {
 * @returns {User}
 */
 function remove(req, res, next) {
+    console.log('testt');        
     const user = req.user;
-    user.remove()
-    .then(deletedUser => res.json(deletedUser))
+    return user.remove().then(deletedUser => {
+        return res.json(deletedUser)
+    })
     .catch(e => next(e));
 }
 

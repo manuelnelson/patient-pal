@@ -9,9 +9,10 @@ import { Professional } from '../../models';
 })
 export class LinksComponent {
     @Input() profile: Professional;
+    isAdministrator: boolean = false;
     constructor(private profService: ProfessionalService, private authService: AuthenticationService,
         private alertService: AlertService)
     {
-
+        this.isAdministrator = this.authService.isAdministrator();
     }
 }

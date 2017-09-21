@@ -43,21 +43,22 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('remove', function(next) {
     var that = this;
     if(that.professional){
-        Professional.get(that.professional)        
+        return Professional.get(that.professional)        
         .then((prof) => {
             prof.remove(prof._id);
-            next();            
+            return next();            
         })
         .catch(e => next(e));
     }
     if(that.client){
-        Client.get(that.client)        
+        return Client.get(that.client)        
         .then((client) => {
             client.remove(client._id);
-            next();            
+            return next();            
         })
         .catch(e => next(e));
     }
+    return next();
 });
 
 

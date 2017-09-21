@@ -22,7 +22,8 @@
       <h4 class="name" *ngIf="!profile.firstname || !profile.firstname.length > 0">No Name Entered</h4>
       <span class="email">{{profile.email}}</span>
       <span class="title" *ngIf="profile.title && profile.title.length > 0">{{profile.title}}</span>    
-  </div>
+      <span class="organization" *ngIf="profile.organization && profile.organization.name">{{profile.organization.name}}</span>    
+    </div>
   <div class="upcoming-appointment" *ngIf="upcomingAppointment">
       <span class="label">Upcoming Appointments</span>
       <a routerLink="/appointments/{{upcomingAppointment._id}}/start">

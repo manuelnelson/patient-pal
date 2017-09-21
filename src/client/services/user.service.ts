@@ -9,8 +9,8 @@ export class UserService {
     // @Output LoggedIn:
     constructor(private http: Http, private router: Router) { }
 
-    create(email: string, password: string, role: number) {
-        return this.http.post('/api/users', { email: email, password: password, role: role })
+    create(email: string, password: string, organization: string, role: number) {
+        return this.http.post('/api/users', { email: email, password: password, organization: organization, role: role })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

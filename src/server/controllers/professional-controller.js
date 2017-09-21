@@ -40,29 +40,32 @@ function getAppointments(req, res, next) {
 * @returns {Professional}
 */
 function create(req, res, next) {
-    Professional.getByEmail(req.body.email).then(existingProfessional =>{
+
+    return Professional.getByEmail(req.body.email).then(existingProfessional =>{
         if(existingProfessional){
             const err = new APIError('Error: Professional Already Exists', httpStatus.FORBIDDEN, true);
             return next(err);
         }else{
-            const professional = new Professional({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
+            return new Professional({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 email: req.body.email,
+                title: req.body.title,
+                organization: req.body.organization,
                 status: 1
             }).save().then(savedProfessional =>{
                 //check if user already exists
-                User.getByEmail(req.body.email)
+                return User.getByEmail(req.body.email)
                 .then(existingUser=> {
                     if(existingUser && existingUser.length > 0)
                     {
                         existingUser.professional = savedProfessional._id;
-                        existingUser.update().then(savedUser => {
+                        return existingUser.update().then(savedUser => {
                             return res.json(savedProfessional);
                         });
                     } else {
                         //create new user.  Attach professional
-                        const user = new User({
+                        return new User({
                             role: Constants.roles.Client,
                             email: req.body.email,
                             password: Constants.defaultPassword,
@@ -95,6 +98,7 @@ function update(req, res, next) {
     // professional.email = req.body.email;
     professional.firstname = req.body.firstname;
     professional.lastname = req.body.lastname;
+    professional.title = req.body.title;
     // professional.insurance = req.body.insurance;
     // professional.sex = req.body.sex;
     // professional.birth = req.body.birth;
@@ -112,9 +116,32 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 50, skip = 0 } = req.query;
-    Professional.list({ limit, skip })
+    let queryObj = buildQuery(req);
+    
+    return Professional.find(queryObj.length > 0 ? {$or: queryObj} : {})
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit)
     .then(professionals => res.json(professionals))
     .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+            var obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**

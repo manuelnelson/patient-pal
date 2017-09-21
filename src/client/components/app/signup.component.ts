@@ -19,12 +19,14 @@ export class SignupComponent implements OnInit {
     }
     ngOnInit(){
         let email = new FormControl('',Validators.email);
+        let organization = new FormControl('',Validators.required);
         let password = new FormControl('',Validators.required);
         let confirmPassword = new FormControl('',Validators.required);
         // let role = new FormControl('',Validators.required);
 
         this.signupForm = new FormGroup({
             email: email,
+            organization: organization,
             password: password,
             confirmPassword: confirmPassword,
             // role: role
@@ -38,7 +40,7 @@ export class SignupComponent implements OnInit {
             this.passwordMismatch = true;
             return;
         }
-        this.userService.create(signupValues.email,signupValues.password, Constants.Roles.Admin).subscribe(
+        this.userService.create(signupValues.email,signupValues.password, signupValues.organization, Constants.Roles.Admin).subscribe(
                 data => {
                     console.log(data);
                     this.signupForm.reset();

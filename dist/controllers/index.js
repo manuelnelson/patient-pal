@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SkillDataCtrl = exports.DttTypeCtrl = exports.CurriculumCtrl = exports.SkillCtrl = exports.TargetTypeCtrl = exports.UserCtrl = exports.ProfessionalCtrl = exports.ClientCtrl = exports.ClientCurriculumCtrl = exports.AuthCtrl = exports.AppointmentCtrl = undefined;
+exports.OrganizationCtrl = exports.SkillDataCtrl = exports.DttTypeCtrl = exports.CurriculumCtrl = exports.SkillCtrl = exports.TargetTypeCtrl = exports.UserCtrl = exports.ProfessionalCtrl = exports.ClientCtrl = exports.ClientCurriculumCtrl = exports.AuthCtrl = exports.AppointmentCtrl = undefined;
 
 var _appointmentController = require('./appointment-controller');
 
@@ -49,6 +49,10 @@ var _skillDataController = require('./skill-data-controller');
 
 var _skillDataController2 = _interopRequireDefault(_skillDataController);
 
+var _organizationController = require('./organization-controller');
+
+var _organizationController2 = _interopRequireDefault(_organizationController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.AppointmentCtrl = _appointmentController2.default;
@@ -62,4 +66,5 @@ exports.SkillCtrl = _skillController2.default;
 exports.CurriculumCtrl = _curriculumController2.default;
 exports.DttTypeCtrl = _dttTypeController2.default;
 exports.SkillDataCtrl = _skillDataController2.default;
+exports.OrganizationCtrl = _organizationController2.default;
 //# sourceMappingURL=index.js.map

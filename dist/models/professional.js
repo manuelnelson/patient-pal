@@ -46,6 +46,10 @@ var ProfessionalSchema = new _mongoose2.default.Schema({
     title: {
         type: String
     },
+    organization: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'Organization'
+    },
     clients: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Client' }],
     //1 = active, 0 = disabled or disactive
     status: {
@@ -67,12 +71,13 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).populate('clients').exec().then(function (Professional) {
+        return this.findById(id).populate('clients organization').exec().then(function (Professional) {
             if (Professional) {
                 return Professional;
             }
-            var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
-            return _bluebird2.default.reject(err);
+            return null;
+            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 
@@ -86,8 +91,9 @@ ProfessionalSchema.statics = {
             if (Professional) {
                 return Professional;
             }
-            var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
-            return _bluebird2.default.reject(err);
+            return null;
+            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 

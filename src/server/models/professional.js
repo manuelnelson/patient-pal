@@ -21,6 +21,10 @@ const ProfessionalSchema = new mongoose.Schema({
     title: {
         type: String,
     },
+    organization: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Organization'
+    },
     clients:[{type:mongoose.Schema.ObjectId,ref:'Client'}],
     //1 = active, 0 = disabled or disactive
     status: {
@@ -43,14 +47,15 @@ ProfessionalSchema.statics = {
     */
     get(id) {
         return this.findById(id)
-        .populate('clients')
+        .populate('clients organization')
         .exec()
         .then((Professional) => {
             if (Professional) {
                 return Professional;
             }
-            const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            return Promise.reject(err);
+            return null;
+            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
     /**
@@ -65,8 +70,9 @@ ProfessionalSchema.statics = {
             if (Professional) {
                 return Professional;
             }
-            const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            return Promise.reject(err);
+            return null;
+            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+            // return Promise.reject(err);
         });
     },
 

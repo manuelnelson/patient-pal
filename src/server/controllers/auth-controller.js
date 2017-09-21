@@ -78,11 +78,14 @@ function createToken(user){
         email: user.email
     }, config.jwtSecret);
     var person = user.professional ? user.professional : user.client;
+    console.log(person);
+    var organization = user.professional ? user.professional.organization : '';
     return {
         _id: person._id,
         token,
         email: user.email,
-        role: user.role
+        role: user.role,
+        organizationId: organization
     };
 
 }

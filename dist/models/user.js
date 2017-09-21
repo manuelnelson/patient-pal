@@ -75,21 +75,22 @@ var UserSchema = new _mongoose2.default.Schema({
 UserSchema.pre('remove', function (next) {
     var that = this;
     if (that.professional) {
-        _professional2.default.get(that.professional).then(function (prof) {
+        return _professional2.default.get(that.professional).then(function (prof) {
             prof.remove(prof._id);
-            next();
+            return next();
         }).catch(function (e) {
             return next(e);
         });
     }
     if (that.client) {
-        _client2.default.get(that.client).then(function (client) {
+        return _client2.default.get(that.client).then(function (client) {
             client.remove(client._id);
-            next();
+            return next();
         }).catch(function (e) {
             return next(e);
         });
     }
+    return next();
 });
 
 /* the callback function (2nd parameter below) accepts a parameter which we
