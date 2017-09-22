@@ -7,6 +7,7 @@ export * from './skill-data-api.model';
 
 export * from './home.model';
 export * from './user.model';
+export * from './auth-user.model';
 export * from './client.model';
 export * from './error.model';
 export * from './professional.model';

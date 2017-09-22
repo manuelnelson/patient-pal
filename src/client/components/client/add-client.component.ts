@@ -18,7 +18,7 @@ export class AddClientComponent implements OnInit {
         let firstname = new FormControl('');
         let lastname = new FormControl('');
         let email = new FormControl('',Validators.email);
-        let birth = new FormControl('',Validators.pattern(/(0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])[\/\-\.]\d{4}/));
+        let birth = new FormControl('',Validators.pattern(/\d{4}[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])/));
         let sex = new FormControl('');
         let insurance = new FormControl('');
 
@@ -45,6 +45,7 @@ export class AddClientComponent implements OnInit {
     }
 
     invalidControl(control:FormControl){
+        console.log(control.value)
         return control.invalid && control.touched;
     }
 }

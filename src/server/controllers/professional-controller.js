@@ -66,7 +66,7 @@ function create(req, res, next) {
                     } else {
                         //create new user.  Attach professional
                         return new User({
-                            role: Constants.roles.Client,
+                            role: Constants.roles.Professional,
                             email: req.body.email,
                             password: Constants.defaultPassword,
                             professional: savedProfessional._id

@@ -14,10 +14,9 @@ import {
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
-            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver
+            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard
         } from './services';
 import { CalendarModule } from 'angular-calendar';
-import { AuthGuard } from './guards/index';
 
 import {
     HomeComponent, NavigationComponent, AppComponent, LoginComponent, SignupComponent, ProfessionalDashboardComponent,
@@ -72,7 +71,7 @@ import {
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService, ProfessionalListResolver
+        TimerService, ProfessionalListResolver, AuthGuard
     ]
 })
 

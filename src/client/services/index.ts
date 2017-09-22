@@ -39,3 +39,6 @@ export * from './resolvers/organization-resolver-list.service';
 
 //pipes
 export * from './pipes/clock-format.pipe';
+
+//guards
+export * from './guards/auth-guard.service';

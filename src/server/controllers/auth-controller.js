@@ -64,7 +64,6 @@ function updatePassword(req, res, next) {
 */
 function verifyToken(req,res,next){
     var token = req.get('Authorization');
-    console.log(token);
     var unsignedToken = jwt.verify(token,config.jwtSecret);
     req.locals = {
         sessionUserEmail: unsignedToken.email
@@ -78,13 +77,14 @@ function createToken(user){
         email: user.email
     }, config.jwtSecret);
     var person = user.professional ? user.professional : user.client;
-    console.log(person);
     var organization = user.professional ? user.professional.organization : '';
     return {
         _id: person._id,
         token,
         email: user.email,
         role: user.role,
+        firstname: user.professional ? user.professional.firstname : user.client.firstname,
+        lastname: user.professional ? user.professional.lastname : user.client.lastname,
         organizationId: organization
     };
 

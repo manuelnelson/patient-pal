@@ -27,7 +27,7 @@ export class EditClientComponent implements OnInit {
         let firstname = new FormControl(this.editClient.firstname || '');
         let lastname = new FormControl(this.editClient.lastname || '');
         let email = new FormControl(this.editClient.email || '');
-        let birth = new FormControl(date,Validators.pattern(/(0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])[\/\-\.]\d{4}/));
+        let birth = new FormControl(date,Validators.pattern(/\d{4}[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])/));
         let sex = new FormControl(this.editClient.sex || '');
         let insurance = new FormControl(this.editClient.insurance || '');
 

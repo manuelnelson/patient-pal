@@ -1,7 +1,7 @@
 import { ClientBackComponent } from './components/client-dashboard-components/back.component';
 import { NgModule }                from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { Constants } from './constants';
 // Components
 import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     EditClientComponent, LinksComponent, CalendarComponent, SkillsComponent,
@@ -15,7 +15,7 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
     ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver,
-    ProfessionalListResolver
+    ProfessionalListResolver, AuthGuard
 } from './services';
 
 const routes: Routes = [
@@ -27,6 +27,8 @@ const routes: Routes = [
         path: 'professional',
         component:ProfessionalDashboardComponent,
         resolve: {professional: ProfessionalResolver},
+        canActivate: [AuthGuard],  
+        data: {roles: [Constants.Roles.Admin,Constants.Roles.Professional]},      
         children: [
             { path: '', redirectTo: 'links', pathMatch: 'full' },
             { path: 'links', component: LinksComponent },
@@ -62,7 +64,13 @@ const routes: Routes = [
             { path: 'professionals', component: ProfessionalsComponent, resolve: {professional: ProfessionalResolver, professionals: ProfessionalListResolver} },
         ]
     },
-    { path: 'professionals/add',  component: AddProfessionalComponent },    
+    { 
+        path: 'professionals/add', 
+        component: AddProfessionalComponent,
+        canActivate: [AuthGuard],  
+        data: {roles: [Constants.Roles.Admin]},      
+
+    },    
     {
         path: 'client',
         component:ClientDashboardComponent,

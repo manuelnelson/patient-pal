@@ -2,7 +2,7 @@ import { Injectable, Output } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { User } from '../models';
+import { AuthUser } from '../models';
 import { Constants } from '../constants';
 import 'rxjs/add/operator/map'
 
@@ -20,7 +20,7 @@ export class AuthenticationService {
         return this.http.post('/api/auth/login', { email: email, password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let user = response.json() as User;
+                let user = response.json() as AuthUser;
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
@@ -44,13 +44,13 @@ export class AuthenticationService {
     getLoggedInUser(){
         let user = localStorage.getItem('currentUser');
         if(user)
-            return JSON.parse(user) as User;
+            return JSON.parse(user) as AuthUser;
         return null;
     }
     isProfessional(){
         let user = localStorage.getItem('currentUser');
         if(user){
-            let role = (JSON.parse(user) as User).role;            
+            let role = (JSON.parse(user) as AuthUser).role;            
             return role !== Constants.Roles.Client;
         }
         return false;
@@ -58,7 +58,7 @@ export class AuthenticationService {
     isAdministrator(){
         let user = localStorage.getItem('currentUser');
         if(user){
-            let role = (JSON.parse(user) as User).role;            
+            let role = (JSON.parse(user) as AuthUser).role;            
             return role === Constants.Roles.Admin;
         }
         return false;
