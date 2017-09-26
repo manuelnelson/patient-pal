@@ -53,10 +53,10 @@ function create(req, res, next) {
                 if(savedUser.role == constants.roles.Professional || savedUser.role == constants.roles.Admin){
                     console.log('3')                
                     //get organization if it exists, otherwise create
-                    return OrganizationCtrl.list({query: {name: req.body.name}},res,next).then(org => {
+                    return OrganizationCtrl.list({query: {name: req.body.organization}},res,next).then(org => {
                         console.log('4')                
                         if(!org || org.length === 0){
-                            return OrganizationCtrl.create(req,res,next).then(org =>{
+                            return OrganizationCtrl.create({body: {name: req.body.organization}},res,next).then(org =>{
                               return createProfessional(req,res,next,savedUser,org);  
                             })        
                         } 

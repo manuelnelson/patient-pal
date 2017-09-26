@@ -45,7 +45,7 @@ function get(req, res) {
 * @returns {Organization}
 */
 function create(req, res, next) {
-    var organization = new _models.Organization(req.body).save().then(function (savedOrganization) {
+    return new _models.Organization(req.body).save().then(function (savedOrganization) {
         return savedOrganization;
     }).catch(function (e) {
         return next(e);

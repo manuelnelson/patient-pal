@@ -73,12 +73,16 @@ function create(req, res, next) {
             var err = new _APIError2.default('Authentication error: User Already Exists', _httpStatus2.default.UNAUTHORIZED, true);
             return next(err);
         } else {
+            console.log('1');
             user.save().then(function (savedUser) {
+                console.log('2');
                 if (savedUser.role == _constants2.default.roles.Professional || savedUser.role == _constants2.default.roles.Admin) {
+                    console.log('3');
                     //get organization if it exists, otherwise create
-                    return _organizationController2.default.list({ query: { name: req.body.name } }, res, next).then(function (org) {
+                    return _organizationController2.default.list({ query: { name: req.body.organization } }, res, next).then(function (org) {
+                        console.log('4');
                         if (!org || org.length === 0) {
-                            return _organizationController2.default.create(req, res, next).then(function (org) {
+                            return _organizationController2.default.create({ body: { name: req.body.organization } }, res, next).then(function (org) {
                                 return createProfessional(req, res, next, savedUser, org);
                             });
                         }
@@ -107,6 +111,7 @@ function create(req, res, next) {
 }
 
 function createProfessional(req, res, next, savedUser, organization) {
+    console.log('5');
     return new _models.Professional({
         email: req.body.email,
         organization: organization._id,

@@ -27,7 +27,7 @@ function get(req, res) {
 * @returns {Organization}
 */
 function create(req, res, next) {
-    const organization = new Organization(req.body)
+    return new Organization(req.body)
         .save()
         .then(savedOrganization => savedOrganization)
         .catch(e => next(e));
