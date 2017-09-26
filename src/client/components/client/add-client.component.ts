@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { ClientService, AlertService } from '../../services';
+import { ClientService, AlertService, AuthenticationService } from '../../services';
 import { Client } from '../../models';
 import { Router } from "@angular/router";
 @Component({
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 export class AddClientComponent implements OnInit {
     clientForm: FormGroup;
     clientFormString: string;
-    constructor(private clientService:ClientService,private alertService:AlertService,
+    constructor(private clientService:ClientService,private alertService:AlertService, private authService: AuthenticationService,
         private router: Router){
 
     }
@@ -33,6 +33,7 @@ export class AddClientComponent implements OnInit {
     }
     client(clientValues:Client){
         if(this.clientForm.valid){
+            clientValues.organization = this.authService.getLoggedInUser().organizationId;
             this.clientService.create(clientValues).subscribe(
                 data => {
                     this.router.navigate(['/professional/clients']);

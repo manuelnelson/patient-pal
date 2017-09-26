@@ -35,6 +35,10 @@ var curriculumSchema = new _mongoose2.default.Schema({
         type: String
     },
     skills: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Skill' }],
+    organization: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'Organization'
+    },
     createdAt: {
         type: Date,
         default: Date.now

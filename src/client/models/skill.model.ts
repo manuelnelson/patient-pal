@@ -19,5 +19,6 @@ export class Skill {
     //two mastery types, 1 = Automatic, 2 = Manual
     masteryType: number;
     targetInstructions: string;
+    organization: string;    
     expanded: boolean;
 }

@@ -24,6 +24,10 @@ const ClientSchema = new mongoose.Schema({
     sex: {
         type: String
     },
+    organization: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Organization'
+    },
     insurance: {
         type: String
     },

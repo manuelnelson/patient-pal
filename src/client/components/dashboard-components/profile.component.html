@@ -1,6 +1,9 @@
 <div class="profile-pic">
-  <div class="no-picture" *ngIf="!profile.picture">
+  <div class="no-picture" *ngIf="!profile.imageUrl && !editMode">
   </div>
+  <img class="profile-img" *ngIf="profile.imageUrl && !editMode" src="{{profile.imageUrl}}" />
+  <image-upload *ngIf="editMode" (onFileUploadFinish)="imageUploaded($event)" (isPending)="imagePending($event)" [url]="uploadUrl" [max]="1" [preview]="false" [extensions]="['jpg','png','gif']" [buttonCaption]="'Select Image'" [dropBoxMessage]="'Or Drop Image Here'"></image-upload>
+  <span class="uploading-pending" *ngIf="editMode && uploadInProgress">Image uploading...Please wait</span>
 </div>
 <div class="profile-info" >
   <form *ngIf="editMode" class="form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm.value)" novalidate>
@@ -34,5 +37,6 @@
   <div class="upcoming-appointment" *ngIf="!upcomingAppointment">
       <span class="label">You have no upcoming appointments</span>
   </div>
-  <button class="icon icon-edit" (click)="enableEditMode()"></button>
+  <button class="icon icon-edit" *ngIf="!editMode" (click)="enableEditMode()"></button>
+  <button class="icon" *ngIf="editMode" (click)="cancelEditMode()">&#8855;</button>
 </div>

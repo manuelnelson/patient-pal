@@ -32,7 +32,8 @@ function search(req, res, next) {
     Skill.find({
         targetName: {
             $regex: regex
-        }
+        },
+        organization: req.query.organization
     })
     .then((skills) => res.json(skills))
     .catch(e => next(e));
@@ -71,10 +72,33 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
-    Skill.list({ limit, skip })
-    .then(skills => res.json(skills))
-    .catch(e => next(e));
+
+    let queryObj = buildQuery(req);
+    
+    return Skill.find(queryObj.length > 0 ? {$or: queryObj} : {})
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .then(skills => res.json(skills))
+        .catch(e => next(e));
+
+
+    // Skill.list({ limit, skip })
+    // .then(skills => res.json(skills))
+    // .catch(e => next(e));
 }
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
+}
+
 
 /**
 * Delete skill.

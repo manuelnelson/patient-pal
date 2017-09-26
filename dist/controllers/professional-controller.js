@@ -124,7 +124,7 @@ function update(req, res, next) {
     // professional.birth = req.body.birth;
 
     return professional.save().then(function (savedProfessional) {
-        console.log('test');res.json(savedProfessional);
+        return res.json(savedProfessional);
     }).catch(function (e) {
         return next(e);
     });
@@ -170,6 +170,18 @@ function buildQuery(req) {
     return array;
 }
 
+function uploadPhoto(req, res, next) {
+    var professional = req.professional;
+    console.log(req.file);
+    professional.imageUrl = req.file.location;
+
+    return professional.save().then(function (savedProfessional) {
+        return res.json(savedProfessional);
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+
 /**
 * Delete professional.
 * @returns {Professional}
@@ -183,5 +195,5 @@ function remove(req, res, next) {
     });
 }
 
-exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, getAppointments: getAppointments };
+exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, getAppointments: getAppointments, uploadPhoto: uploadPhoto };
 //# sourceMappingURL=professional-controller.js.map

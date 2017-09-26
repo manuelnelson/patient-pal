@@ -52,6 +52,10 @@ const SkillSchema = new mongoose.Schema({
     targetInstructions:{
         type: String
     },
+    organization: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Organization'
+    },
     createdAt: {
         type: Date,
         default: Date.now

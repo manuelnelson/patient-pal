@@ -45,6 +45,10 @@
             display: block;
         }
     }
+    .uploading-pending{
+        display: block;
+        color: $color-green;
+    }
     input[type=text]{
         box-shadow: 0 0 5px $color-blue;
     }
@@ -58,5 +62,13 @@
         float: right;
         margin-top: px-to-rem(20px);
         cursor: pointer;
+    }
+    .upload, .clear{
+        &.button{
+            text-transform: none;
+            font-size: px-to-rem(16px);
+            display: block;
+            margin-bottom: 8px;
+        }
     }
 }

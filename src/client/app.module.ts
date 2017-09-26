@@ -7,14 +7,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule }  from './app.routing';
 import { MdSliderModule } from '@angular/material';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
+import { ImageUploadModule } from 'angular2-image-upload';
 import {
             GlobalErrorHandler, AuthenticationService, AlertService, UserService, ClientService, ProfessionalService, ClientResolver,
             ProfessionalResolver, AppointmentService, AppointmentListResolver, AddAppointmentResolver,
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
-            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard
+            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver
         } from './services';
 import { CalendarModule } from 'angular-calendar';
 
@@ -48,7 +48,8 @@ import {
         AppRoutingModule,
         ReactiveFormsModule,
         CalendarModule.forRoot(),
-        MdSliderModule
+        MdSliderModule,
+        ImageUploadModule.forRoot(),
     ],
     exports: [
         MdSliderModule
@@ -71,7 +72,7 @@ import {
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService, ProfessionalListResolver, AuthGuard
+        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver
     ]
 })
 

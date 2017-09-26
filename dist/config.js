@@ -22,7 +22,9 @@ var envVarsSchema = _joi2.default.object({
     then: _joi2.default.boolean().default(true),
     otherwise: _joi2.default.boolean().default(false)
   }),
-  JWT_SECRET: _joi2.default.string().required().description('JWT Secret required to sign')
+  JWT_SECRET: _joi2.default.string().required().description('JWT Secret required to sign'),
+  AWS_ACCESS_KEY_ID: _joi2.default.string().required().description('Amazon access key required for files'),
+  AWS_SECRET_ACCESS_KEY: _joi2.default.string().required().description('Amazon secret key required for files')
 }).unknown().required();
 
 var _Joi$validate = _joi2.default.validate(process.env, envVarsSchema),
@@ -37,7 +39,8 @@ var config = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   mongooseDebug: envVars.MONGOOSE_DEBUG,
-
+  awsAcessKey: envVars.AWS_ACCESS_KEY_ID,
+  awsSecret: envVars.AWS_SECRET_ACCESS_KEY,
   jwtSecret: envVars.JWT_SECRET,
   mongo: {
     host: envVars.MONGO_HOST,

@@ -110,7 +110,8 @@ function search(req, res, next) {
     _models.Curriculum.find({
         name: {
             $regex: regex
-        }
+        },
+        organization: req.query.organization
     }).then(function (curriculums) {
         return res.json(curriculums);
     }).catch(function (e) {

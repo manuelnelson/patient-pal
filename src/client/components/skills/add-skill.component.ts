@@ -64,6 +64,7 @@ export class AddSkillComponent implements OnInit {
     skill(skillValues:Skill){
         if(this.skillForm.valid){
             var cleanObject = this.removeEmptyFields(skillValues);
+            skillValues.organization = this.authService.getLoggedInUser().organizationId;
             this.skillService.create(cleanObject).subscribe(
                 data => {
                     this.router.navigate(['/professional/skills']);

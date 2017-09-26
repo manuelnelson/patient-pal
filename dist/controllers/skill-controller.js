@@ -50,7 +50,8 @@ function search(req, res, next) {
     _models.Skill.find({
         targetName: {
             $regex: regex
-        }
+        },
+        organization: req.query.organization
     }).then(function (skills) {
         return res.json(skills);
     }).catch(function (e) {
@@ -99,11 +100,29 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Skill.list({ limit: limit, skip: skip }).then(function (skills) {
+
+    var queryObj = buildQuery(req);
+
+    return _models.Skill.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (skills) {
         return res.json(skills);
     }).catch(function (e) {
         return next(e);
     });
+
+    // Skill.list({ limit, skip })
+    // .then(skills => res.json(skills))
+    // .catch(e => next(e));
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
 }
 
 /**

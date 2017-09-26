@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
     }
     goToDashboard(){
         this.closeLogin.emit();
-        debugger;
         if(this.user.role == Constants.Roles.Admin || this.user.role == Constants.Roles.Professional)
             this.router.navigate(['/professional']);
         else

@@ -4,8 +4,8 @@
     <span *ngIf="!professionals || professionals.length == 0" class="no-professionals">You currently do not have any professionals assigned to you.</span>
     <div class="professional-item" *ngFor="let professional of professionals">
         <div class="professional-picture">
-            <img *ngIf="professional.img" src="{{professional.img.url}}" alt="professional.firstname" />
-            <div *ngIf="!professional.img" class="no-picture" ></div>
+            <img *ngIf="professional.imageUrl" src="{{professional.imageUrl}}" alt="professional.firstname" />
+            <div *ngIf="!professional.imageUrl" class="no-picture" ></div>
         </div>
         <div class="professional-info">
             <!-- TODO: Rotue to professional -->

@@ -49,6 +49,10 @@ var ClientSchema = new _mongoose2.default.Schema({
     sex: {
         type: String
     },
+    organization: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'Organization'
+    },
     insurance: {
         type: String
     },

@@ -71,10 +71,11 @@ function create(req, res, next) {
                 birth: req.body.birth,
                 sex: req.body.sex,
                 insurance: req.body.insurance,
+                organization: req.body.organization,
                 status: 1
             }).save().then(function (savedClient) {
-                //asynchronously add client to current professional
-                _models.Professional.findOneAndUpdate({ email: req.locals.sessionUserEmail }, { $push: { clients: savedClient } }, function (err, result) {});
+                //asynchronously add client to current professional -- doing this by organization now...
+                //Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{clients:savedClient}}, (err,result) =>{});
 
                 //check if user already exists
                 _models.User.getByEmail(req.body.email).then(function (existingUser) {
@@ -143,11 +144,26 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Client.list({ limit: limit, skip: skip }).then(function (clients) {
+    delete req.query.limit;
+    delete req.query.skip;
+    var queryObj = buildQuery(req);
+
+    return _models.Client.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (clients) {
         return res.json(clients);
     }).catch(function (e) {
         return next(e);
     });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
 }
 
 /**

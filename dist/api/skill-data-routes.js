@@ -26,7 +26,7 @@ router.route('/')
 /** GET /api/skillDatas - Get list of skillDatas */
 .get(function (req, res, next) {
   return _controllers.SkillDataCtrl.list(req, res, next).then(function (skillDatas) {
-    return res.json({ skillDatas: skillDatas });
+    return res.json(skillDatas);
   });
 })
 

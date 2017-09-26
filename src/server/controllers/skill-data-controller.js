@@ -28,7 +28,7 @@ function get(req, res) {
 * @returns {SkillData}
 */
 function create(req, res, next) {
-    const skillData = new SkillData(req.body)
+    return new SkillData(req.body)
         .save()
         .then(savedSkillData => (savedSkillData))
         .catch(e => next(e));
@@ -56,20 +56,20 @@ let clientCurriculumKeys = ['client'];
 * @property {number} req.query.limit - Limit number of skillDatas to be returned.
 * @returns {SkillData[]}
 */
-function list(req, res, next) {
-    const { limit = 20, skip = 0 } = req.query;
-    delete req.query.limit;
-    delete req.query.skip;
-    let query = SkillData;
-    query = buildQuery(req, query);
-    return query.populate('skill')
-        .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
-        .sort({ trialNumber: -1 })
-        .skip(parseInt(skip)).limit(parseInt(limit))
-        .exec()
-        .then(skillDatas => skillDatas)
-        .catch(e => next(e));
-}
+// function list(req, res, next) {
+//     const { limit = 20, skip = 0 } = req.query;
+//     delete req.query.limit;
+//     delete req.query.skip;
+//     let query = SkillData;
+//     query = buildQuery(req, query);
+//     return query.populate('skill')
+//         .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+//         .sort({ trialNumber: -1 })
+//         .skip(parseInt(skip)).limit(parseInt(limit))
+//         .exec()
+//         .then(skillData => skillData)
+//         .catch(e => next(e));
+// }
 
 //this query is specific enough i want to separate it out from rest of traditional REST responses
 function listReport(req, res, next){
@@ -121,23 +121,33 @@ function buildQueryObj(req, query){
     return array;
 }
 
-//builds a query for 
-function buildQuery(req, query){
-    if(Object.keys(req.query).length === 0)
-        return query.find();
-    for(let key in req.query){
-        let obj = {};
-        if(_.indexOf(dateKeys, key) > -1){
-            if(key == 'startDate')
-                obj[key] = {$gt: req.query[key]};
-            if(key == 'endDate')
-                obj[key] = {$lt: req.query[key]};
-            query = query.find(obj);    
-        } else{
-            obj[key] = req.query[key];
-        }
-    }    
-    return query.find(obj);
+
+function list(req, res, next) {
+    const { limit = 20, skip = 0 } = req.query; 
+    delete req.query.limit;
+    delete req.query.skip;    
+    let queryObj = buildQuery(req);
+    console.log(queryObj);
+    
+    return SkillData.find(queryObj.length > 0 ? {$and: queryObj} : {})
+        .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+        .populate('skill')
+        .sort({ trialNumber: -1 })
+        .skip(parseInt(skip)).limit(parseInt(limit))
+        .exec()
+        .then(skillData => skillData)
+        .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
 }
 
 

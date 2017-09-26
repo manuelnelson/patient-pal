@@ -46,6 +46,9 @@ var ProfessionalSchema = new _mongoose2.default.Schema({
     title: {
         type: String
     },
+    imageUrl: {
+        type: String
+    },
     organization: {
         type: _mongoose2.default.Schema.ObjectId,
         ref: 'Organization'

@@ -41,7 +41,8 @@ clients-component{
         padding: px-to-rem(10px);
     }
     .client-name{
-
+        font-weight: bold;
+        display: block;
     }
     .client-add{
         margin-top: px-to-rem(30px);

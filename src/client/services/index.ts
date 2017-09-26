@@ -20,6 +20,7 @@ export * from './route-reuse.strategy';
 
 //resolvers
 export * from './resolvers/client-resolver.service';
+export * from './resolvers/client-resolver-list.service';
 export * from './resolvers/professional-resolver.service';
 export * from './resolvers/professional-resolver-list.service';
 export * from './resolvers/appointment-resolver-list.service';

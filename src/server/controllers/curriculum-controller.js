@@ -80,7 +80,8 @@ function search(req, res, next) {
     Curriculum.find({
         name: {
             $regex: regex
-        }
+        },
+        organization: req.query.organization
     })
     .then((curriculums) => res.json(curriculums))
     .catch(e => next(e));

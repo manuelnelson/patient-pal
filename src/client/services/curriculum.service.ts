@@ -77,7 +77,8 @@ export class CurriculumService {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.apiEndpointUrl + '/search/' + keyword, options)
+        let query = '?organization=' + this.authService.getLoggedInUser().organizationId;
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword + query, options)
             .map((response: Response) => response.json() as Array<Curriculum>);
     }
 

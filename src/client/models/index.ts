@@ -13,6 +13,7 @@ export * from './error.model';
 export * from './professional.model';
 export * from './professional-api.model';
 export * from './target-type.model';
+export * from './file-holder.model';
 export * from './dtt-type.model';
 export * from './skill.model';
 export * from './appointment.model';

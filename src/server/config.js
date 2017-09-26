@@ -18,6 +18,10 @@ const envVarsSchema = Joi.object({
     }),
   JWT_SECRET: Joi.string().required()
     .description('JWT Secret required to sign'),
+  AWS_ACCESS_KEY_ID: Joi.string().required()
+  .description('Amazon access key required for files'),
+  AWS_SECRET_ACCESS_KEY: Joi.string().required()
+  .description('Amazon secret key required for files'),
   // MONGO_HOST: Joi.string().required()
   //   .description('Mongo DB host url'),
   // MONGO_PORT: Joi.number()
@@ -34,7 +38,8 @@ const config = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   mongooseDebug: envVars.MONGOOSE_DEBUG,
-  
+  awsAcessKey: envVars.AWS_ACCESS_KEY_ID,
+  awsSecret: envVars.AWS_SECRET_ACCESS_KEY,
   jwtSecret: envVars.JWT_SECRET,
   mongo: {
     host: envVars.MONGO_HOST,

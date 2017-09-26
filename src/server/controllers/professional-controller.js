@@ -104,7 +104,7 @@ function update(req, res, next) {
     // professional.birth = req.body.birth;
 
     return professional.save()
-    .then(savedProfessional => {console.log('test'); res.json(savedProfessional);})
+    .then(savedProfessional => res.json(savedProfessional))
     .catch(e => next(e));
 }
 
@@ -144,6 +144,16 @@ function buildQuery(req){
     return array;
 }
 
+function uploadPhoto(req,res,next){
+    let professional = req.professional;
+    console.log(req.file)
+    professional.imageUrl = req.file.location;
+
+    return professional.save()
+    .then(savedProfessional => res.json(savedProfessional))
+    .catch(e => next(e));
+}
+
 /**
 * Delete professional.
 * @returns {Professional}
@@ -155,4 +165,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove, getAppointments };
+export default { load, get, create, update, list, remove, getAppointments, uploadPhoto };

@@ -49,7 +49,7 @@ function get(req, res) {
 * @returns {SkillData}
 */
 function create(req, res, next) {
-    var skillData = new _models.SkillData(req.body).save().then(function (savedSkillData) {
+    return new _models.SkillData(req.body).save().then(function (savedSkillData) {
         return savedSkillData;
     }).catch(function (e) {
         return next(e);
@@ -80,31 +80,28 @@ var clientCurriculumKeys = ['client'];
 * @property {number} req.query.limit - Limit number of skillDatas to be returned.
 * @returns {SkillData[]}
 */
-function list(req, res, next) {
+// function list(req, res, next) {
+//     const { limit = 20, skip = 0 } = req.query;
+//     delete req.query.limit;
+//     delete req.query.skip;
+//     let query = SkillData;
+//     query = buildQuery(req, query);
+//     return query.populate('skill')
+//         .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
+//         .sort({ trialNumber: -1 })
+//         .skip(parseInt(skip)).limit(parseInt(limit))
+//         .exec()
+//         .then(skillData => skillData)
+//         .catch(e => next(e));
+// }
+
+//this query is specific enough i want to separate it out from rest of traditional REST responses
+function listReport(req, res, next) {
     var _req$query = req.query,
         _req$query$limit = _req$query.limit,
         limit = _req$query$limit === undefined ? 20 : _req$query$limit,
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
-
-    delete req.query.limit;
-    delete req.query.skip;
-    var query = _models.SkillData;
-    query = buildQuery(req, query);
-    return query.populate('skill').populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillDatas) {
-        return skillDatas;
-    }).catch(function (e) {
-        return next(e);
-    });
-}
-
-//this query is specific enough i want to separate it out from rest of traditional REST responses
-function listReport(req, res, next) {
-    var _req$query2 = req.query,
-        _req$query2$limit = _req$query2.limit,
-        limit = _req$query2$limit === undefined ? 20 : _req$query2$limit,
-        _req$query2$skip = _req$query2.skip,
-        skip = _req$query2$skip === undefined ? 0 : _req$query2$skip;
 
     delete req.query.limit;
     delete req.query.skip;
@@ -141,28 +138,42 @@ function buildQueryObj(req, query) {
             }
             if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
         } else {
-            var _obj = {};
-            _obj[key] = req.query[key];
-            array.push(_obj);
+            var obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
         }
     }
     return array;
 }
 
-//builds a query for 
-function buildQuery(req, query) {
-    if (Object.keys(req.query).length === 0) return query.find();
+function list(req, res, next) {
+    var _req$query2 = req.query,
+        _req$query2$limit = _req$query2.limit,
+        limit = _req$query2$limit === undefined ? 20 : _req$query2$limit,
+        _req$query2$skip = _req$query2.skip,
+        skip = _req$query2$skip === undefined ? 0 : _req$query2$skip;
+
+    delete req.query.limit;
+    delete req.query.skip;
+    var queryObj = buildQuery(req);
+    console.log(queryObj);
+
+    return _models.SkillData.find(queryObj.length > 0 ? { $and: queryObj } : {}).populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).populate('skill').sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillData) {
+        return skillData;
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
     for (var key in req.query) {
-        var _obj2 = {};
-        if (_lodash2.default.indexOf(dateKeys, key) > -1) {
-            if (key == 'startDate') _obj2[key] = { $gt: req.query[key] };
-            if (key == 'endDate') _obj2[key] = { $lt: req.query[key] };
-            query = query.find(_obj2);
-        } else {
-            _obj2[key] = req.query[key];
-        }
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
     }
-    return query.find(obj);
+    return array;
 }
 
 /**

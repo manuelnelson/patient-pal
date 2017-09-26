@@ -10,6 +10,10 @@ const curriculumSchema = new mongoose.Schema({
         type: String,
     },
     skills:[{type:mongoose.Schema.ObjectId, ref:'Skill'}],
+    organization: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Organization'
+    },
     createdAt: {
         type: Date,
         default: Date.now

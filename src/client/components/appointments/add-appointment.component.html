@@ -3,7 +3,7 @@
     <form class="form" [formGroup]="appointmentForm" (ngSubmit)="appointment(appointmentForm.value)" novalidate>
         <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.date)}">
             <label>Date<span *ngIf="invalidControl(appointmentForm.controls.date)">Date Required</span></label>
-            <input type="text" formControlName="date" placeholder="Date (MM/dd/yyyy)"/>
+            <input type="date" formControlName="date" placeholder="Date (MM/dd/yyyy)"/>
         </div>
         <div class="form-input" [ngClass]="{'error':invalidControl(appointmentForm.controls.startTime)}">
             <label>Start Time<span *ngIf="invalidControl(appointmentForm.controls.startTime)">Start Time Required</span></label>

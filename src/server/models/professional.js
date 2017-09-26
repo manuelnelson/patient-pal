@@ -21,6 +21,9 @@ const ProfessionalSchema = new mongoose.Schema({
     title: {
         type: String,
     },
+    imageUrl: {
+        type: String,
+    },
     organization: {
         type: mongoose.Schema.ObjectId,
         ref: 'Organization'

@@ -35,6 +35,7 @@ export class CreateCurriculumComponent implements OnInit {
         //this.router.navigate(['/professional/curriculums']);
         if(this.curriculumForm.valid){
             curriculumValues.skills = JSON.parse(curriculumValues.skills);
+            curriculumValues.organization = this.authService.getLoggedInUser().organizationId;
             this.curriculumService.create(curriculumValues).subscribe(
                 data => {
                     this.router.navigate(['/professional/curriculums'], {queryParams: {refresh: true}});
@@ -54,6 +55,7 @@ export class CreateCurriculumComponent implements OnInit {
             this.searchInProgress = true;
             this.skillService.search(this.curriculumForm.controls.keyword.value)
                 .subscribe(results => {
+                    console.log(results)
                     this.searchInProgress = false;
                     this.searchResults = results
                 });

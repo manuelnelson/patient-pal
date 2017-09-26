@@ -29,7 +29,7 @@ export class AssignCurriculumComponent implements OnInit {
         let curriculum = new FormControl('');
 
         this.curriculumForm = new FormGroup({
-            keyword: keyword,
+            keyword: keyword, 
             curriculum: curriculum
         });
 

@@ -4,5 +4,6 @@ export interface Professional extends User {
     firstname: string;
     lastname: string;
     title: string;
+    imageUrl: string;
     organization: Organization;
 }

@@ -1,8 +1,9 @@
 import {User} from './user.model';
 export interface Client extends User {
-    firstname: String;
-    lastname: String;
+    firstname: string;
+    lastname: string;
     birth: Date;
-    sex: String;
-    insurance: String;
+    sex: string;
+    insurance: string;
+    organization: string;
 }

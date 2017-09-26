@@ -7,6 +7,9 @@ import { Skill } from '../../models';
 export class AddSkillResolver implements Resolve<Array<Skill>> {
     constructor(private skillService: SkillService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<Skill>> {
-        return this.skillService.list().map(skills => skills).toPromise();
+        let orgId = this.authService.getLoggedInUser().organizationId;
+        let query = 'organization=' + orgId;
+
+        return this.skillService.list(query).map(skills => skills).toPromise();
     }
 }

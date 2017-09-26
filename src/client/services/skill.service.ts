@@ -22,7 +22,9 @@ export class SkillService {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.apiEndpointUrl + '/search/' + keyword, options)
+        let query = '?organization=' + this.authService.getLoggedInUser().organizationId; 
+        
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword + query, options)
             .map((response: Response) => response.json() as Array<Skill>);
     }
     update(skill: Skill) {
@@ -39,13 +41,14 @@ export class SkillService {
             });
     }
 
-    list() {
+    list(query: string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(this.apiEndpointUrl, options)
-            .map((response: Response) => {
+        query = query && query.length > 0 ? '?' + query : ''; 
+        
+        return this.http.get(this.apiEndpointUrl + query, options)
+                .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let skills = response.json() as Array<Skill>;
                 return skills;

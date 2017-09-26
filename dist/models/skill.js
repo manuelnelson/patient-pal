@@ -77,6 +77,10 @@ var SkillSchema = new _mongoose2.default.Schema({
     targetInstructions: {
         type: String
     },
+    organization: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'Organization'
+    },
     createdAt: {
         type: Date,
         default: Date.now
