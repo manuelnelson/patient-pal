@@ -26,7 +26,7 @@ export class AddSkillComponent implements OnInit {
         this.dttTypes = this.route.snapshot.data['dttTypes'];
         //get ids for special cases
         this.dttTypeId = this.getId('dtt');
-        this.jumpToId = this.getId('jump');
+        // this.jumpToId = this.getId('jump');
         this.durationId = this.getId('duration');
         this.fluencyId = this.getId('fluency');
         this.wholeId = this.getId('whole');

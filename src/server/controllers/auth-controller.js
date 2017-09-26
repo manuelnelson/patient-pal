@@ -9,7 +9,7 @@ import config from '../config';
 * @param req
 * @param res
 * @param next
-* @returns {*}
+* @returns {*} 
 */
 function login(req, res, next) {
     if(!req.body.email || !req.body.password){
