@@ -143,7 +143,11 @@ var app = (0, _express2.default)();
 	app.get('/server/reports', _routes2.default.reports);
 
 	// serve index page for spa
-	app.use('/', _express2.default.static('/index.html'));
+	app.get('*', function (req, res) {
+		res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
+		// res.sendFile('/index.html');
+	});
+	// app.use('*', express.static('/index.html'));
 
 	// if error is not an instanceOf APIError, convert it.
 	app.use(function (err, req, res, next) {
