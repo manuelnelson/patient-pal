@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import SeedTargetType from './seed/targetType';
 import SeedDdt from './seed/dttType';
+import SeedOrganization from './seed/organization';
 
 export default callback => {
 	mongoose.Promise = require('bluebird');
@@ -18,7 +19,11 @@ export default callback => {
 			.any()
 			.then(ddts => SeedDdt.run(ddts))
 
-		  // we're connected!
+			SeedOrganization
+			.noEmail()
+			.then(organizations => SeedOrganization.run(organizations))
+
+		// we're connected!
 		  callback(db);
 	});
 

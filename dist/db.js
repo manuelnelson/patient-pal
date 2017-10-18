@@ -16,6 +16,10 @@ var _dttType = require('./seed/dttType');
 
 var _dttType2 = _interopRequireDefault(_dttType);
 
+var _organization = require('./seed/organization');
+
+var _organization2 = _interopRequireDefault(_organization);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (callback) {
@@ -32,6 +36,10 @@ exports.default = function (callback) {
 
 		_dttType2.default.any().then(function (ddts) {
 			return _dttType2.default.run(ddts);
+		});
+
+		_organization2.default.noEmail().then(function (organizations) {
+			return _organization2.default.run(organizations);
 		});
 
 		// we're connected!

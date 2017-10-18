@@ -130,14 +130,13 @@ var app = (0, _express2.default)();
 	// api router
 	app.use('/api', (0, _api2.default)({ config: _config2.default, db: db }));
 
+	//reports are run server side - this handles that request
 	app.get('/server/reports', _routes2.default.reports);
 
 	// serve index page for spa
 	app.get(/^(?!\/api).*/, function (req, res) {
 		res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
-		// res.sendFile('/index.html');
 	});
-	// app.use('*', express.static('/index.html'));
 
 	// if error is not an instanceOf APIError, convert it.
 	app.use(function (err, req, res, next) {

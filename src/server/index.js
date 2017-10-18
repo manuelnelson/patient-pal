@@ -64,14 +64,13 @@ initializeDb( db => {
 	// api router
 	app.use('/api', api({ config, db }));
 
+	//reports are run server side - this handles that request
     app.get('/server/reports', routes.reports);
 	
 	// serve index page for spa
 	app.get(/^(?!\/api).*/, (req, res) => {
 		res.sendFile(path.join(__dirname, '/public/index.html'));
-		// res.sendFile('/index.html');
 	});
-	// app.use('*', express.static('/index.html'));
 
 	// if error is not an instanceOf APIError, convert it.
 	app.use((err, req, res, next) => {
