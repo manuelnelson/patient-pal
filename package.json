@@ -11,7 +11,7 @@
     "dev": "webpack-dev-server --config ./src/webpack/webpack.dev.js",
     "start": "node dist",
     "postinstall": "npm run -s build:prod",
-    "test": "eslint src",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors --compilers js:babel-core/register src/server/tests --recursive",
     "start:dev": "npm-run-all -p dev watch:backend"
   },
   "eslintConfig": {
@@ -48,6 +48,7 @@
     "@angular/router": "^4.0.1",
     "@types/lodash": "^4.14.74",
     "@types/node": "^7.0.12",
+    "@types/stripe-node": "^4.6.8",
     "angular-calendar": "^0.18.3",
     "angular2-image-upload": "^0.6.6",
     "aws-sdk": "^2.121.0",
@@ -85,6 +86,7 @@
     "resource-router-middleware": "^0.6.0",
     "rxjs": "^5.2.0",
     "sass-loader": "^6.0.2",
+    "stripe": "^5.1.1",
     "style-loader": "^0.13.2",
     "supertest": "^3.0.0",
     "ts-loader": "^2.0.1",
@@ -109,7 +111,8 @@
     "husky": "^0.13.2",
     "nodemon": "^1.9.2",
     "npm-run-all": "^4.0.2",
-    "parallelshell": "^2.0.0"
+    "parallelshell": "^2.0.0",
+    "supertest-as-promised": "^4.0.2"
   },
   "homepage": "https://github.com/manuelnelson/practice-pal#readme",
   "keywords": [

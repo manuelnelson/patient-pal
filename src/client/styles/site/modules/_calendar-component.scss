@@ -8,12 +8,25 @@ calendar-component, client-calendar-component {
         margin-bottom: 0;
         text-align: center;
         font-size: px-to-rem(22px);
+        display: block;
+        margin-bottom: px-to-rem(20px);
+        &:after{
+            clear: both; 
+        }        
     }
     .calendar{
         //width: (100% / 3);
         width: 40%;
         display: inline-block;
         margin-bottom: px-to-rem(20px);
+    }
+    .previous-button{
+        float: left;
+        background-color: $color-green;
+    }
+    .next-button{
+        float: right;
+        background-color: $color-green;
     }
     @include bp-max($bp-between){
         width: 100%;

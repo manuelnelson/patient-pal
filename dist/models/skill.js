@@ -100,10 +100,10 @@ SkillSchema.statics = {
         return this.findById(id).exec().then(function (Skill) {
             if (Skill) {
                 return Skill;
+            } else {
+                var err = new _APIError2.default('No such Skill exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such Skill exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

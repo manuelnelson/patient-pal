@@ -48,9 +48,10 @@ AppointmentSchema.statics = {
             if (Appointment) {
                 return Appointment;
             }
-            return null;
-            // const err = new APIError('No such Appointment exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such Appointment exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);
+            }
         });
     },
 

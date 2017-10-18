@@ -79,10 +79,10 @@ ClientSchema.statics = {
         return this.findById(id).exec().then(function (Client) {
             if (Client) {
                 return Client;
+            } else {
+                var err = new _APIError2.default('No such Client exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 
@@ -95,10 +95,25 @@ ClientSchema.statics = {
         return this.findOne({ email: email }).exec().then(function (Client) {
             if (Client) {
                 return Client;
+            } else {
+                var err = new _APIError2.default('No such Client exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
+            }
+        });
+    },
+
+
+    /**
+    * Get Professional by Email
+    * @param {string} email - The email of Professional.
+    * @returns {Promise<Professional, APIError>}
+    */
+    exists: function exists(email) {
+        return this.findOne({ email: email }).exec().then(function (Client) {
+            if (Client) {
+                return Client;
             }
             return null;
-            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

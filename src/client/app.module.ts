@@ -1,11 +1,11 @@
-import { NgModule, OnInit, ErrorHandler } from '@angular/core';
+import { NgModule, OnInit, ErrorHandler, isDevMode } from '@angular/core';
 import { CommonModule, DatePipe }   from '@angular/common';
 import {RouteReuseStrategy} from "@angular/router";
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule }  from './app.routing';
-import { MdSliderModule } from '@angular/material';
+
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { ImageUploadModule } from 'angular2-image-upload';
 import {
@@ -14,9 +14,10 @@ import {
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
-            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver
+            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService
         } from './services';
 import { CalendarModule } from 'angular-calendar';
+ 
 
 import {
     HomeComponent, NavigationComponent, AppComponent, LoginComponent, SignupComponent, ProfessionalDashboardComponent,
@@ -27,9 +28,23 @@ import {
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
     RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
     ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent,
-    AddProfessionalComponent
+    AddProfessionalComponent, BillingComponent
 } from './components/';
 
+let imports = [
+    BrowserModule,
+    HttpModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    CalendarModule.forRoot(),
+    ImageUploadModule.forRoot()    
+];
+let exportModules = new Array<any>();
+// import { MdSliderModule } from '@angular/material';    
+// if(process.env.NODE_ENV == 'production'){
+//     imports.push(MdSliderModule)
+//     exportModules.push(MdSliderModule);
+// }
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [ HomeComponent, NavigationComponent, AppComponent, LoginComponent, SignupComponent,
@@ -40,20 +55,10 @@ import {
         AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, 
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
         WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent,
-        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent
+        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent
     ],
-    imports: [
-        BrowserModule,
-        HttpModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        CalendarModule.forRoot(),
-        MdSliderModule,
-        ImageUploadModule.forRoot(),
-    ],
-    exports: [
-        MdSliderModule
-    ],
+    imports: imports,
+    exports: exportModules,
     providers: [
         {
           provide: ErrorHandler,
@@ -72,8 +77,9 @@ import {
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver
+        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService
     ]
 })
 
 export class AppModule{}
+

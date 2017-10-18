@@ -20,7 +20,7 @@ export class AssignCurriculumComponent implements OnInit {
     constructor(private curriculumService:CurriculumService,private alertService:AlertService,
         private router: Router, private authService: AuthenticationService, private route: ActivatedRoute,
         private clientCurriculumService: ClientCurriculumService){
-        this.appointment = route.parent.snapshot.data["appointment"];
+        this.appointment = route.parent.snapshot.data["appointment"]; 
         this.existingClientCurriculums = route.snapshot.data["existingClientCurriculums"];
         
     }

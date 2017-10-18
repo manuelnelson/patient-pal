@@ -14,6 +14,7 @@ export class ReportsComponent implements OnInit{
     students: Array<Client>;
     professional: Professional;
     reportsForm: FormGroup;
+    showErrors: boolean = false;
     
     constructor(private authService: AuthenticationService, private alertService: AlertService, private clientService: ClientService, 
         private route: ActivatedRoute, private router: Router)
@@ -49,11 +50,14 @@ export class ReportsComponent implements OnInit{
             //         // this.loading = false;
             //     });
         }
+        else
+            this.showErrors = true;
+
     }
 
     
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 
 }

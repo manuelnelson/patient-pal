@@ -34,6 +34,7 @@ $icon-left-arrow: "\ea40";
 $icon-address-book: "\e944";
 $icon-edit: "\e906";
 $icon-professional: "\e976";
+$icon-credit-card: "\e93f";
 
 .icon-edit:before {
   content: $icon-edit;
@@ -67,4 +68,7 @@ $icon-professional: "\e976";
 }
 .icon-address-book:before { 
   content: $icon-address-book;
+}
+.icon-credit-card:before { 
+  content: $icon-credit-card;
 }

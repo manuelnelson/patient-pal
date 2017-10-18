@@ -6,21 +6,22 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/dttTypes - Get list of dttTypes */
-  .get(DttTypeCtrl.list)
+  .get(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.list(req,res,next).then(dttTypes => res.json(dttTypes)))
 
   /** POST /api/dttTypes - Create new dttType */
-  .post(AuthCtrl.verifyToken,DttTypeCtrl.create);
+  .post(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.create(req,res,next).then(dttType => res.json(dttType)))
+  //.post(AuthCtrl.verifyToken,DttTypeCtrl.create);
   // .post(validate(paramValidation.createUser), DttTypeCtrl.create);
 
 router.route('/:id')
   /** GET /api/dttTypes/:id - Get dttType */
-  .get(DttTypeCtrl.get)
+  .get(AuthCtrl.verifyToken, (req,res,next) => res.json(DttTypeCtrl.get(req,res,next)))
 
   /** PUT /api/dttTypes/:id - Update dttType */
-  .put(DttTypeCtrl.update)
+  .put(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.update(req,res,next).then(dttType => res.json(dttType)))
 
   /** DELETE /api/dttTypes/:id - Delete dttType */
-  .delete(DttTypeCtrl.remove);
+  .delete(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.remove(req,res,next).then(dttType => res.json(dttType)));
 
 /** Load user when API with userId route parameter is hit */
 router.param('id', DttTypeCtrl.load);

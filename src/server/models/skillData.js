@@ -53,9 +53,10 @@ skillResultSchema.statics = {
             if (skillResult) {
                 return skillResult;
             }
-            return null;
-            // const err = new APIError('No such skillResult exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such skillResult exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);
+            }
         });
     },
 

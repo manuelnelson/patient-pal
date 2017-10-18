@@ -19,7 +19,7 @@ function load(req, res, next, id) {
 * @returns {TargetType}
 */
 function get(req, res) {
-    return res.json(req.targetType);
+    return req.targetType;
 }
 
 /**
@@ -27,9 +27,9 @@ function get(req, res) {
 * @returns {TargetType}
 */
 function create(req, res, next) {
-    const targetType = new TargetType(req.body)
+   return new TargetType(req.body)
         .save()
-        .then(savedTargetType => res.json(savedTargetType))
+        .then(savedTargetType => savedTargetType)
         .catch(e => next(e));
 }
 
@@ -39,11 +39,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const targetType = req.targetType;
-    for(let prop in req.targetType){
-        targetType[prop] = req.targetType[prop];
+    for(let prop in req.body){
+        targetType[prop] = req.body[prop];
     }
-    targetType.save()
-    .then(savedTargetType => res.json(savedTargetType))
+    return targetType.save()
+    .then(savedTargetType => savedTargetType)
     .catch(e => next(e));
 }
 
@@ -55,9 +55,34 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
-    TargetType.list({ limit, skip })
-    .then(targetTypes => res.json(targetTypes))
-    .catch(e => next(e));
+    delete req.query.limit;
+    delete req.query.skip;    
+    let queryObj = buildQuery(req);
+        
+    return TargetType.find(queryObj.length > 0 ? {$or: queryObj} : {})
+        .sort('-name')
+        .skip(skip)
+        .limit(limit)
+        .then(targetTypes => targetTypes)
+        .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+            var obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**
@@ -66,8 +91,8 @@ function list(req, res, next) {
 */
 function remove(req, res, next) {
     const targetType = req.targetType;
-    targetType.remove()
-    .then(deletedTargetType => res.json(deletedTargetType))
+    return targetType.remove()
+    .then(deletedTargetType => deletedTargetType)
     .catch(e => next(e));
 }
 

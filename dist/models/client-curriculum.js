@@ -72,10 +72,10 @@ clientCurriculumSchema.statics = {
         .populate({ path: 'curriculum', populate: { path: 'skills', populate: { path: 'targetType dttType' } } }).exec().then(function (clientCurriculum) {
             if (clientCurriculum) {
                 return clientCurriculum;
+            } else {
+                var err = new _APIError2.default('No such clientCurriculum exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such clientCurriculum exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

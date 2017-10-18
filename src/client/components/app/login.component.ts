@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
     @Input() user: User;
     loginForm: FormGroup;
     loginFormString: string;
-
+    showErrors: boolean = false;
+    
     constructor(private authService:AuthenticationService,private alertService:AlertService,
                 private router: Router){
         this.user = this.authService.getLoggedInUser();
@@ -39,6 +40,9 @@ export class LoginComponent implements OnInit {
                     this.alertService.error(error);
                 });
         }
+        else
+            this.showErrors = true;
+
     }
     logout(){
         this.authService.logout();
@@ -47,7 +51,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
     }
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
     goToDashboard(){
         this.closeLogin.emit();

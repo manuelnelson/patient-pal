@@ -61,10 +61,10 @@ curriculumSchema.statics = {
         .populate({ path: 'skills', populate: { path: 'targetType dttType' } }).exec().then(function (curriculum) {
             if (curriculum) {
                 return curriculum;
+            } else {
+                var err = new _APIError2.default('No such curriculum exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such curriculum exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

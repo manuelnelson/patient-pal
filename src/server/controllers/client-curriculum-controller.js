@@ -6,7 +6,7 @@ import Constants from '../lib/constants';
 * Load clientCurriculum and append to req.
 */
 function load(req, res, next, id) {
-    ClientCurriculum.get(id)    
+    ClientCurriculum.get(id)
     .then((clientCurriculum) => {
         req.clientCurriculum = clientCurriculum;
         return next();
@@ -18,11 +18,11 @@ function load(req, res, next, id) {
 * Load clientCurriculum and append to req.
 */
 function getByClient(req, res, next) {
-    ClientCurriculum.find({client: req.params.clientId})
+    return ClientCurriculum.find({client: req.params.clientId})
     .populate('client appointment curriculum')
     .sort('-createdAt')
     .exec()    
-    .then((clientCurriculums) => res.json(clientCurriculums))
+    .then((clientCurriculums) => clientCurriculums)
     .catch(e => next(e));
 }
 
@@ -32,7 +32,7 @@ function getByClient(req, res, next) {
 * @returns {ClientCurriculum}
 */
 function get(req, res) {
-    return res.json(req.clientCurriculum);
+    return req.clientCurriculum;
 }
 
 /**
@@ -40,9 +40,9 @@ function get(req, res) {
 * @returns {ClientCurriculum}
 */
 function create(req, res, next) {
-    const clientCurriculum = new ClientCurriculum(req.body)
+   return new ClientCurriculum(req.body)
         .save()
-        .then(savedClientCurriculum => res.json(savedClientCurriculum))
+        .then(savedClientCurriculum => savedClientCurriculum)
         .catch(e => next(e));
 }
 
@@ -52,11 +52,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const clientCurriculum = req.clientCurriculum;
-    for(let prop in req.clientCurriculum){
-        clientCurriculum[prop] = req.clientCurriculum[prop];
+    for(let prop in req.body){
+        clientCurriculum[prop] = req.body[prop];
     }
-    clientCurriculum.save()
-    .then(savedClientCurriculum => res.json(savedClientCurriculum))
+    return clientCurriculum.save()
+    .then(savedClientCurriculum => savedClientCurriculum)
     .catch(e => next(e));
 }
 
@@ -69,10 +69,35 @@ function update(req, res, next) {
 function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
     delete req.query.limit;
-    delete req.query.skip;
-    ClientCurriculum.list({ limit, skip, query: req.query }) 
-    .then(clientCurriculums => res.json(clientCurriculums))
-    .catch(e => next(e));
+    delete req.query.skip;    
+    let queryObj = buildQuery(req);
+        
+    return ClientCurriculum.find(queryObj.length > 0 ? {$and: queryObj} : {})
+        .sort({ createdAt: -1 })
+        .populate('curriculum client appointment')                
+        .skip(skip)
+        .limit(limit)
+        .then(clientCurriculums => clientCurriculums)
+        .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+            var obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
+        // }
+    }
+    console.log(array);
+    return array;
 }
 
 /**
@@ -81,8 +106,8 @@ function list(req, res, next) {
 */
 function remove(req, res, next) {
     const clientCurriculum = req.clientCurriculum;
-    clientCurriculum.remove()
-    .then(deletedClientCurriculum => res.json(deletedClientCurriculum))
+    return clientCurriculum.remove()
+    .then(deletedClientCurriculum => deletedClientCurriculum)
     .catch(e => next(e));
 }
 

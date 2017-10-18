@@ -30,7 +30,7 @@ var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TargetTypeSchema = new _mongoose2.default.Schema({
+var targetTypeSchema = new _mongoose2.default.Schema({
     name: {
         type: String
     },
@@ -43,29 +43,29 @@ var TargetTypeSchema = new _mongoose2.default.Schema({
 /**
 * Statics
 */
-TargetTypeSchema.statics = {
+targetTypeSchema.statics = {
     /**
-    * Get TargetType
-    * @param {ObjectId} id - The objectId of TargetType.
-    * @returns {Promise<TargetType, APIError>}
+    * Get targetType
+    * @param {ObjectId} id - The objectId of targetType.
+    * @returns {Promise<targetType, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).exec().then(function (TargetType) {
-            if (TargetType) {
-                return TargetType;
+        return this.findById(id).exec().then(function (targetType) {
+            if (targetType) {
+                return targetType;
+            } else {
+                var err = new _APIError2.default('No such targetType exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such TargetType exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 
 
     /**
-    * List TargetTypes in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of TargetTypes to be skipped.
-    * @param {number} limit - Limit number of TargetTypes to be returned.
-    * @returns {Promise<TargetType[]>}
+    * List targetTypes in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of targetTypes to be skipped.
+    * @param {number} limit - Limit number of targetTypes to be returned.
+    * @returns {Promise<targetType[]>}
     */
     list: function list() {
         var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -74,9 +74,9 @@ TargetTypeSchema.statics = {
             _ref$limit = _ref.limit,
             limit = _ref$limit === undefined ? 50 : _ref$limit;
 
-        return this.find().sort('name').skip(skip).limit(limit).exec();
+        return this.find().sort('-name').skip(skip).limit(limit).exec();
     }
 };
 
-exports.default = _mongoose2.default.model('TargetType', TargetTypeSchema);
+exports.default = _mongoose2.default.model('TargetType', targetTypeSchema);
 //# sourceMappingURL=targetType.js.map

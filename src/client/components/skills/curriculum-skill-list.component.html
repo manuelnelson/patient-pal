@@ -1,8 +1,9 @@
 <div class="skill-list">
+    <h4 class="message-finished" *ngIf="clientCurriculum.completed">Curriculum Finished</h4>   
     <div *ngIf="clientCurriculum.curriculum.skills.length == 0" class="no-skills">
         <h4>You currently have no skills added.</h4>
     </div>
-    <h4 *ngIf="clientCurriculum.curriculum.skills.length > 0">Skills</h4>
+    <h4 *ngIf="clientCurriculum.curriculum.skills.length > 0 && !clientCurriculum.completed">Skills</h4>
     <div *ngIf="clientCurriculum.curriculum.skills.length > 0" class="skill-item">
         <span class="skill-name bold">Target Name</span>
         <span class="skill-target bold">Target Type</span>

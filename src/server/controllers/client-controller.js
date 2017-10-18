@@ -20,7 +20,7 @@ function load(req, res, next, userId) {
 * @returns {Client}
 */
 function get(req, res) {
-    return res.json(req.client);
+    return req.client;
 }
 
 /**
@@ -28,11 +28,11 @@ function get(req, res) {
 * @returns {Appointment[]}
 */
 function getAppointments(req, res, next) {
-    Appointment.find({client: req.client._id}) 
+    return Appointment.find({client: req.client._id}) 
         .populate('client professional')
         .sort('startDate')
         .exec()
-        .then(appointments => res.json(appointments));
+        .then(appointments => appointments);
 }
 
 
@@ -41,12 +41,12 @@ function getAppointments(req, res, next) {
 * @returns {Client}
 */
 function create(req, res, next) {
-    Client.getByEmail(req.body.email).then(existingClient =>{
+    return Client.exists(req.body.email).then(existingClient =>{
         if(existingClient){
             const err = new APIError('Error: Client Already Exists', httpStatus.FORBIDDEN, true);
             return next(err);
         }else{
-            const client = new Client({
+            return new Client({
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
@@ -60,23 +60,28 @@ function create(req, res, next) {
                 //Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{clients:savedClient}}, (err,result) =>{});
 
                 //check if user already exists
-                User.getByEmail(req.body.email)
+                return User.getByEmail(req.body.email)
                 .then(existingUser=>{
                     if(existingUser && existingUser.length > 0)
                     {
                         existingUser.client = savedClient._id;
-                        existingUser.update().then(savedUser => {
-                            return res.json(savedClient);
+                        return existingUser.update().then(savedUser => {
+                            //return userid with professional
+                            let savedObj = savedClient.toObject();
+                            savedObj.userId = savedUser._id;
+                            return savedObj;
                         });
                     } else {
                         //create new user.  Attach client
-                        const user = new User({
+                        return new User({
                             role: Constants.roles.Client,
                             email: req.body.email,
                             password: Constants.defaultPassword,
                             client: savedClient._id
                         }).save().then(savedUser => {
-                            return res.json(savedClient);
+                            let savedObj = savedClient.toObject();
+                            savedObj.userId = savedUser._id;
+                            return savedObj;
                         })
                         .catch(e => next(e));
                     }
@@ -105,8 +110,8 @@ function update(req, res, next) {
     client.sex = req.body.sex;
     client.birth = req.body.birth;
 
-    client.save()
-    .then(savedClient => res.json(savedClient))
+    return client.save()
+    .then(savedClient => savedClient)
     .catch(e => next(e));
 }
 
@@ -126,7 +131,7 @@ function list(req, res, next) {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .then(clients => res.json(clients))
+        .then(clients => clients)
         .catch(e => next(e));
 }
 
@@ -148,8 +153,8 @@ function buildQuery(req){
 */
 function remove(req, res, next) {
     const client = req.client;
-    client.remove()
-    .then(deletedClient => res.json(deletedClient))
+    return client.remove()
+    .then(deletedClient => deletedClient)
     .catch(e => next(e));
 }
 

@@ -37,7 +37,7 @@ function load(req, res, next, id) {
 * @returns {TargetType}
 */
 function get(req, res) {
-    return res.json(req.targetType);
+    return req.targetType;
 }
 
 /**
@@ -45,8 +45,8 @@ function get(req, res) {
 * @returns {TargetType}
 */
 function create(req, res, next) {
-    var targetType = new _models.TargetType(req.body).save().then(function (savedTargetType) {
-        return res.json(savedTargetType);
+    return new _models.TargetType(req.body).save().then(function (savedTargetType) {
+        return savedTargetType;
     }).catch(function (e) {
         return next(e);
     });
@@ -58,11 +58,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var targetType = req.targetType;
-    for (var prop in req.targetType) {
-        targetType[prop] = req.targetType[prop];
+    for (var prop in req.body) {
+        targetType[prop] = req.body[prop];
     }
-    targetType.save().then(function (savedTargetType) {
-        return res.json(savedTargetType);
+    return targetType.save().then(function (savedTargetType) {
+        return savedTargetType;
     }).catch(function (e) {
         return next(e);
     });
@@ -81,11 +81,33 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.TargetType.list({ limit: limit, skip: skip }).then(function (targetTypes) {
-        return res.json(targetTypes);
+    delete req.query.limit;
+    delete req.query.skip;
+    var queryObj = buildQuery(req);
+
+    return _models.TargetType.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort('-name').skip(skip).limit(limit).then(function (targetTypes) {
+        return targetTypes;
     }).catch(function (e) {
         return next(e);
     });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**
@@ -94,8 +116,8 @@ function list(req, res, next) {
 */
 function remove(req, res, next) {
     var targetType = req.targetType;
-    targetType.remove().then(function (deletedTargetType) {
-        return res.json(deletedTargetType);
+    return targetType.remove().then(function (deletedTargetType) {
+        return deletedTargetType;
     }).catch(function (e) {
         return next(e);
     });

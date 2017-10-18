@@ -31,9 +31,10 @@ dttTypeSchema.statics = {
             if (dttType) {
                 return dttType;
             }
-            return null;
-            // const err = new APIError('No such dttType exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such dttType exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);    
+            }
         });
     },
 
@@ -45,7 +46,7 @@ dttTypeSchema.statics = {
     */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
-        .sort('name')
+        .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
         .exec();

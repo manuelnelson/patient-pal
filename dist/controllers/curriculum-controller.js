@@ -37,7 +37,7 @@ function load(req, res, next, id) {
 * @returns {Curriculum}
 */
 function get(req, res) {
-    return res.json(req.curriculum);
+    return req.curriculum;
 }
 
 /**
@@ -45,8 +45,8 @@ function get(req, res) {
 * @returns {Curriculum}
 */
 function create(req, res, next) {
-    var curriculum = new _models.Curriculum(req.body).save().then(function (savedCurriculum) {
-        return res.json(savedCurriculum);
+    return new _models.Curriculum(req.body).save().then(function (savedCurriculum) {
+        return savedCurriculum;
     }).catch(function (e) {
         return next(e);
     });
@@ -58,11 +58,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var curriculum = req.curriculum;
-    for (var prop in req.curriculum) {
-        curriculum[prop] = req.curriculum[prop];
+    for (var prop in req.body) {
+        curriculum[prop] = req.body[prop];
     }
-    curriculum.save().then(function (savedCurriculum) {
-        return res.json(savedCurriculum);
+    return curriculum.save().then(function (savedCurriculum) {
+        return savedCurriculum;
     }).catch(function (e) {
         return next(e);
     });
@@ -81,11 +81,33 @@ function list(req, res, next) {
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    _models.Curriculum.list({ limit: limit, skip: skip }).then(function (curriculums) {
-        return res.json(curriculums);
+    delete req.query.limit;
+    delete req.query.skip;
+    var queryObj = buildQuery(req);
+
+    return _models.Curriculum.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (curriculums) {
+        return curriculums;
     }).catch(function (e) {
         return next(e);
     });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**
@@ -94,8 +116,8 @@ function list(req, res, next) {
 */
 function remove(req, res, next) {
     var curriculum = req.curriculum;
-    curriculum.remove().then(function (deletedCurriculum) {
-        return res.json(deletedCurriculum);
+    return curriculum.remove().then(function (deletedCurriculum) {
+        return deletedCurriculum;
     }).catch(function (e) {
         return next(e);
     });

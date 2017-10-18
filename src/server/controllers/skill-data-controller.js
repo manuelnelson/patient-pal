@@ -40,10 +40,10 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const skillData = req.skillData;
-    for(let prop in req.skillData){
-        skillData[prop] = req.skillData[prop];
+    for(let prop in req.body){
+        skillData[prop] = req.body[prop];
     }
-    skillData.save()
+    return skillData.save()
     .then(savedSkillData => (savedSkillData))
     .catch(e => next(e));
 }
@@ -157,7 +157,7 @@ function buildQuery(req){
 */
 function remove(req, res, next) {
     const skillData = req.skillData;
-    skillData.remove()
+    return skillData.remove()
     .then(deletedSkillData => (deletedSkillData))
     .catch(e => next(e));
 }

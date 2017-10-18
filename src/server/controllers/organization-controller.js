@@ -6,10 +6,18 @@ import Constants from '../lib/constants';
 * Load organization and append to req.
 */
 function load(req, res, next, id) {
-    Organization.get(id)
+    return Organization.get(id)
     .then((organization) => {
         req.organization = organization;
         return next();
+    })
+    .catch(e => next(e));
+}
+function getById(req, res, next, id) {
+    return Organization.get(id)
+    .then((organization) => {
+        req.organization = organization;
+        return organization;
     })
     .catch(e => next(e));
 }
@@ -39,10 +47,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const organization = req.organization;
-    for(let prop in req.organization){
-        organization[prop] = req.organization[prop];
+    console.log(req.body);
+    for(let prop in req.body){
+        organization[prop] = req.body[prop];
     }
-    organization.save()
+    return organization.save()
     .then(savedOrganization => savedOrganization)
     .catch(e => next(e));
 }
@@ -91,9 +100,9 @@ function buildQuery(req){
 */
 function remove(req, res, next) {
     const organization = req.organization;
-    organization.remove()
+    return organization.remove()
     .then(deletedOrganization => deletedOrganization)
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, getById };

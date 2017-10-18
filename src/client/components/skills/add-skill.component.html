@@ -41,7 +41,7 @@
         </div>
         <div class="form-input" *ngIf="showInterval()" [ngClass]="{'error':invalidControl(skillForm.controls.interval)}">
             <label>Interval<span *ngIf="invalidControl(skillForm.controls.interval)">Interval Required</span></label>
-            <input type="text" formControlName="interval" placeholder="Interval"/>
+            <input type="text" formControlName="interval" placeholder="Interval (in seconds)"/>
         </div>
         <div class="form-input" *ngIf="showMaxThreshold()" [ngClass]="{'error':invalidControl(skillForm.controls.maxThreshold)}">
             <label>Max Threshold<span *ngIf="invalidControl(skillForm.controls.maxThreshold)">Max Threshold Required</span></label>

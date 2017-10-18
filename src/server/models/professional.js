@@ -49,16 +49,17 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     get(id) {
-        return this.findById(id)
+        return this.findById(id) 
         .populate('clients organization')
         .exec()
         .then((Professional) => {
             if (Professional) {
                 return Professional;
             }
-            return null;
-            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);
+            }
         });
     },
     /**
@@ -67,6 +68,23 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     getByEmail(email) {
+        return this.exists(email).then(Professional => {
+            if (Professional) {
+                return Professional;
+            }
+            else{
+                const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);    
+            }
+        })
+    },
+
+        /**
+    * Get Professional by Email
+    * @param {string} email - The email of Professional.
+    * @returns {Promise<Professional, APIError>}
+    */
+    exists(email) {
         return this.findOne({email:email})
         .populate('clients')
         .exec().then((Professional) => {
@@ -74,8 +92,6 @@ ProfessionalSchema.statics = {
                 return Professional;
             }
             return null;
-            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

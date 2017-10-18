@@ -1,0 +1,27 @@
+billing-component{
+    width: 66%;
+    .rich-text{ 
+        p{
+            font-size: px-to-rem(18px);            
+        }
+        font-size: px-to-rem(18px);
+    }
+    .btn.add-card{
+        background-color: $color-green;
+    }
+    .payment-options{
+        margin-top: px-to-rem(30px);
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        &.visible{
+            visibility: visible;
+            transition: opacity 0.2s;
+            opacity: 1;
+            height: auto;
+        }
+    }
+    .credit-cards-list{
+        margin-bottom: px-to-rem(30px);
+    }
+}

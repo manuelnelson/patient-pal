@@ -69,10 +69,10 @@ AppointmentSchema.statics = {
         return this.findById(id).populate('professional client').exec().then(function (Appointment) {
             if (Appointment) {
                 return Appointment;
+            } else {
+                var err = new _APIError2.default('No such Appointment exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such Appointment exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

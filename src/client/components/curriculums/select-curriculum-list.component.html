@@ -1,7 +1,13 @@
 <div class="curriculum-list">
     <h4 *ngIf="curriculums?.length > 0">Previous Curriculums</h4>
-    <div class="curriculum-item" *ngFor="let curriculum of curriculums">
+    <div class="curriculum-item" *ngFor="let clientCurriculum of clientCurriculums">
+            <span class="curriculum-name">{{clientCurriculum.curriculum.name}}</span>
+            <a (click)="goToNavigate(clientCurriculum.curriculum)" *ngIf="!clientCurriculum.curriculum.completed" class="curriculum-action">Continue</a>
+            <span *ngIf="clientCurriculum.curriculum.completed" class="curriculum-action">Finished</span>
+        </div>
+    <!-- <div class="curriculum-item" *ngFor="let curriculum of curriculums">
         <span class="curriculum-name">{{curriculum.name}}</span>
-        <a (click)="goToNavigate(curriculum)" class="curriculum-action">Continue</a>
-    </div>
+        <a (click)="goToNavigate(curriculum)" *ngIf="!curriculum.completed" class="curriculum-action">Continue</a>
+        <span  *ngIf="curriculum.completed" class="curriculum-action">Finished</span>
+    </div> -->
 </div>

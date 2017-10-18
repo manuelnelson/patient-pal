@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from "@angular/router";
     selector: 'select-curriculum-list',
     template: require('./select-curriculum-list.component.html')
 })
-export class SelectCurriculumListComponent implements OnInit {
+export class SelectCurriculumListComponent implements OnInit { 
     @Input() clientCurriculums: Array<ClientCurriculum>;
     curriculums: Array<Curriculum>;
     constructor(private curriculumService:CurriculumService,private alertService:AlertService,

@@ -23,4 +23,14 @@ appointment-form {
             }
         }
     }
+    @include bp-max($bp-between){
+        width: 100%; 
+        .form-module{
+            margin: 0 auto;
+            .form{
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    }
 }

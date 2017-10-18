@@ -33,15 +33,16 @@ router.route('/')
 
 router.route('/:userId')
 /** GET /api/users/:email - Get user */
-.get(_controllers.ProfessionalCtrl.get)
+.get(_controllers.AuthCtrl.verifyToken, _controllers.ProfessionalCtrl.get)
 
 /** PUT /api/users/:userId - Update user */
-.put(_controllers.ProfessionalCtrl.update)
+.put(_controllers.AuthCtrl.verifyToken, _controllers.ProfessionalCtrl.update)
 
 /** DELETE /api/users/:email - Delete user */
-.delete(_controllers.ProfessionalCtrl.remove);
+//have to delete professional through user route
+.delete(_controllers.AuthCtrl.verifyToken, _controllers.ProfessionalCtrl.remove);
 
-router.route('/:userId/appointments').get(_controllers.ProfessionalCtrl.getAppointments);
+router.route('/:userId/appointments').get(_controllers.AuthCtrl.verifyToken, _controllers.ProfessionalCtrl.getAppointments);
 /** Load user when API with userId route parameter is hit */
 router.param('userId', _controllers.ProfessionalCtrl.load);
 

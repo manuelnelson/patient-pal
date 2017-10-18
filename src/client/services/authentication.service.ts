@@ -21,21 +21,11 @@ export class AuthenticationService {
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json() as AuthUser;
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    if(user.role == Constants.Roles.Professional)
-                        this.router.navigate(['/professional']);
-                    else{
-                        //TODO: add route to client page
-                        console.log('is client!');
-                    }
-                    this.token = user.token;
-                    return user;
-                }
+                this.setLoggedInUser(user)
+                return user;
             });
     }
-
+    
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
@@ -46,6 +36,18 @@ export class AuthenticationService {
         if(user)
             return JSON.parse(user) as AuthUser;
         return null;
+    }
+    setLoggedInUser(user: AuthUser){
+        if (user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.token = user.token;
+            if(user.role == Constants.Roles.Professional || user.role == Constants.Roles.Admin)
+                this.router.navigate(['/professional']);
+            else
+                this.router.navigate(['/client']);
+            
+        }
     }
     isProfessional(){
         let user = localStorage.getItem('currentUser');

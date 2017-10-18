@@ -46,17 +46,13 @@ function create(req, res, next) {
             const err = new APIError('Authentication error: User Already Exists', httpStatus.UNAUTHORIZED, true);
             return next(err);
         } else {
-            console.log('1')
             user.save()
             .then(savedUser => {
-                console.log('2')                
                 if(savedUser.role == constants.roles.Professional || savedUser.role == constants.roles.Admin){
-                    console.log('3')                
                     //get organization if it exists, otherwise create
                     return OrganizationCtrl.list({query: {name: req.body.organization}},res,next).then(org => {
-                        console.log('4')                
                         if(!org || org.length === 0){
-                            return OrganizationCtrl.create({body: {name: req.body.organization}},res,next).then(org =>{
+                            return OrganizationCtrl.create({body: {name: req.body.organization, email: req.body.email}},res,next).then(org =>{
                               return createProfessional(req,res,next,savedUser,org);  
                             })        
                         } 

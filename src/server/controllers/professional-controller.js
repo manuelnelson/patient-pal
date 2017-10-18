@@ -28,7 +28,17 @@ function get(req, res) {
 * @returns {Appointment[]}
 */
 function getAppointments(req, res, next) {
-    Appointment.find({professional: req.professional._id})
+    let queryObj = {
+        professional: req.professional._id,
+        startDate: {$gt: new Date()}
+    };
+    if(req.query.month){
+        queryObj.startDate = {
+            $gt: new Date(req.query.year,req.query.month,1),
+            $lt: new Date(req.query.year,req.query.month,31) 
+        }
+    }
+    Appointment.find(queryObj)
         .populate('client')
         .sort('startDate')
         .exec()
@@ -41,7 +51,7 @@ function getAppointments(req, res, next) {
 */
 function create(req, res, next) {
 
-    return Professional.getByEmail(req.body.email).then(existingProfessional =>{
+    return Professional.exists(req.body.email).then(existingProfessional =>{
         if(existingProfessional){
             const err = new APIError('Error: Professional Already Exists', httpStatus.FORBIDDEN, true);
             return next(err);
@@ -61,7 +71,10 @@ function create(req, res, next) {
                     {
                         existingUser.professional = savedProfessional._id;
                         return existingUser.update().then(savedUser => {
-                            return res.json(savedProfessional);
+                            //return userid with professional
+                            let savedObj = savedProfessional.toObject();
+                            savedObj.userId = savedUser._id;
+                            return res.json(savedObj);
                         });
                     } else {
                         //create new user.  Attach professional
@@ -71,7 +84,10 @@ function create(req, res, next) {
                             password: Constants.defaultPassword,
                             professional: savedProfessional._id
                         }).save().then(savedUser => {
-                            return res.json(savedProfessional);
+                            //return userid with professional
+                            let savedObj = savedProfessional.toObject();
+                            savedObj.userId = savedUser._id;
+                            return res.json(savedObj);
                         })
                         .catch(e => next(e));
                     }
@@ -93,15 +109,11 @@ function create(req, res, next) {
 function update(req, res, next) {
     //we may have to get user based off this.
     let professional = req.professional;
-    console.log(req.professional)
     
     // professional.email = req.body.email;
     professional.firstname = req.body.firstname;
     professional.lastname = req.body.lastname;
     professional.title = req.body.title;
-    // professional.insurance = req.body.insurance;
-    // professional.sex = req.body.sex;
-    // professional.birth = req.body.birth;
 
     return professional.save()
     .then(savedProfessional => res.json(savedProfessional))
@@ -160,7 +172,7 @@ function uploadPhoto(req,res,next){
 */
 function remove(req, res, next) {
     const professional = req.professional;
-    professional.remove()
+    return professional.remove()
     .then(deletedProfessional => res.json(deletedProfessional))
     .catch(e => next(e));
 }

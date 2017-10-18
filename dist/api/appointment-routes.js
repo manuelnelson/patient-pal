@@ -24,21 +24,40 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/appointments - Get list of appointments */
-.get(_controllers.AppointmentCtrl.list)
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.AppointmentCtrl.list(req, res, next).then(function (appointments) {
+    return res.json(appointments);
+  });
+})
 
 /** POST /api/appointments - Create new appointment */
-.post(_controllers.AuthCtrl.verifyToken, _controllers.AppointmentCtrl.create);
+.post(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.AppointmentCtrl.create(req, res, next).then(function (appointment) {
+    return res.json(appointment);
+  });
+});
+//.post(AuthCtrl.verifyToken,AppointmentCtrl.create);
 // .post(validate(paramValidation.createUser), AppointmentCtrl.create);
 
 router.route('/:id')
 /** GET /api/appointments/:id - Get appointment */
-.get(_controllers.AppointmentCtrl.get)
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return res.json(_controllers.AppointmentCtrl.get(req, res, next));
+})
 
 /** PUT /api/appointments/:id - Update appointment */
-.put(_controllers.AppointmentCtrl.update)
+.put(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.AppointmentCtrl.update(req, res, next).then(function (appointment) {
+    return res.json(appointment);
+  });
+})
 
 /** DELETE /api/appointments/:id - Delete appointment */
-.delete(_controllers.AppointmentCtrl.remove);
+.delete(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.AppointmentCtrl.remove(req, res, next).then(function (appointment) {
+    return res.json(appointment);
+  });
+});
 
 /** Load user when API with userId route parameter is hit */
 router.param('id', _controllers.AppointmentCtrl.load);

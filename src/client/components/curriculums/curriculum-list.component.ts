@@ -17,7 +17,7 @@ export class CurriculumListComponent implements OnInit {
         this.route.queryParams.subscribe(
             (queryParam: any) => {
                 if(queryParam['refresh']){
-                    this.curriculumService.list().subscribe(curriculums => this.curriculums = curriculums);                    
+                    this.curriculumService.list('').subscribe(curriculums => this.curriculums = curriculums);                    
                 }
         });
     }

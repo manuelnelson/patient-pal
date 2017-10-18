@@ -75,10 +75,10 @@ skillResultSchema.statics = {
         return this.findById(id).exec().then(function (skillResult) {
             if (skillResult) {
                 return skillResult;
+            } else {
+                var err = new _APIError2.default('No such skillResult exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such skillResult exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     }
 };

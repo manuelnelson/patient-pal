@@ -53,10 +53,10 @@ dttTypeSchema.statics = {
         return this.findById(id).exec().then(function (dttType) {
             if (dttType) {
                 return dttType;
+            } else {
+                var err = new _APIError2.default('No such dttType exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such dttType exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 
@@ -74,7 +74,7 @@ dttTypeSchema.statics = {
             _ref$limit = _ref.limit,
             limit = _ref$limit === undefined ? 50 : _ref$limit;
 
-        return this.find().sort('name').skip(skip).limit(limit).exec();
+        return this.find().sort({ createdAt: -1 }).skip(skip).limit(limit).exec();
     }
 };
 

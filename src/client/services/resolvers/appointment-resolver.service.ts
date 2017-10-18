@@ -7,7 +7,8 @@ import { Appointment } from '../../models';
 export class AppointmentResolver implements Resolve<Appointment> {
     constructor(private appointmentService: AppointmentService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Appointment> {
-        let appointmentId = route.params['appointmentId'];
+        let appointmentId = route.params.appointmentId;
+
         return this.appointmentService.get(appointmentId).map(appointment => appointment).toPromise();
     }
 }

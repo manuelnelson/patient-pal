@@ -7,6 +7,6 @@ import { DttType } from '../../models';
 export class DttTypeResolver implements Resolve<Array<DttType>> {
     constructor(private dttTypeService: DttTypeService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<DttType>> {
-        return this.dttTypeService.list().map(dttTypes => dttTypes).toPromise();
+        return this.dttTypeService.list('').map(dttTypes => dttTypes).toPromise();
     }
 }

@@ -24,21 +24,40 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/targetTypes - Get list of targetTypes */
-.get(_controllers.TargetTypeCtrl.list)
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.TargetTypeCtrl.list(req, res, next).then(function (targetTypes) {
+    return res.json(targetTypes);
+  });
+})
 
 /** POST /api/targetTypes - Create new targetType */
-.post(_controllers.AuthCtrl.verifyToken, _controllers.TargetTypeCtrl.create);
+.post(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.TargetTypeCtrl.create(req, res, next).then(function (targetType) {
+    return res.json(targetType);
+  });
+});
+//.post(AuthCtrl.verifyToken,TargetTypeCtrl.create);
 // .post(validate(paramValidation.createUser), TargetTypeCtrl.create);
 
 router.route('/:id')
 /** GET /api/targetTypes/:id - Get targetType */
-.get(_controllers.TargetTypeCtrl.get)
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return res.json(_controllers.TargetTypeCtrl.get(req, res, next));
+})
 
 /** PUT /api/targetTypes/:id - Update targetType */
-.put(_controllers.TargetTypeCtrl.update)
+.put(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.TargetTypeCtrl.update(req, res, next).then(function (targetType) {
+    return res.json(targetType);
+  });
+})
 
 /** DELETE /api/targetTypes/:id - Delete targetType */
-.delete(_controllers.TargetTypeCtrl.remove);
+.delete(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.TargetTypeCtrl.remove(req, res, next).then(function (targetType) {
+    return res.json(targetType);
+  });
+});
 
 /** Load user when API with userId route parameter is hit */
 router.param('id', _controllers.TargetTypeCtrl.load);

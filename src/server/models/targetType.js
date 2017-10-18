@@ -5,7 +5,7 @@ import APIError from '../lib/APIError';
 import validator from 'validator';
 import bcrypt from 'bcrypt-nodejs';
 
-const TargetTypeSchema = new mongoose.Schema({
+const targetTypeSchema = new mongoose.Schema({
     name:{
         type: String,
     },
@@ -18,34 +18,35 @@ const TargetTypeSchema = new mongoose.Schema({
 /**
 * Statics
 */
-TargetTypeSchema.statics = {
+targetTypeSchema.statics = {
     /**
-    * Get TargetType
-    * @param {ObjectId} id - The objectId of TargetType.
-    * @returns {Promise<TargetType, APIError>}
+    * Get targetType
+    * @param {ObjectId} id - The objectId of targetType.
+    * @returns {Promise<targetType, APIError>}
     */
     get(id) {
         return this.findById(id)
         .exec()
-        .then((TargetType) => {
-            if (TargetType) {
-                return TargetType;
+        .then((targetType) => {
+            if (targetType) {
+                return targetType;
             }
-            return null;
-            // const err = new APIError('No such TargetType exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such targetType exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);    
+            }
         });
     },
 
     /**
-    * List TargetTypes in descending order of 'createdAt' timestamp.
-    * @param {number} skip - Number of TargetTypes to be skipped.
-    * @param {number} limit - Limit number of TargetTypes to be returned.
-    * @returns {Promise<TargetType[]>}
+    * List targetTypes in descending order of 'createdAt' timestamp.
+    * @param {number} skip - Number of targetTypes to be skipped.
+    * @param {number} limit - Limit number of targetTypes to be returned.
+    * @returns {Promise<targetType[]>}
     */
     list({ skip = 0, limit = 50 } = {}) {
         return this.find()
-        .sort('name')
+        .sort('-name')
         .skip(skip)
         .limit(limit)
         .exec();
@@ -53,4 +54,4 @@ TargetTypeSchema.statics = {
 };
 
 
-export default mongoose.model('TargetType', TargetTypeSchema);
+export default mongoose.model('TargetType', targetTypeSchema);

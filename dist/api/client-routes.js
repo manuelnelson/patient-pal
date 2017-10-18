@@ -12,9 +12,9 @@ var _expressValidation = require('express-validation');
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
-var _userValidation = require('../config/user-validation');
+var _clientValidation = require('../config/client-validation');
 
-var _userValidation2 = _interopRequireDefault(_userValidation);
+var _clientValidation2 = _interopRequireDefault(_clientValidation);
 
 var _controllers = require('../controllers');
 
@@ -23,24 +23,47 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-/** GET /api/users - Get list of users */
-.get(_controllers.ClientCtrl.list)
+/** GET /api/clients - Get list of clients */
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.ClientCtrl.list(req, res, next).then(function (clients) {
+    return res.json(clients);
+  });
+})
 
-/** POST /api/users - Create new user */
-.post(_controllers.AuthCtrl.verifyToken, _controllers.ClientCtrl.create);
+/** POST /api/clients - Create new client */
+.post(_controllers.AuthCtrl.verifyToken, (0, _expressValidation2.default)(_clientValidation2.default.createClient), function (req, res, next) {
+  return _controllers.ClientCtrl.create(req, res, next).then(function (client) {
+    return res.json(client);
+  });
+});
+//.post(AuthCtrl.verifyToken,ClientCtrl.create);
 // .post(validate(paramValidation.createUser), ClientCtrl.create);
 
 router.route('/:userId')
-/** GET /api/users/:userId - Get user */
-.get(_controllers.ClientCtrl.get)
+/** GET /api/clients/:id - Get client */
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return res.json(_controllers.ClientCtrl.get(req, res, next));
+})
 
-/** PUT /api/users/:userId - Update user */
-.put(_controllers.ClientCtrl.update)
+/** PUT /api/clients/:id - Update client */
+.put(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.ClientCtrl.update(req, res, next).then(function (client) {
+    return res.json(client);
+  });
+})
 
-/** DELETE /api/users/:userId - Delete user */
-.delete(_controllers.ClientCtrl.remove);
+/** DELETE /api/clients/:id - Delete client */
+.delete(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.ClientCtrl.remove(req, res, next).then(function (client) {
+    return res.json(client);
+  });
+});
 
-router.route('/:userId/appointments').get(_controllers.ClientCtrl.getAppointments);
+router.route('/:userId/appointments').get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return _controllers.ClientCtrl.getAppointments(req, res, next).then(function (appointments) {
+    return res.json(appointments);
+  });
+});
 
 /** Load user when API with userId route parameter is hit */
 router.param('userId', _controllers.ClientCtrl.load);

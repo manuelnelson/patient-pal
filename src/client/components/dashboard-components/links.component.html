@@ -24,4 +24,8 @@
         <span>Professionals</span>
         <i class="icon-professional"></i>
     </a>
+    <a *ngIf="isAdministrator" [routerLink]="['/professional/billing']" class="dashboard-icon">
+        <span>Billing</span>
+        <i class="icon-credit-card"></i> 
+    </a>
 </div>

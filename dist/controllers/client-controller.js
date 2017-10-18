@@ -41,7 +41,7 @@ function load(req, res, next, userId) {
 * @returns {Client}
 */
 function get(req, res) {
-    return res.json(req.client);
+    return req.client;
 }
 
 /**
@@ -49,8 +49,8 @@ function get(req, res) {
 * @returns {Appointment[]}
 */
 function getAppointments(req, res, next) {
-    _models.Appointment.find({ client: req.client._id }).populate('client professional').sort('startDate').exec().then(function (appointments) {
-        return res.json(appointments);
+    return _models.Appointment.find({ client: req.client._id }).populate('client professional').sort('startDate').exec().then(function (appointments) {
+        return appointments;
     });
 }
 
@@ -59,12 +59,12 @@ function getAppointments(req, res, next) {
 * @returns {Client}
 */
 function create(req, res, next) {
-    _models.Client.getByEmail(req.body.email).then(function (existingClient) {
+    return _models.Client.exists(req.body.email).then(function (existingClient) {
         if (existingClient) {
             var err = new _APIError2.default('Error: Client Already Exists', _httpStatus2.default.FORBIDDEN, true);
             return next(err);
         } else {
-            var client = new _models.Client({
+            return new _models.Client({
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: req.body.email,
@@ -78,21 +78,26 @@ function create(req, res, next) {
                 //Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{clients:savedClient}}, (err,result) =>{});
 
                 //check if user already exists
-                _models.User.getByEmail(req.body.email).then(function (existingUser) {
+                return _models.User.getByEmail(req.body.email).then(function (existingUser) {
                     if (existingUser && existingUser.length > 0) {
                         existingUser.client = savedClient._id;
-                        existingUser.update().then(function (savedUser) {
-                            return res.json(savedClient);
+                        return existingUser.update().then(function (savedUser) {
+                            //return userid with professional
+                            var savedObj = savedClient.toObject();
+                            savedObj.userId = savedUser._id;
+                            return savedObj;
                         });
                     } else {
                         //create new user.  Attach client
-                        var user = new _models.User({
+                        return new _models.User({
                             role: _constants2.default.roles.Client,
                             email: req.body.email,
                             password: _constants2.default.defaultPassword,
                             client: savedClient._id
                         }).save().then(function (savedUser) {
-                            return res.json(savedClient);
+                            var savedObj = savedClient.toObject();
+                            savedObj.userId = savedUser._id;
+                            return savedObj;
                         }).catch(function (e) {
                             return next(e);
                         });
@@ -124,8 +129,8 @@ function update(req, res, next) {
     client.sex = req.body.sex;
     client.birth = req.body.birth;
 
-    client.save().then(function (savedClient) {
-        return res.json(savedClient);
+    return client.save().then(function (savedClient) {
+        return savedClient;
     }).catch(function (e) {
         return next(e);
     });
@@ -149,7 +154,7 @@ function list(req, res, next) {
     var queryObj = buildQuery(req);
 
     return _models.Client.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (clients) {
-        return res.json(clients);
+        return clients;
     }).catch(function (e) {
         return next(e);
     });
@@ -172,8 +177,8 @@ function buildQuery(req) {
 */
 function remove(req, res, next) {
     var client = req.client;
-    client.remove().then(function (deletedClient) {
-        return res.json(deletedClient);
+    return client.remove().then(function (deletedClient) {
+        return deletedClient;
     }).catch(function (e) {
         return next(e);
     });

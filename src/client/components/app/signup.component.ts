@@ -12,6 +12,8 @@ export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     signupFormString: string;
     passwordMismatch: boolean = false;
+    showErrors: boolean = false;
+    
     @Output() closeSignup = new EventEmitter();
 
     constructor(private userService:UserService,private alertService:AlertService, private router: Router){
@@ -34,15 +36,17 @@ export class SignupComponent implements OnInit {
     }
     signUp(signupValues:any){
         if(!this.signupForm.valid){
+            this.showErrors = true;
             return;
         }
         if(signupValues.password != signupValues.confirmPassword){
+            this.showErrors = true;
             this.passwordMismatch = true;
             return;
         }
+        this.showErrors = false;
         this.userService.create(signupValues.email,signupValues.password, signupValues.organization, Constants.Roles.Admin).subscribe(
                 data => {
-                    console.log(data);
                     this.signupForm.reset();
                     this.closeSignup.emit();
                     this.router.navigate(['/professional']);                    
@@ -60,6 +64,6 @@ export class SignupComponent implements OnInit {
     //     };
     // }
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 }

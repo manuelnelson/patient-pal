@@ -12,9 +12,11 @@ import { DatePipe } from "@angular/common";
 export class AddAppointmentComponent implements OnInit {
     appointmentForm: FormGroup;
     clients: Array<Client> = null;
+    showErrors: boolean = false;
+    
     constructor(private appointmentService:AppointmentService,private alertService:AlertService,
         private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private datePipe: DatePipe){
-        this.clients = this.route.snapshot.data['clients'];
+        this.clients = this.route.snapshot.data['clients'] as Array<Client>; 
     }
     ngOnInit(){
 
@@ -49,8 +51,11 @@ export class AddAppointmentComponent implements OnInit {
                     this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
+        else
+            this.showErrors = true;
+    
     }
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 }

@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 export class AddProfessionalComponent implements OnInit {
     professionalForm: FormGroup;
     professionalFormString: string;
+    showErrors: boolean = false;
+    
     constructor(private professionalService:ProfessionalService,private alertService:AlertService,
         private router: Router, private authService: AuthenticationService){
 
@@ -40,9 +42,12 @@ export class AddProfessionalComponent implements OnInit {
                     // this.loading = false;
                 });
         }
+        else
+            this.showErrors = true;
+
     }
 
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 }

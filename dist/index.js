@@ -88,16 +88,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
-// import handlebars  from 'express-handlebars';
-// let hbs = handlebars.create({
-//     defaultLayout: 'main',
-// 	extname: '.hbs', 
-// 	layoutsDir: path.join(__dirname, 'views/layouts/')
-// });
-// app.set('views', path.join(__dirname, 'views/'));
-// app.set('view engine', '.hbs');
-// app.engine('.hbs', hbs.engine);
-
 // connect to db
 (0, _db2.default)(function (db) {
 
@@ -143,7 +133,7 @@ var app = (0, _express2.default)();
 	app.get('/server/reports', _routes2.default.reports);
 
 	// serve index page for spa
-	app.get('*', function (req, res) {
+	app.get(/^(?!\/api).*/, function (req, res) {
 		res.sendFile(_path2.default.join(__dirname, '/public/index.html'));
 		// res.sendFile('/index.html');
 	});

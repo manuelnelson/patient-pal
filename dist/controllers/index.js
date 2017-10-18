@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.OrganizationCtrl = exports.SkillDataCtrl = exports.DttTypeCtrl = exports.CurriculumCtrl = exports.SkillCtrl = exports.TargetTypeCtrl = exports.UserCtrl = exports.ProfessionalCtrl = exports.ClientCtrl = exports.ClientCurriculumCtrl = exports.AuthCtrl = exports.AppointmentCtrl = undefined;
+exports.OrganizationCtrl = exports.SkillDataCtrl = exports.DttTypeCtrl = exports.CurriculumCtrl = exports.SkillCtrl = exports.TargetTypeCtrl = exports.UserCtrl = exports.ProfessionalCtrl = exports.ClientCtrl = exports.ClientCurriculumCtrl = exports.BillingCtrl = exports.AuthCtrl = exports.AppointmentCtrl = undefined;
 
 var _appointmentController = require('./appointment-controller');
 
@@ -53,10 +53,15 @@ var _organizationController = require('./organization-controller');
 
 var _organizationController2 = _interopRequireDefault(_organizationController);
 
+var _billingController = require('./billing-controller');
+
+var _billingController2 = _interopRequireDefault(_billingController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.AppointmentCtrl = _appointmentController2.default;
 exports.AuthCtrl = _authController2.default;
+exports.BillingCtrl = _billingController2.default;
 exports.ClientCurriculumCtrl = _clientCurriculumController2.default;
 exports.ClientCtrl = _clientController2.default;
 exports.ProfessionalCtrl = _professionalController2.default;

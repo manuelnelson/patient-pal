@@ -77,10 +77,10 @@ ProfessionalSchema.statics = {
         return this.findById(id).populate('clients organization').exec().then(function (Professional) {
             if (Professional) {
                 return Professional;
+            } else {
+                var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
             }
-            return null;
-            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 
@@ -90,13 +90,28 @@ ProfessionalSchema.statics = {
     * @returns {Promise<Professional, APIError>}
     */
     getByEmail: function getByEmail(email) {
+        return this.exists(email).then(function (Professional) {
+            if (Professional) {
+                return Professional;
+            } else {
+                var err = new _APIError2.default('No such Professional exists!', _httpStatus2.default.NOT_FOUND);
+                return _bluebird2.default.reject(err);
+            }
+        });
+    },
+
+
+    /**
+    * Get Professional by Email
+    * @param {string} email - The email of Professional.
+    * @returns {Promise<Professional, APIError>}
+    */
+    exists: function exists(email) {
         return this.findOne({ email: email }).populate('clients').exec().then(function (Professional) {
             if (Professional) {
                 return Professional;
             }
             return null;
-            // const err = new APIError('No such Professional exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
         });
     },
 

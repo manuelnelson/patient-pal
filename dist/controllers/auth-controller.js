@@ -85,6 +85,8 @@ function updatePassword(req, res, next) {
 * @returns {*}
 */
 function verifyToken(req, res, next) {
+    if (_config2.default.env === 'test') return next();
+
     var token = req.get('Authorization');
     var unsignedToken = _jsonwebtoken2.default.verify(token, _config2.default.jwtSecret);
     req.locals = {

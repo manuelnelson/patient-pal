@@ -19,6 +19,7 @@ export class AddSkillComponent implements OnInit {
     wholeId: string;
     quantityId: string;
     taskAnalysisId: string;
+    showErrors: boolean = false;
     
     constructor(private skillService:SkillService,private alertService:AlertService,
         private router: Router, private route: ActivatedRoute, private authService: AuthenticationService){
@@ -73,6 +74,8 @@ export class AddSkillComponent implements OnInit {
                     this.alertService.errorMessage(JSON.parse(error._body).message);
                 });
         }
+        else
+            this.showErrors = true;
     }
     removeEmptyFields(skillValues: Skill){
         for(var prop in skillValues){
@@ -82,7 +85,7 @@ export class AddSkillComponent implements OnInit {
         return skillValues;
     }
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
     getId(key: string){
         let target = this.targetTypes.find(targetType => targetType.name.toLowerCase().indexOf(key) > -1);

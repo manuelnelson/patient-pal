@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class TargetTypeService {
     constructor(private http: Http, private authService: AuthenticationService) { }
-    private apiEndpointUrl: string = '/api/targettypes';
+    private apiEndpointUrl: string = '/api/targetTypes';
 
     create(targetType: TargetType) {
         // add authorization header with jwt token
@@ -38,7 +38,7 @@ export class TargetTypeService {
             });
     }
 
-    list() {
+    list(query:string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });

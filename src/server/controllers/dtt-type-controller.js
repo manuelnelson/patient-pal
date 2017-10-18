@@ -19,7 +19,7 @@ function load(req, res, next, id) {
 * @returns {DttType}
 */
 function get(req, res) {
-    return res.json(req.dttType);
+    return req.dttType;
 }
 
 /**
@@ -27,9 +27,9 @@ function get(req, res) {
 * @returns {DttType}
 */
 function create(req, res, next) {
-    const dttType = new DttType(req.body)
+   return new DttType(req.body)
         .save()
-        .then(savedDttType => res.json(savedDttType))
+        .then(savedDttType => savedDttType)
         .catch(e => next(e));
 }
 
@@ -39,11 +39,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const dttType = req.dttType;
-    for(let prop in req.dttType){
-        dttType[prop] = req.dttType[prop];
+    for(let prop in req.body){
+        dttType[prop] = req.body[prop];
     }
-    dttType.save()
-    .then(savedDttType => res.json(savedDttType))
+    return dttType.save()
+    .then(savedDttType => savedDttType)
     .catch(e => next(e));
 }
 
@@ -55,9 +55,34 @@ function update(req, res, next) {
 */
 function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query;
-    DttType.list({ limit, skip })
-    .then(dttTypes => res.json(dttTypes))
-    .catch(e => next(e));
+    delete req.query.limit;
+    delete req.query.skip;    
+    let queryObj = buildQuery(req);
+        
+    return DttType.find(queryObj.length > 0 ? {$or: queryObj} : {})
+        .sort('-name')
+        .skip(skip)
+        .limit(limit)
+        .then(dttTypes => dttTypes)
+        .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        // if (_.indexOf(dateKeys, key) > -1) {
+        //     if (key == 'startDate') {
+        //         array.push({ createdAt: { $gt: req.query[key] } });
+        //     }
+        //     if (key == 'endDate') array.push({ createdAt: { $lt: req.query[key] } });
+        // } else {
+            var obj = {};
+            obj[key] = req.query[key];
+            array.push(obj);
+        // }
+    }
+    return array;
 }
 
 /**
@@ -66,8 +91,8 @@ function list(req, res, next) {
 */
 function remove(req, res, next) {
     const dttType = req.dttType;
-    dttType.remove()
-    .then(deletedDttType => res.json(deletedDttType))
+    return dttType.remove()
+    .then(deletedDttType => deletedDttType)
     .catch(e => next(e));
 }
 

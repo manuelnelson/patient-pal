@@ -57,9 +57,10 @@ ClientSchema.statics = {
             if (Client) {
                 return Client;
             }
-            return null;
-            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);
+            }
         });
     },
     /**
@@ -72,11 +73,28 @@ ClientSchema.statics = {
             if (Client) {
                 return Client;
             }
-            return null;
-            // const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such Client exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);
+            }
         });
     },
+
+        /**
+    * Get Professional by Email
+    * @param {string} email - The email of Professional.
+    * @returns {Promise<Professional, APIError>}
+    */
+    exists(email) {
+        return this.findOne({email:email})
+        .exec().then((Client) => {
+            if (Client) {
+                return Client;
+            }
+            return null;
+        });
+    },
+
 
     /**
     * List Clients in descending order of 'createdAt' timestamp.

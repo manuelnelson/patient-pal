@@ -6,7 +6,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/users - Get list of users */
-  .get(ProfessionalCtrl.list)
+  .get( ProfessionalCtrl.list)
 
   /** POST /api/users - Create new user */
   //new professionals only created through user controller.
@@ -15,16 +15,17 @@ router.route('/')
 
 router.route('/:userId')
   /** GET /api/users/:email - Get user */
-  .get(ProfessionalCtrl.get)
+  .get(AuthCtrl.verifyToken, ProfessionalCtrl.get)
 
   /** PUT /api/users/:userId - Update user */
-  .put(ProfessionalCtrl.update)
+  .put(AuthCtrl.verifyToken, ProfessionalCtrl.update)
 
   /** DELETE /api/users/:email - Delete user */
-  .delete(ProfessionalCtrl.remove);
+  //have to delete professional through user route
+  .delete(AuthCtrl.verifyToken, ProfessionalCtrl.remove);
 
 router.route('/:userId/appointments')
-    .get(ProfessionalCtrl.getAppointments)
+    .get(AuthCtrl.verifyToken, ProfessionalCtrl.getAppointments)
 /** Load user when API with userId route parameter is hit */
 router.param('userId', ProfessionalCtrl.load);
 

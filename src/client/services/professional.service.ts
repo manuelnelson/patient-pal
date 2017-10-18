@@ -55,12 +55,15 @@ export class ProfessionalService {
                 return professionals;
             });
     }
-    getAppointments(professionalId: string) {
+    getAppointments(professionalId: string, month: number = -1, year: number = -1) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.apiEndpointUrl + '/' + professionalId + '/appointments', options)
+        let url = `${this.apiEndpointUrl}/${professionalId}/appointments`;
+        if(month > -1)
+            url += `?month=${month}&year=${year}`;
+        return this.http.get(url, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let appointments = response.json() as Appointment[];

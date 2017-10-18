@@ -14,6 +14,7 @@ export * from './client-curriculum.service';
 export * from './skill-data.service'; 
 export * from './timer.service'; 
 export * from './organization.service'; 
+export * from './billing.service'; 
 
 //strategies
 export * from './route-reuse.strategy';

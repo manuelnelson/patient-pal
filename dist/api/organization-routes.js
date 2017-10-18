@@ -26,14 +26,14 @@ router.route('/')
 /** GET /api/organizations - Get list of organizations */
 .get(function (req, res, next) {
   return _controllers.OrganizationCtrl.list(req, res, next).then(function (organizations) {
-    return res.json({ data: organizations });
+    return res.json(organizations);
   });
 })
 
 /** POST /api/organizations - Create new organization */
 .post(function (req, res, next) {
   return _controllers.OrganizationCtrl.create(req, res, next).then(function (organization) {
-    return res.json({ data: organization });
+    return res.json(organization);
   });
 });
 //.post(AuthCtrl.verifyToken,OrganizationCtrl.create);
@@ -41,23 +41,21 @@ router.route('/')
 
 router.route('/:id')
 /** GET /api/organizations/:id - Get organization */
-.get(function (req, res, next) {
-  return _controllers.OrganizationCtrl.get(req, res, next).then(function (organization) {
-    return res.json({ data: organization });
-  });
+.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+  return res.json(_controllers.OrganizationCtrl.get(req, res, next));
 })
 
 /** PUT /api/organizations/:id - Update organization */
 .put(function (req, res, next) {
   return _controllers.OrganizationCtrl.update(req, res, next).then(function (organization) {
-    return res.json({ data: organization });
+    return res.json(organization);
   });
 })
 
 /** DELETE /api/organizations/:id - Delete organization */
-.delete(function (req, res, next) {
+.delete(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
   return _controllers.OrganizationCtrl.remove(req, res, next).then(function (organization) {
-    return res.json({ data: organization });
+    return res.json(organization);
   });
 });
 

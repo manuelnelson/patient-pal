@@ -24,9 +24,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 * Load organization and append to req.
 */
 function load(req, res, next, id) {
-    _models.Organization.get(id).then(function (organization) {
+    return _models.Organization.get(id).then(function (organization) {
         req.organization = organization;
         return next();
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+function getById(req, res, next, id) {
+    return _models.Organization.get(id).then(function (organization) {
+        req.organization = organization;
+        return organization;
     }).catch(function (e) {
         return next(e);
     });
@@ -58,10 +66,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var organization = req.organization;
-    for (var prop in req.organization) {
-        organization[prop] = req.organization[prop];
+    console.log(req.body);
+    for (var prop in req.body) {
+        organization[prop] = req.body[prop];
     }
-    organization.save().then(function (savedOrganization) {
+    return organization.save().then(function (savedOrganization) {
         return savedOrganization;
     }).catch(function (e) {
         return next(e);
@@ -116,12 +125,12 @@ function buildQuery(req) {
 */
 function remove(req, res, next) {
     var organization = req.organization;
-    organization.remove().then(function (deletedOrganization) {
+    return organization.remove().then(function (deletedOrganization) {
         return deletedOrganization;
     }).catch(function (e) {
         return next(e);
     });
 }
 
-exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove };
+exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, getById: getById };
 //# sourceMappingURL=organization-controller.js.map

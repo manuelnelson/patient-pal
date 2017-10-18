@@ -1,0 +1,31 @@
+<back-component></back-component>
+<h4>Billing</h4>
+
+<div class="credit-cards-list rich-text" *ngIf="creditCards && creditCards.length > 0"> 
+    <p>Your next payment of ${{customer.account_balance}} is due on {{subscription.current_period_end*1000 | date: constants.DateYearFormat}}.</p>
+</div>
+
+<div class="credit-cards-list rich-text" *ngIf="creditCards && creditCards.length > 0">
+    <p>You have {{creditCards.length}} credit card on file.</p>
+    <ul class="unordered">
+      <li *ngFor="let creditCard of creditCards">{{creditCard.brand}} that ends in {{creditCard.last4}}</li>
+    </ul>
+</div>
+<div class="payment-options rich-text" [ngClass]="{'visible':showCreditCardForm}">
+    <p>Please note that we do NOT store your credit card information - everything is done securely through our payment processor <a href="https://stripe.com" target="_blank">Stripe.</a></p>
+    <form action="/charge" method="post" [formGroup]="paymentForm" id="payment-form">
+        <div class="form-row">
+          <label for="card-element">
+            Credit or debit card
+          </label>
+          <div id="card-element">
+            <!-- a Stripe Element will be inserted here. -->
+          </div>
+      
+          <!-- Used to display form errors -->
+          <div id="card-errors" role="alert"></div>
+        </div>      
+        <button class="btn btn-primary">Submit Card Info</button>
+    </form>
+</div>
+<button class="btn btn-primary add-card" (click)="showCreditCardForm=!showCreditCardForm;" *ngIf="!showCreditCardForm">Add Card</button>

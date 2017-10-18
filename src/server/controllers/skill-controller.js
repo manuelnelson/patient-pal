@@ -19,7 +19,7 @@ function load(req, res, next, id) {
 * @returns {Skill}
 */
 function get(req, res) {
-    return res.json(req.skill);
+    return req.skill;
 }
 
 /**
@@ -35,7 +35,7 @@ function search(req, res, next) {
         },
         organization: req.query.organization
     })
-    .then((skills) => res.json(skills))
+    .then((skills) => skills)
     .catch(e => next(e));
 }
 
@@ -44,9 +44,9 @@ function search(req, res, next) {
 * @returns {Skill}
 */
 function create(req, res, next) {
-    const skill = new Skill(req.body)
+    return new Skill(req.body)
         .save()
-        .then(savedSkill => res.json(savedSkill))
+        .then(savedSkill => savedSkill)
         .catch(e => next(e));
 }
 
@@ -56,11 +56,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const skill = req.skill;
-    for(let prop in req.skill){
-        skill[prop] = req.skill[prop];
+    for(let prop in req.body){
+        skill[prop] = req.body[prop];
     }
-    skill.save()
-    .then(savedSkill => res.json(savedSkill))
+    return skill.save()
+    .then(savedSkill => savedSkill)
     .catch(e => next(e));
 }
 
@@ -79,7 +79,7 @@ function list(req, res, next) {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .then(skills => res.json(skills))
+        .then(skills => skills)
         .catch(e => next(e));
 
 
@@ -106,8 +106,8 @@ function buildQuery(req){
 */
 function remove(req, res, next) {
     const skill = req.skill;
-    skill.remove()
-    .then(deletedSkill => res.json(deletedSkill))
+    return skill.remove()
+    .then(deletedSkill => deletedSkill)
     .catch(e => next(e));
 }
 

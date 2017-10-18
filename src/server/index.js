@@ -21,15 +21,6 @@ import routes from './routes';
 
 let app = express();
 
-// import handlebars  from 'express-handlebars';
-// let hbs = handlebars.create({
-//     defaultLayout: 'main',
-// 	extname: '.hbs', 
-// 	layoutsDir: path.join(__dirname, 'views/layouts/')
-// });
-// app.set('views', path.join(__dirname, 'views/'));
-// app.set('view engine', '.hbs');
-// app.engine('.hbs', hbs.engine);
 
 // connect to db
 initializeDb( db => {
@@ -76,7 +67,7 @@ initializeDb( db => {
     app.get('/server/reports', routes.reports);
 	
 	// serve index page for spa
-	app.get('*', (req, res) => {
+	app.get(/^(?!\/api).*/, (req, res) => {
 		res.sendFile(path.join(__dirname, '/public/index.html'));
 		// res.sendFile('/index.html');
 	});

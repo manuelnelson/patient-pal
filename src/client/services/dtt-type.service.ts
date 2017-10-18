@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class DttTypeService {
     constructor(private http: Http, private authService: AuthenticationService) { }
-    private apiEndpointUrl: string = '/api/dtttypes';
+    private apiEndpointUrl: string = '/api/dttTypes';
 
     create(dttType: DttType) {
         // add authorization header with jwt token
@@ -38,12 +38,13 @@ export class DttTypeService {
             });
     }
 
-    list() {
+    list(query:string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.apiEndpointUrl, options)
+        query = query && query.length > 0 ? '?' + query : ''; 
+        return this.http.get(this.apiEndpointUrl + query, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let dttTypes = response.json() as Array<DttType>;

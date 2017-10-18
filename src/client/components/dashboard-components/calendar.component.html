@@ -1,8 +1,12 @@
 <back-component></back-component>
 <div class="appointment-container">
-    <div class="calendar" [ngSwitch]="view">
-        <h3>{{ viewDate | calendarDate:'monthViewTitle':'en' }}</h3>
-        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [refresh]="refresh" [events]="events">
+    <div class="calendar" [ngSwitch]="view">        
+        <h3>
+            <span mwlCalendarPreviousView class="btn previous-button" view="month" [(viewDate)]="viewDate" (click)="previousMonth()">Prev</span>            
+            {{ viewDate | calendarDate:'monthViewTitle':'en' }}
+            <span mwlCalendarNextView class="btn next-button" view="month" [(viewDate)]="viewDate" (click)="nextMonth()">Next</span>            
+        </h3>
+        <mwl-calendar-month-view *ngSwitchCase="'month'" (eventClicked)="eventClicked($event)" [viewDate]="viewDate" [refresh]="refresh" [events]="events">
         </mwl-calendar-month-view>
     </div>
     <router-outlet></router-outlet>

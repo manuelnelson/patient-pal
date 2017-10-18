@@ -13,6 +13,7 @@ import clientCurriculumRoutes from './client-curriculum-routes';
 import skillDataRoutes from './skill-data-routes';
 import organizationRoutes from './organization-routes';
 import photoRoutes from './photo-routes';
+import billingRoutes from './billing-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -31,6 +32,7 @@ export default ({ config, db }) => {
 	api.use('/skilldatas', skillDataRoutes);
 	api.use('/organizations', organizationRoutes);
 	api.use('/photos', photoRoutes);
+	api.use('/billing', billingRoutes);
 	
 	// perhaps expose some API metadata at the root
 	// api.get('/', (req, res) => {

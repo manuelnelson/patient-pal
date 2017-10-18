@@ -10,6 +10,8 @@ import { Router } from "@angular/router";
 export class AddClientComponent implements OnInit {
     clientForm: FormGroup;
     clientFormString: string;
+    showErrors: boolean = false;
+    
     constructor(private clientService:ClientService,private alertService:AlertService, private authService: AuthenticationService,
         private router: Router){
 
@@ -43,10 +45,12 @@ export class AddClientComponent implements OnInit {
                     // this.loading = false;
                 });
         }
+        else
+            this.showErrors = true;
+
     }
 
     invalidControl(control:FormControl){
-        console.log(control.value)
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 }

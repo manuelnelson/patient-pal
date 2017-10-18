@@ -20,7 +20,9 @@ var _constants2 = _interopRequireDefault(_constants);
 
 var _lodash = require('lodash');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _ = _interopRequireWildcard(_lodash);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,7 +43,7 @@ function load(req, res, next, id) {
 * @returns {Appointment}
 */
 function get(req, res) {
-    return res.json(req.appointment);
+    return req.appointment;
 }
 
 /**
@@ -49,8 +51,8 @@ function get(req, res) {
 * @returns {Appointment}
 */
 function create(req, res, next) {
-    var appointment = new _models.Appointment(req.body).save().then(function (savedAppointment) {
-        return res.json(savedAppointment);
+    return new _models.Appointment(req.body).save().then(function (savedAppointment) {
+        return savedAppointment;
     }).catch(function (e) {
         return next(e);
     });
@@ -62,11 +64,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var appointment = req.appointment;
-    for (var prop in req.appointment) {
-        appointment[prop] = req.appointment[prop];
+    for (var prop in req.body) {
+        appointment[prop] = req.body[prop];
     }
-    appointment.save().then(function (savedAppointment) {
-        return res.json(savedAppointment);
+    return appointment.save().then(function (savedAppointment) {
+        return savedAppointment;
     }).catch(function (e) {
         return next(e);
     });
@@ -90,7 +92,7 @@ function list(req, res, next) {
     var query = _models.Appointment;
     query = buildQuery(req, query);
     return query.skip(parseInt(skip)).limit(parseInt(limit)).populate('client professional').sort('startDate').then(function (appointments) {
-        return res.json(appointments);
+        return appointments;
     }).catch(function (e) {
         return next(e);
     });
@@ -106,7 +108,7 @@ function buildQuery(req, query) {
     var seriesObj = {};
     for (var key in req.query) {
         var obj = {};
-        if (_lodash2.default.indexOf(dateKeys, key) > -1) {
+        if (_.indexOf(dateKeys, key) > -1) {
             if (key == 'startDate') obj[key] = { $gt: req.query[key] };
             if (key == 'endDate') obj[key] = { $lt: req.query[key] };
             query = query.find(obj);
@@ -124,8 +126,8 @@ function buildQuery(req, query) {
 */
 function remove(req, res, next) {
     var appointment = req.appointment;
-    appointment.remove().then(function (deletedAppointment) {
-        return res.json(deletedAppointment);
+    return appointment.remove().then(function (deletedAppointment) {
+        return deletedAppointment;
     }).catch(function (e) {
         return next(e);
     });

@@ -63,10 +63,13 @@ function updatePassword(req, res, next) {
 * @returns {*}
 */
 function verifyToken(req,res,next){
+    if(config.env === 'test')
+        return next();
+
     var token = req.get('Authorization');
     var unsignedToken = jwt.verify(token,config.jwtSecret);
     req.locals = {
-        sessionUserEmail: unsignedToken.email
+        sessionUserEmail: unsignedToken.email,
     };
     next();
 }

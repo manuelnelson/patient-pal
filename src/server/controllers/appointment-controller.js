@@ -2,7 +2,7 @@ import {Appointment} from '../models';
 import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import Constants from '../lib/constants';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 /**
 * Load appointment and append to req.
@@ -21,7 +21,7 @@ function load(req, res, next, id) {
 * @returns {Appointment}
 */
 function get(req, res) {
-    return res.json(req.appointment);
+    return req.appointment;
 }
 
 /**
@@ -29,9 +29,9 @@ function get(req, res) {
 * @returns {Appointment}
 */
 function create(req, res, next) {
-    const appointment = new Appointment(req.body)
+   return new Appointment(req.body)
         .save()
-        .then(savedAppointment => res.json(savedAppointment))
+        .then(savedAppointment => savedAppointment)
         .catch(e => next(e));
 }
 
@@ -41,11 +41,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const appointment = req.appointment;
-    for(let prop in req.appointment){
-        appointment[prop] = req.appointment[prop];
+    for(let prop in req.body){
+        appointment[prop] = req.body[prop];
     }
-    appointment.save()
-    .then(savedAppointment => res.json(savedAppointment))
+    return appointment.save()
+    .then(savedAppointment => savedAppointment)
     .catch(e => next(e));
 }
 
@@ -64,7 +64,7 @@ function list(req, res, next) {
     return query.skip(parseInt(skip)).limit(parseInt(limit))
     .populate('client professional')
     .sort('startDate')
-    .then(appointments => res.json(appointments))
+    .then(appointments => appointments)
     .catch(e => next(e));
 }
 
@@ -94,15 +94,14 @@ function buildQuery(req, query){
     return query;
 }
 
-
 /**
 * Delete appointment.
 * @returns {Appointment}
 */
 function remove(req, res, next) {
     const appointment = req.appointment;
-    appointment.remove()
-    .then(deletedAppointment => res.json(deletedAppointment))
+    return appointment.remove()
+    .then(deletedAppointment => deletedAppointment)
     .catch(e => next(e));
 }
 

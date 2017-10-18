@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?oqua2w');
-  src:  url('fonts/icomoon.eot?oqua2w#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?oqua2w') format('truetype'),
-    url('fonts/icomoon.woff?oqua2w') format('woff'),
-    url('fonts/icomoon.svg?oqua2w#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?3wyrkg');
+  src:  url('fonts/icomoon.eot?3wyrkg#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?3wyrkg') format('truetype'),
+    url('fonts/icomoon.woff?3wyrkg') format('woff'),
+    url('fonts/icomoon.svg?3wyrkg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,6 +26,9 @@
 
 .icon-edit:before {
   content: "\e906";
+}
+.icon-credit-card:before {
+  content: "\e93f";
 }
 .icon-address-book:before {
   content: "\e944";

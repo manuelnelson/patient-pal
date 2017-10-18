@@ -17,6 +17,8 @@ export class EditClientComponent implements OnInit {
     isProfessional: boolean;
     formSucess: boolean;
     formError: boolean;
+    showErrors: boolean = false;
+    
     constructor(private clientService:ClientService,private alertService:AlertService, private authService: AuthenticationService,
                 private route: ActivatedRoute, private datePipe: DatePipe){
         this.editClient = this.route.snapshot.data['client'];
@@ -55,9 +57,12 @@ export class EditClientComponent implements OnInit {
                     this.formError = true;
                 });
         }
+        else
+            this.showErrors = true;
+    
     }
 
     invalidControl(control:FormControl){
-        return control.invalid && control.touched;
+        return control.invalid && control.touched || control.invalid && this.showErrors;
     }
 }

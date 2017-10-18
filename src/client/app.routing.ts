@@ -8,7 +8,8 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     SkillListComponent, AddSkillComponent, CurriculumListComponent, CreateCurriculumComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, 
-    ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, ClientBackComponent
+    ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, ClientBackComponent, 
+    BillingComponent
 
 } from './components';
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
@@ -61,6 +62,12 @@ const routes: Routes = [
                     { path: 'add',  pathMatch: 'full', component: AddAppointmentComponent, resolve: {clients: AddAppointmentResolver}}
                 ]
             },
+            {
+                path: 'billing',
+                component: BillingComponent,
+                canActivate: [AuthGuard],  
+                data: {roles: [Constants.Roles.Admin]}      
+            },
             { path: 'professionals', component: ProfessionalsComponent, resolve: {professional: ProfessionalResolver, professionals: ProfessionalListResolver} },
         ]
     },
@@ -104,7 +111,8 @@ const routes: Routes = [
         ]
     },
     { path: 'reports',  component:DefaultComponent, pathMatch: 'full' },
-    { path: '**', component: PageNotFoundComponent }
+    { path: 'notfound',  component:PageNotFoundComponent },
+    { path: '**', redirectTo: 'notfound' }
 ];
 
 @NgModule({

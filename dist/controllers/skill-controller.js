@@ -37,7 +37,7 @@ function load(req, res, next, id) {
 * @returns {Skill}
 */
 function get(req, res) {
-    return res.json(req.skill);
+    return req.skill;
 }
 
 /**
@@ -53,7 +53,7 @@ function search(req, res, next) {
         },
         organization: req.query.organization
     }).then(function (skills) {
-        return res.json(skills);
+        return skills;
     }).catch(function (e) {
         return next(e);
     });
@@ -64,8 +64,8 @@ function search(req, res, next) {
 * @returns {Skill}
 */
 function create(req, res, next) {
-    var skill = new _models.Skill(req.body).save().then(function (savedSkill) {
-        return res.json(savedSkill);
+    return new _models.Skill(req.body).save().then(function (savedSkill) {
+        return savedSkill;
     }).catch(function (e) {
         return next(e);
     });
@@ -77,11 +77,11 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var skill = req.skill;
-    for (var prop in req.skill) {
-        skill[prop] = req.skill[prop];
+    for (var prop in req.body) {
+        skill[prop] = req.body[prop];
     }
-    skill.save().then(function (savedSkill) {
-        return res.json(savedSkill);
+    return skill.save().then(function (savedSkill) {
+        return savedSkill;
     }).catch(function (e) {
         return next(e);
     });
@@ -104,7 +104,7 @@ function list(req, res, next) {
     var queryObj = buildQuery(req);
 
     return _models.Skill.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (skills) {
-        return res.json(skills);
+        return skills;
     }).catch(function (e) {
         return next(e);
     });
@@ -131,8 +131,8 @@ function buildQuery(req) {
 */
 function remove(req, res, next) {
     var skill = req.skill;
-    skill.remove().then(function (deletedSkill) {
-        return res.json(deletedSkill);
+    return skill.remove().then(function (deletedSkill) {
+        return deletedSkill;
     }).catch(function (e) {
         return next(e);
     });

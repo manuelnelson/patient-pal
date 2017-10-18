@@ -30,6 +30,7 @@ export * from './dashboard-components/clients.component';
 export * from './dashboard-components/reports.component';
 export * from './dashboard-components/curriculums.component';
 export * from './dashboard-components/professionals.component';
+export * from './dashboard-components/billing.component';
 
 export * from './appointments/add-appointment.component';
 export * from './appointments/appointment-list.component';

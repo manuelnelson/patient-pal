@@ -38,16 +38,15 @@ export class ClientCurriculumService {
             });
     }
 
-    list(clientId: string, completed?: boolean) {
+    list(query:string) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        let url = this.apiEndpointUrl + '?client=' + clientId;
-        if(completed != undefined)
-            url += "&completed="+ completed;
-        return this.http.get(url, options)
+
+        query = query && query.length > 0 ? '?' + query : ''; 
+        return this.http.get(this.apiEndpointUrl + query, options)
             .map((response: Response) => {
-                
+                // login successful if there's a jwt token in the response
                 let clientCurriculums = response.json() as Array<ClientCurriculum>;
                 return clientCurriculums;
             });
@@ -59,6 +58,7 @@ export class ClientCurriculumService {
 
         return this.http.get(this.apiEndpointUrl + '/' + id, options)
             .map((response: Response) => {
+                // login successful if there's a jwt token in the response
                 let clientCurriculum = response.json() as ClientCurriculum;
                 return clientCurriculum;
             });

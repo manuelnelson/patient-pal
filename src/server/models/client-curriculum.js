@@ -50,9 +50,10 @@ clientCurriculumSchema.statics = {
             if (clientCurriculum) {
                 return clientCurriculum;
             }
-            return null;
-            // const err = new APIError('No such clientCurriculum exists!', httpStatus.NOT_FOUND);
-            // return Promise.reject(err);
+            else{
+                const err = new APIError('No such clientCurriculum exists!', httpStatus.NOT_FOUND);
+                return Promise.reject(err);    
+            }
         });
     },
 

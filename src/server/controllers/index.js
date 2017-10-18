@@ -10,10 +10,12 @@ import CurriculumCtrl from './curriculum-controller';
 import ClientCurriculumCtrl from './client-curriculum-controller';
 import SkillDataCtrl from './skill-data-controller';
 import OrganizationCtrl from './organization-controller';
+import BillingCtrl from './billing-controller';
 
 export {
     AppointmentCtrl,
     AuthCtrl,
+    BillingCtrl,
     ClientCurriculumCtrl,
     ClientCtrl,
     ProfessionalCtrl,
