@@ -24,7 +24,7 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/users - Get list of users */
-.get(_controllers.AuthCtrl.verifyToken, _controllers.UserCtrl.list)
+.get(_controllers.UserCtrl.list)
 
 /** POST /api/users - Create new user */
 //.post(UserCtrl.create);

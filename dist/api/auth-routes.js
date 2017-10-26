@@ -30,6 +30,13 @@ router.route('/update/:email')
 //TODO: require hash from email to update password
 .put(_controllers.AuthCtrl.updatePassword);
 
+router.route('/forgot-password')
+//TODO: require hash from email to update password
+.post(function (req, res, next) {
+  return _controllers.AuthCtrl.forgotPassword(req, res, next).then(function (message) {
+    if (message) res.json(message);
+  });
+});
 // router.route('/:userId')
 //   /** GET /api/users/:userId - Get user */
 //   .get(AuthCtrl.get)

@@ -38,8 +38,7 @@ export class AddProfessionalComponent implements OnInit {
                     this.router.navigate(['/professional/professionals']);
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
-                    // this.loading = false;
+                    this.alertService.error(error);
                 });
         }
         else

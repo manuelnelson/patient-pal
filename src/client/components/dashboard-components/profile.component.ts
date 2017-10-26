@@ -55,8 +55,7 @@ export class ProfileComponent implements OnInit{
                     this.editMode = false;
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
-                    // this.loading = false;
+                    this.alertService.error(error);
                 });
         }
     }

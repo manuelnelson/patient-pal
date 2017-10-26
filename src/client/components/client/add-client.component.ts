@@ -41,7 +41,7 @@ export class AddClientComponent implements OnInit {
                     this.router.navigate(['/professional/clients']);
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
+                    this.alertService.error(error);
                     // this.loading = false;
                 });
         }

@@ -119,10 +119,27 @@ function update(req, res, next) {
 * @returns {User[]}
 */
 function list(req, res, next) {
-    const { limit = 50, skip = 0 } = req.query;
-    return User.list({ limit, skip })
-    .then(users => res.json(users))
-    .catch(e => next(e));
+    const { limit = 20, skip = 0 } = req.query;
+    delete req.query.limit;
+    delete req.query.skip;    
+    let queryObj = buildQuery(req);
+    console.log(queryObj);    
+    return User.find(queryObj.length > 0 ? {$and: queryObj} : {})
+        .skip(skip)
+        .limit(limit)
+        .then(users => res.json(users))
+        .catch(e => next(e));
+}
+
+function buildQuery(req){
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
 }
 
 /**
@@ -130,7 +147,6 @@ function list(req, res, next) {
 * @returns {User}
 */
 function remove(req, res, next) {
-    console.log('testt');        
     const user = req.user;
     return user.remove().then(deletedUser => {
         return res.json(deletedUser)

@@ -65,6 +65,12 @@ var UserSchema = new _mongoose2.default.Schema({
         type: _mongoose2.default.Schema.ObjectId,
         ref: 'Professional'
     },
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
+    },
     createdAt: {
         type: Date,
         default: Date.now

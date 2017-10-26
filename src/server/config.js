@@ -22,6 +22,12 @@ const envVarsSchema = Joi.object({
   .description('Amazon access key required for files'),
   AWS_SECRET_ACCESS_KEY: Joi.string().required()
   .description('Amazon secret key required for files'),
+  MAILER_EMAIL_ID: Joi.string().required()
+  .description('From email'),
+  MAILER_PASSWORD: Joi.string().required()
+  .description('From email password'),
+  DOMAIN: Joi.string().required()
+  .description('Environment domain'),
   // MONGO_HOST: Joi.string().required()
   //   .description('Mongo DB host url'),
   // MONGO_PORT: Joi.number()
@@ -46,8 +52,10 @@ const config = {
     port: envVars.MONGO_PORT || 3000
   },
   bodyLimit: "100kb",
-  corsHeaders: ["Link"]
-
+  corsHeaders: ["Link"],
+  mailerEmailId: envVars.MAILER_EMAIL_ID,
+  mailerPassword: envVars.MAILER_PASSWORD,
+  domain: envVars.DOMAIN
 };
 
 export default config;

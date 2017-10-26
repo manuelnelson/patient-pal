@@ -2,13 +2,16 @@ import { Injectable, Output } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { AuthUser } from '../models';
+import { AuthUser, User } from '../models';
 import { Constants } from '../constants';
 import 'rxjs/add/operator/map'
+import { AlertService} from '../services';
 
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    private apiEndpointUrl: string = '/api/auth';
+    
     // @Output LoggedIn:
     constructor(private http: Http, private router: Router) {
         // set token if saved in local storage
@@ -17,7 +20,7 @@ export class AuthenticationService {
     }
 
     login(email: string, password: string) {
-        return this.http.post('/api/auth/login', { email: email, password: password })
+        return this.http.post(`${this.apiEndpointUrl}/login`, { email: email, password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json() as AuthUser;
@@ -31,6 +34,25 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         this.token = null;
     }
+
+    resetPassword(email:string){
+        return this.http.post(`${this.apiEndpointUrl}/forgot-password`, { email: email })
+        .map((response: Response) => {
+            // login successful if there's a jwt token in the response
+            let message = response.json();
+            return message;
+        })
+    }
+
+    updatePassword(email:string, password: string){
+        return this.http.put(`${this.apiEndpointUrl}/update/${email}`, { password: password })
+        .map((response: Response) => {
+            // login successful if there's a jwt token in the response
+            let message = response.json() as User;
+            return message;
+        })
+    }
+
     getLoggedInUser(){
         let user = localStorage.getItem('currentUser');
         if(user)

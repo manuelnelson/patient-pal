@@ -38,7 +38,8 @@ export * from './resolvers/skill-data-resolver.service';
 export * from './resolvers/skill-data-resolver-list.service';
 export * from './resolvers/organization-resolver.service';
 export * from './resolvers/organization-resolver-list.service';
-
+export * from './resolvers/billing-resolver.service';
+export * from './resolvers/update-password-resolver.service';
 //pipes
 export * from './pipes/clock-format.pipe';
 

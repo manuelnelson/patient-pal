@@ -9,13 +9,13 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, 
     ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, ClientBackComponent, 
-    BillingComponent
+    BillingComponent, UpdatePasswordComponent
 
 } from './components';
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
     ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver,
-    ProfessionalListResolver, AuthGuard, ClientListResolver
+    ProfessionalListResolver, AuthGuard, ClientListResolver, BillingResolver, UpdatePasswordResolver
 } from './services';
 
 const routes: Routes = [
@@ -51,7 +51,7 @@ const routes: Routes = [
                 ]
             },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver, clients: ClientListResolver} },
-            { path: 'reports', component: ReportsComponent, resolve: {professional: ProfessionalResolver} },
+            { path: 'reports', component: ReportsComponent, resolve: {professional: ProfessionalResolver, clients: ClientListResolver} },
             {
                 path: 'appointments',
                 component: CalendarComponent,
@@ -66,6 +66,7 @@ const routes: Routes = [
                 path: 'billing',
                 component: BillingComponent,
                 canActivate: [AuthGuard],  
+                resolve: {customer: BillingResolver},
                 data: {roles: [Constants.Roles.Admin]}      
             },
             { path: 'professionals', component: ProfessionalsComponent, resolve: {professional: ProfessionalResolver, professionals: ProfessionalListResolver} },
@@ -112,6 +113,7 @@ const routes: Routes = [
     },
     { path: 'reports',  component:DefaultComponent, pathMatch: 'full' },
     { path: 'notfound',  component:PageNotFoundComponent },
+    { path: 'forgot-password',  component: UpdatePasswordComponent, resolve: {user: UpdatePasswordResolver} },
     { path: '**', redirectTo: 'notfound' }
 ];
 

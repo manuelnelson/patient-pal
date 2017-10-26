@@ -24,10 +24,6 @@ var _validator = require('validator');
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _bcryptNodejs = require('bcrypt-nodejs');
-
-var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AppointmentSchema = new _mongoose2.default.Schema({

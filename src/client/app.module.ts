@@ -14,7 +14,8 @@ import {
             SkillResolver, SkillService, DttTypeService, TargetTypeService, DttTypeResolver, TargetTypeResolver,
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
-            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService
+            CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver,
+            UpdatePasswordResolver
         } from './services';
 import { CalendarModule } from 'angular-calendar';
  
@@ -28,7 +29,7 @@ import {
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
     RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
     ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent,
-    AddProfessionalComponent, BillingComponent
+    AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent
 } from './components/';
 
 let imports = [
@@ -40,7 +41,9 @@ let imports = [
     ImageUploadModule.forRoot()    
 ];
 let exportModules = new Array<any>();
-// import { MdSliderModule } from '@angular/material';    
+import { MatSliderModule } from '@angular/material';    
+imports.push(MatSliderModule)
+exportModules.push(MatSliderModule);
 // if(process.env.NODE_ENV == 'production'){
 //     imports.push(MdSliderModule)
 //     exportModules.push(MdSliderModule);
@@ -55,7 +58,7 @@ let exportModules = new Array<any>();
         AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, 
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
         WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent,
-        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent
+        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent
     ],
     imports: imports,
     exports: exportModules,
@@ -77,7 +80,7 @@ let exportModules = new Array<any>();
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService
+        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver, UpdatePasswordResolver
     ]
 })
 

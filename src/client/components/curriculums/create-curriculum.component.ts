@@ -41,7 +41,7 @@ export class CreateCurriculumComponent implements OnInit {
                     this.router.navigate(['/professional/curriculums'], {queryParams: {refresh: true}});
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
+                    this.alertService.error(error);
                 });
         }
         else
@@ -58,6 +58,9 @@ export class CreateCurriculumComponent implements OnInit {
                     console.log(results)
                     this.searchInProgress = false;
                     this.searchResults = results
+                },
+                error => {
+                    this.alertService.error(error);
                 });
         }
     }

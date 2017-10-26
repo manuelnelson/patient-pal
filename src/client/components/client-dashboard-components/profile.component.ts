@@ -35,7 +35,10 @@ export class ClientProfileComponent implements OnInit{
         let query = 'startDate=' + currentDate + '&client=' + this.profile._id;
         this.appointmentService.list(query).subscribe(appointments => {
             this.upcomingAppointment = appointments && appointments.length > 0 ? appointments[0] : null;
-            console.log(this.upcomingAppointment)
+        },
+        error => {
+            this.alertService.error(error);
+            // this.loading = false;
         });
 
     }
@@ -48,9 +51,10 @@ export class ClientProfileComponent implements OnInit{
                     this.editMode = false;
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
+                    this.alertService.error(error);
                     // this.loading = false;
-                });
+                }
+            );
         }
     }
 

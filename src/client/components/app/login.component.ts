@@ -10,6 +10,7 @@ import { User } from '../../models';
 })
 export class LoginComponent implements OnInit {
     @Output() showSignUp = new EventEmitter();
+    @Output() showForgot = new EventEmitter();
     @Output() closeLogin = new EventEmitter();
     @Input() user: User;
     loginForm: FormGroup;
@@ -59,6 +60,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/professional']);
         else
             this.router.navigate(['/client']);
+    }
+    goToForget(){
+        this.showForgot.emit();
     }
     goToSignup(){
         this.showSignUp.emit();

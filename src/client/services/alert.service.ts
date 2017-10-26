@@ -4,6 +4,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { Error } from '../models';
+import {Constants, MessageTypes} from '../constants';
 
 @Injectable()
 export class AlertService {
@@ -28,36 +29,34 @@ export class AlertService {
 
     success(response: Response, keepAfterNavigationChange = false) {
         var error = response.json() as Error;
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: error.message });
-        setTimeout(()=>{this.subject.next()},this.timeout);
+        this.sendMessage(error.message,keepAfterNavigationChange,Constants.MessageTypes.success);
     }
 
     error(response: Response, keepAfterNavigationChange = false) {
         var error = response.json() as Error;
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: error.message });
-        setTimeout(()=>{this.subject.next()},this.timeout);
+        this.sendMessage(error.message,keepAfterNavigationChange,Constants.MessageTypes.error);
     }
     warning(response: Response, keepAfterNavigationChange = false) {
         var error = response.json() as Error;
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'warning', text: error.message });
-        setTimeout(()=>{this.subject.next()},this.timeout);
+        this.sendMessage(error.message,keepAfterNavigationChange,Constants.MessageTypes.warning);
     }
 
     errorMessage(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
-        setTimeout(()=>{this.subject.next()},this.timeout);
+        this.sendMessage(message,keepAfterNavigationChange,Constants.MessageTypes.error);
     }
 
     warningMessage(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'warning', text: message });
-        setTimeout(()=>{this.subject.next()},this.timeout);
+        this.sendMessage(message,keepAfterNavigationChange,Constants.MessageTypes.warning);
+    }
+    successMessage(message: string, keepAfterNavigationChange = false) {
+        this.sendMessage(message,keepAfterNavigationChange,Constants.MessageTypes.success);
     }
 
+    sendMessage(message: string, keepAfterNavigationChange = false, messageType: string){        
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({ type: messageType, text: message });
+        setTimeout(()=>{this.subject.next()},this.timeout);
+    }
     getMessage(): Observable<any> {
         return this.subject.asObservable();
     }

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class NavigationComponent {
     @Input() isActive: boolean = false;
     showMenu: boolean = false;
+    showForgotPassword: boolean = false;
     showSignIn: boolean = false;
     showLogIn: boolean = false;
     user: User = null;
@@ -29,6 +30,9 @@ export class NavigationComponent {
         else if(this.showLogIn){
             this.showLogIn = !this.showLogIn;
         }
+        else if(this.showForgotPassword){
+            this.showForgotPassword = !this.showForgotPassword;
+        }
         else {
             this.showMenu = !this.showMenu;
         }
@@ -39,9 +43,18 @@ export class NavigationComponent {
     toggleLogIn(){
         this.showLogIn = !this.showLogIn;
     }
+    showForgot(){
+        this.showForgotPassword = true;
+        this.showLogIn = false;
+        this.showSignIn = false;
+    }
     showSignUp(){
         this.showSignIn = true;
+        this.showForgotPassword = false;
         this.showLogIn = false;
+    }
+    closeForgot(){
+        this.showForgotPassword = false;
     }
     closeLogin(){
         this.showLogIn = false;

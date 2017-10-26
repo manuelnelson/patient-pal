@@ -47,12 +47,12 @@ function get(req, res) {
 */
 function search(req, res, next) {
     var regex = new RegExp(req.params.keyword, 'ig');
-    _models.Skill.find({
+    return _models.Skill.find({
         targetName: {
             $regex: regex
         },
         organization: req.query.organization
-    }).then(function (skills) {
+    }).exec().then(function (skills) {
         return skills;
     }).catch(function (e) {
         return next(e);

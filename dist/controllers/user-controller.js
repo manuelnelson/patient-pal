@@ -148,15 +148,30 @@ function update(req, res, next) {
 function list(req, res, next) {
     var _req$query = req.query,
         _req$query$limit = _req$query.limit,
-        limit = _req$query$limit === undefined ? 50 : _req$query$limit,
+        limit = _req$query$limit === undefined ? 20 : _req$query$limit,
         _req$query$skip = _req$query.skip,
         skip = _req$query$skip === undefined ? 0 : _req$query$skip;
 
-    return _models.User.list({ limit: limit, skip: skip }).then(function (users) {
+    delete req.query.limit;
+    delete req.query.skip;
+    var queryObj = buildQuery(req);
+    console.log(queryObj);
+    return _models.User.find(queryObj.length > 0 ? { $and: queryObj } : {}).skip(skip).limit(limit).then(function (users) {
         return res.json(users);
     }).catch(function (e) {
         return next(e);
     });
+}
+
+function buildQuery(req) {
+    if (Object.keys(req.query).length === 0) return [];
+    var array = [];
+    for (var key in req.query) {
+        var obj = {};
+        obj[key] = req.query[key];
+        array.push(obj);
+    }
+    return array;
 }
 
 /**
@@ -164,7 +179,6 @@ function list(req, res, next) {
 * @returns {User}
 */
 function remove(req, res, next) {
-    console.log('testt');
     var user = req.user;
     return user.remove().then(function (deletedUser) {
         return res.json(deletedUser);

@@ -14,6 +14,9 @@ router.route('/update/:email')
     //TODO: require hash from email to update password
   .put(AuthCtrl.updatePassword);
 
+router.route('/forgot-password')
+  //TODO: require hash from email to update password
+  .post((req,res,next) => AuthCtrl.forgotPassword(req,res,next).then(message => {if(message) res.json(message)}));
 // router.route('/:userId')
 //   /** GET /api/users/:userId - Get user */
 //   .get(AuthCtrl.get)

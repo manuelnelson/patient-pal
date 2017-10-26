@@ -45,8 +45,9 @@ export class AssignCurriculumComponent implements OnInit {
                     this.router.navigate(['/appointments/' + this.appointment._id + '/start/client-curriculum/' + data._id + '/navigation']);
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
-                });
+                    this.alertService.error(error);
+                }
+            );
         }
         else
             this.showErrors = true;
@@ -61,6 +62,9 @@ export class AssignCurriculumComponent implements OnInit {
                 .subscribe(results => {
                     this.searchInProgress = false;
                     this.searchResults = results
+                },
+                error => {
+                    this.alertService.error(error);
                 });
         }
     }

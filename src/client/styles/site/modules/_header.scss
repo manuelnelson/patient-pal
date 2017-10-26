@@ -62,18 +62,33 @@
         }
     }
     .login-form{
-        signup-form{
+        signup-form, forgot-password{
             visibility: hidden;
             opacity: 0;
             height: 0;
             display: block;
         }
+
         .rich-text{
             margin-top: $default-spacing;
         }
+        .forgot-password{
+            margin-top: 0; 
+            p {
+                font-size: px-to-rem(14px);                
+            }
+        }
     }
     .signup-form{
-        login-form{
+        login-form, forgot-password {
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            display: block;
+        }
+    }
+    .reset-password{
+        login-form, signup-form{
             visibility: hidden;
             opacity: 0;
             height: 0;

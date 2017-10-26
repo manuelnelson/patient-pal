@@ -29,12 +29,13 @@ function get(req, res) {
 */
 function search(req, res, next) {
     var regex = new RegExp(req.params.keyword,'ig')
-    Skill.find({
+    return Skill.find({
         targetName: {
             $regex: regex
         },
         organization: req.query.organization
     })
+    .exec()
     .then((skills) => skills)
     .catch(e => next(e));
 }

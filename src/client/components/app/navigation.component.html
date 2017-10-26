@@ -1,7 +1,7 @@
 <header class="header">
-	<nav [ngClass]="{'menu-open':showMenu || showSignIn || showLogIn}">
+	<nav [ngClass]="{'menu-open':showMenu || showSignIn || showLogIn || showForgotPassword}">
 		<div class="menu-toggle" (click)="toggleMenu()">
-			<span class="menu-button" [ngClass]="{'close':showMenu || showSignIn || showLogIn}"></span>
+			<span class="menu-button" [ngClass]="{'close':showMenu || showSignIn || showLogIn || showForgotPassword}"></span>
 		</div>
 		<div class="profile-toggle" (click)="toggleLogIn()">
 			<span class="icon icon-user"></span>
@@ -34,10 +34,11 @@
 			</ul>
 		</div>
 	</div>
-	<div class="flyout-menu green-background" [ngClass]="{'show': showLogIn || showSignIn,'login-form':showLogIn,'signup-form':showSignIn}">
+	<div class="flyout-menu green-background" [ngClass]="{'show': showLogIn || showSignIn || showForgotPassword,'login-form':showLogIn,'signup-form':showSignIn, 'reset-password': showForgotPassword}">
 		<div class="flyout-content">
-			<login-form (showSignUp)="showSignUp($event)" [user]="user" (closeLogin)="closeLogin($event)"></login-form>
+			<login-form (showSignUp)="showSignUp($event)" (showForgot)="showForgot($event)" [user]="user" (closeLogin)="closeLogin($event)"></login-form>
 			<signup-form (closeSignup)="closeSignup($event)"></signup-form>
+			<forgot-password (closeForgot)="closeForgot($event)"></forgot-password>
 		</div>
 	</div>
 </header>

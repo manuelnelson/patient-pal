@@ -22,6 +22,12 @@ var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _crypto = require('crypto');
+
+var _crypto2 = _interopRequireDefault(_crypto);
+
+var _controllers = require('../controllers');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -65,13 +71,52 @@ function login(req, res, next) {
 */
 
 function updatePassword(req, res, next) {
-    _models.User.getByEmail(req.params.email, true).then(function (user) {
+    return _models.User.getByEmail(req.params.email, true).then(function (user) {
         user.password = req.body.password;
-        user.save().then(function (savedUser) {
+        return user.save().then(function (savedUser) {
             return res.json(savedUser);
         }).catch(function (e) {
             return next(e);
         });
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+
+/**
+* Send forgot password link if user exists.  Adds a password hash to the user and an expiration
+* @property {string} req.body.email - The email of user.
+* @returns {User}
+*/
+
+function forgotPassword(req, res, next) {
+    return _models.User.getByEmail(req.body.email, false).then(function (user) {
+        if (!user) {
+            var err = new _APIError2.default('Authentication error: No user with that email exists', _httpStatus2.default.UNAUTHORIZED, true);
+            return next(err);
+        } else {
+            return _crypto2.default.randomBytes(20, function (err, buffer) {
+                var token = buffer.toString('hex');
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 86400000;
+                return user.save().then(function (newUser) {
+                    console.log('updated reset');
+                    //send email to user with link to change password
+                    var context = {
+                        url: _config2.default.domain + '/forgot-password?email=' + user.email + '&token=' + token
+                    };
+                    return _controllers.EmailCtrl.sendEmail(user.email, 'forgot-password', 'Forgot Password help on the way!', context).then(function (message) {
+                        console.log('seenddiitt');
+                        return { message: 'The link with the password change has been sent to your email address.' };
+                    }).catch(function (e) {
+                        var err = new _APIError2.default('Unable to send password link to email address: ' + user.email, _httpStatus2.default.EXPECTATION_FAILED, true);
+                        return next(err);
+                    });
+                }).catch(function (e) {
+                    return next(e);
+                });
+            });
+        }
     }).catch(function (e) {
         return next(e);
     });
@@ -126,6 +171,5 @@ function getRandomNumber(req, res) {
         num: Math.random() * 100
     });
 }
-var AuthCtrl = { login: login, getRandomNumber: getRandomNumber, verifyToken: verifyToken, updatePassword: updatePassword, createToken: createToken };
-exports.default = AuthCtrl;
+exports.default = { login: login, getRandomNumber: getRandomNumber, verifyToken: verifyToken, updatePassword: updatePassword, createToken: createToken, forgotPassword: forgotPassword };
 //# sourceMappingURL=auth-controller.js.map

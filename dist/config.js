@@ -24,7 +24,14 @@ var envVarsSchema = _joi2.default.object({
   }),
   JWT_SECRET: _joi2.default.string().required().description('JWT Secret required to sign'),
   AWS_ACCESS_KEY_ID: _joi2.default.string().required().description('Amazon access key required for files'),
-  AWS_SECRET_ACCESS_KEY: _joi2.default.string().required().description('Amazon secret key required for files')
+  AWS_SECRET_ACCESS_KEY: _joi2.default.string().required().description('Amazon secret key required for files'),
+  MAILER_EMAIL_ID: _joi2.default.string().required().description('From email'),
+  MAILER_PASSWORD: _joi2.default.string().required().description('From email password'),
+  DOMAIN: _joi2.default.string().required().description('Environment domain')
+  // MONGO_HOST: Joi.string().required()
+  //   .description('Mongo DB host url'),
+  // MONGO_PORT: Joi.number()
+  //   .default(27017)
 }).unknown().required();
 
 var _Joi$validate = _joi2.default.validate(process.env, envVarsSchema),
@@ -47,8 +54,10 @@ var config = {
     port: envVars.MONGO_PORT || 3000
   },
   bodyLimit: "100kb",
-  corsHeaders: ["Link"]
-
+  corsHeaders: ["Link"],
+  mailerEmailId: envVars.MAILER_EMAIL_ID,
+  mailerPassword: envVars.MAILER_PASSWORD,
+  domain: envVars.DOMAIN
 };
 
 exports.default = config;

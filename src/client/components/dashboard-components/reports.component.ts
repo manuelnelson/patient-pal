@@ -19,8 +19,8 @@ export class ReportsComponent implements OnInit{
     constructor(private authService: AuthenticationService, private alertService: AlertService, private clientService: ClientService, 
         private route: ActivatedRoute, private router: Router)
     { 
-        this.professional = this.route.snapshot.data['professional']; 
-        this.students = this.professional.clients;
+        this.professional = this.route.snapshot.data['professional'];  
+        this.students = this.route.snapshot.data['clients'];  
     }
     
 
@@ -40,15 +40,6 @@ export class ReportsComponent implements OnInit{
         if(this.reportsForm.valid){
             let query = `client=${reportValues.student}&startDate=${reportValues.startDate}&endDate=${reportValues.endDate}`
             window.open(`/server/reports?${query}`);
-            //this.router.navigate(['/server/reports']);
-            // this.clientService.create(clientValues).subscribe(
-            //     data => {
-            //         this.router.navigate(['/professional/clients']);
-            //     },
-            //     error => {
-            //         this.alertService.errorMessage(JSON.parse(error._body).message);
-            //         // this.loading = false;
-            //     });
         }
         else
             this.showErrors = true;

@@ -11,27 +11,17 @@ export class SkillService {
     private apiEndpointUrl: string = '/api/skills';
 
     create(skill: Skill) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post(this.apiEndpointUrl, skill, options)
+        return this.http.post(this.apiEndpointUrl, skill, this.authService.getAuthRequestOptions())
             .map((response: Response) => response.json() as Skill);
     }
     search(keyword: string) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
         let query = '?organization=' + this.authService.getLoggedInUser().organizationId; 
         
-        return this.http.get(this.apiEndpointUrl + '/search/' + keyword + query, options)
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword + query, this.authService.getAuthRequestOptions())
             .map((response: Response) => response.json() as Array<Skill>);
     }
     update(skill: Skill) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.apiEndpointUrl + '/' + skill._id, skill, options)
+        return this.http.put(this.apiEndpointUrl + '/' + skill._id, skill, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
                 // update successful - return skill
                 let skill = response.json();
@@ -42,12 +32,9 @@ export class SkillService {
     }
 
     list(query: string) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
         query = query && query.length > 0 ? '?' + query : ''; 
         
-        return this.http.get(this.apiEndpointUrl + query, options)
+        return this.http.get(this.apiEndpointUrl + query, this.authService.getAuthRequestOptions())
                 .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let skills = response.json() as Array<Skill>;
@@ -55,11 +42,7 @@ export class SkillService {
             });
     }
     get(id: string) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(this.apiEndpointUrl + '/' + id, options)
+        return this.http.get(this.apiEndpointUrl + '/' + id, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let skill = response.json() as Skill;
@@ -67,11 +50,7 @@ export class SkillService {
             });
     }
     delete(id: string) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.delete(this.apiEndpointUrl + '/' + id, options)
+        return this.http.delete(this.apiEndpointUrl + '/' + id, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
                 let skill = response.json() as Skill;
                 return skill;

@@ -38,12 +38,9 @@ export class BillingComponent implements OnInit{
         private alertService: AlertService, private route: ActivatedRoute, private router: Router) 
     {
       this.constants = Constants;
-      this.billingService.getCustomer().subscribe(customer => {
-            this.customer = customer;
-            this.creditCards = this.customer.sources.data.filter(x=> x.object === "card");
-            this.subscription = this.customer.subscriptions.data.length > 0 ? this.customer.subscriptions.data[0] : null;
-            console.log(this.customer)
-          });
+      this.customer = this.route.snapshot.data.customer;
+      this.creditCards = this.customer.sources.data.filter(x=> x.object === "card");
+      this.subscription = this.customer.subscriptions.data.length > 0 ? this.customer.subscriptions.data[0] : null;
     }
 
     ngOnInit(){

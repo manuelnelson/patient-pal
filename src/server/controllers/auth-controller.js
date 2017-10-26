@@ -3,7 +3,8 @@ import httpStatus from 'http-status';
 import { User } from '../models';
 import APIError from '../lib/APIError';
 import config from '../config';
-
+import crypto from 'crypto';
+import {EmailCtrl} from '../controllers';
 /**
 * Returns jwt token if valid username and password is provided
 * @param req
@@ -45,15 +46,57 @@ function login(req, res, next) {
 */
 
 function updatePassword(req, res, next) {
-    User.getByEmail(req.params.email, true)
+    return User.getByEmail(req.params.email, true)
     .then((user) => {
         user.password = req.body.password;
-        user.save()
+        return user.save()
         .then(savedUser => res.json(savedUser))
         .catch(e => next(e));
     })
     .catch(e => next(e));
 }
+
+/**
+* Send forgot password link if user exists.  Adds a password hash to the user and an expiration
+* @property {string} req.body.email - The email of user.
+* @returns {User}
+*/
+
+function forgotPassword(req, res, next) {
+    return User.getByEmail(req.body.email,false)
+    .then((user) => {
+        if(!user){
+            const err = new APIError('Authentication error: No user with that email exists', httpStatus.UNAUTHORIZED, true);
+            return next(err);    
+        }else{
+            return crypto.randomBytes(20, (err, buffer) => {
+                const token = buffer.toString('hex');
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 86400000;
+                return user.save()
+                    .then(newUser => {
+                        console.log('updated reset');
+                        //send email to user with link to change password
+                        const context = {
+                            url: `${config.domain}/forgot-password?email=${user.email}&token=${token}`
+                        };
+                        return EmailCtrl.sendEmail(user.email, 'forgot-password', 'Forgot Password help on the way!',context)
+                            .then(message => {
+                                console.log('seenddiitt')
+                                return {message: 'The link with the password change has been sent to your email address.'}
+                            })
+                            .catch(e => {
+                                const err = new APIError(`Unable to send password link to email address: ${user.email}`, httpStatus.EXPECTATION_FAILED, true);
+                                return next(err);                    
+                            });
+                        })
+                .catch(e => next(e));
+            })    
+        }
+    })
+    .catch(e => next(e));
+}
+
 
 /**
 * Verifies Authorization token sent in API Request.  If valid, it returns the user email on the req.locals object.
@@ -106,5 +149,4 @@ function getRandomNumber(req, res) {
         num: Math.random() * 100
     });
 }
-let AuthCtrl = { login, getRandomNumber, verifyToken, updatePassword, createToken };
-export default AuthCtrl;
+export default { login, getRandomNumber, verifyToken, updatePassword, createToken, forgotPassword };

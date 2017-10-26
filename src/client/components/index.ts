@@ -3,6 +3,8 @@ export * from './app/signup.component';
 export * from './app/alert.component';
 export * from './app/navigation.component';
 export * from './app/loading.component';
+export * from './app/forgot-password.component'; 
+export * from './app/update-password.component'; 
 export * from './app/app.component';
 export * from './app/page-not-found.component';
 

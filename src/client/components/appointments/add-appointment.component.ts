@@ -19,7 +19,7 @@ export class AddAppointmentComponent implements OnInit {
         this.clients = this.route.snapshot.data['clients'] as Array<Client>; 
     }
     ngOnInit(){
-
+ 
         let date = new FormControl(this.datePipe.transform(new Date(),'MM/dd/yyyy'),Validators.pattern(/\d{4}[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])/));
         let startTime = new FormControl('',Validators.pattern(/([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\s?(am|pm|AM|PM)/));
         let endTime = new FormControl('',Validators.pattern(/([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]\s?(am|pm|AM|PM)/));
@@ -48,7 +48,8 @@ export class AddAppointmentComponent implements OnInit {
                     this.router.navigate(['/professional/appointments']);
                 },
                 error => {
-                    this.alertService.errorMessage(JSON.parse(error._body).message);
+                    this.alertService.error(error);
+                    // this.loading = false;
                 });
         }
         else

@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../lib/APIError';
 import validator from 'validator';
-import bcrypt from 'bcrypt-nodejs';
 
 const AppointmentSchema = new mongoose.Schema({
     startDate:{

@@ -18,11 +18,7 @@ export class BillingService {
 
 
     getCustomer(){
-        // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': this.authService.token });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get(`${this.apiEndpointUrl}/customers?organizationId=${this.authService.getLoggedInUser().organizationId}`, options)
+        return this.http.get(`${this.apiEndpointUrl}/customers?organizationId=${this.authService.getLoggedInUser().organizationId}`, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let customer = response.json();
