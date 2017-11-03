@@ -46,19 +46,9 @@ function create(req, res, next) {
             const err = new APIError('Error: Client Already Exists', httpStatus.FORBIDDEN, true);
             return next(err);
         }else{
-            return new Client({
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                birth: req.body.birth,
-                sex: req.body.sex,
-                insurance: req.body.insurance,
-                organization: req.body.organization,
-                status: 1
-            }).save().then(savedClient =>{
-                //asynchronously add client to current professional -- doing this by organization now...
-                //Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{clients:savedClient}}, (err,result) =>{});
-
+            let client = new Client(req.body);
+            client.status = 1;
+            return client.save().then(savedClient =>{
                 //check if user already exists
                 return User.getByEmail(req.body.email)
                 .then(existingUser=>{
@@ -101,15 +91,10 @@ function create(req, res, next) {
 * @returns {Client}
 */
 function update(req, res, next) {
-    //we may have to get user based off this.
-    const client = req.client;
-    client.email = req.body.email;
-    client.firstname = req.body.firstname;
-    client.lastname = req.body.lastname;
-    client.insurance = req.body.insurance;
-    client.sex = req.body.sex;
-    client.birth = req.body.birth;
-
+    let client = req.client;
+    for(let prop in req.body){
+        client[prop] = req.body[prop];
+    }
     return client.save()
     .then(savedClient => savedClient)
     .catch(e => next(e));
@@ -127,8 +112,8 @@ function list(req, res, next) {
     delete req.query.skip;    
     let queryObj = buildQuery(req);
     
-    return Client.find(queryObj.length > 0 ? {$or: queryObj} : {})
-        .sort({ createdAt: -1 })
+    return Client.find(queryObj.length > 0 ? {$and: queryObj} : {})
+        .sort({ createdAt: -1 }) 
         .skip(skip)
         .limit(limit)
         .then(clients => clients)

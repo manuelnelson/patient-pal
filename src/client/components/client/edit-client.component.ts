@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute} from '@angular/router';
-import { ClientService, AlertService, AuthenticationService } from '../../services';
-import { Client } from '../../models';
+import { ClientService, AlertService, AuthenticationService, ProfessionalService } from '../../services';
+import { Client, Professional } from '../../models';
 import { DatePipe } from "@angular/common";
 import { Constants } from '../../constants';
 @Component({
@@ -12,17 +12,22 @@ import { Constants } from '../../constants';
 })
 export class EditClientComponent implements OnInit {
     editClientForm: FormGroup;
-    clientFormString: string;
+    editClientFormString: string;
     editClient: Client;
     isProfessional: boolean;
     formSucess: boolean;
     formError: boolean;
     showErrors: boolean = false;
+    searchResults: Array<Professional> = null;    
+    isAdministrator: boolean = false;
+    searchInProgress: boolean = false;    
+
     
     constructor(private clientService:ClientService,private alertService:AlertService, private authService: AuthenticationService,
-                private route: ActivatedRoute, private datePipe: DatePipe){
+                private route: ActivatedRoute, private datePipe: DatePipe, private professionalService: ProfessionalService){
         this.editClient = this.route.snapshot.data['client'];
-        this.isProfessional = this.authService.getLoggedInUser().role !== Constants.Roles.Client;
+        this.isProfessional = this.authService.isProfessional();
+        this.isAdministrator = this.authService.isAdministrator();
     }
     ngOnInit(){
         let date = this.datePipe.transform(this.editClient.birth, 'MM/dd/yyyy');
@@ -33,13 +38,17 @@ export class EditClientComponent implements OnInit {
         let birth = new FormControl(date,Validators.pattern(/(0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])[\/\-\.]\d{4}/));
         let sex = new FormControl(this.editClient.sex || '');
         let insurance = new FormControl(this.editClient.insurance || '');
+        let keyword = new FormControl(`${this.editClient.professional.firstname} ${this.editClient.professional.lastname}`);
+        let professional = new FormControl(this.editClient.professional._id);
 
         this.editClientForm = new FormGroup({
             firstname: firstname,
             lastname: lastname,
             email: email,
-            birth: birth,
+            birth: birth, 
             sex: sex,
+            keyword: keyword,
+            professional: professional,
             insurance: insurance
         });
     }
@@ -60,6 +69,26 @@ export class EditClientComponent implements OnInit {
         else
             this.showErrors = true;
     
+    }
+
+    search(){
+        if(this.editClientForm.controls.keyword.value && this.editClientForm.controls.keyword.value.length > 1 && !this.searchInProgress){
+            this.searchInProgress = true;
+            this.professionalService.search(this.editClientForm.controls.keyword.value)
+                .subscribe(results => {
+                    this.searchInProgress = false;
+                    this.searchResults = results
+                },
+                error => {
+                    this.alertService.error(error);
+                });
+        }
+    }
+    selectProfessional(professional: Professional){
+        this.searchResults = null;
+        this.editClientForm.controls.professional.setValue(professional._id);
+        this.editClientForm.controls.keyword.setValue(`${professional.firstname} ${professional.lastname}`);
+        //this.editClientForm.controls. // set(category.name);
     }
 
     invalidControl(control:FormControl){

@@ -29,7 +29,7 @@ import {
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
     RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
     ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent,
-    AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent, CurriculumComponent, SkillFinderComponent
+    AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent, CurriculumComponent, SkillFinderComponent,EditSkillComponent
 } from './components/';
 
 let imports = [
@@ -59,7 +59,7 @@ exportModules.push(MatSliderModule);
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
         WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent,
         DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent, CurriculumComponent,
-        SkillFinderComponent
+        SkillFinderComponent, EditSkillComponent
     ],
     imports: imports,
     exports: exportModules,

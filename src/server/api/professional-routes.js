@@ -29,4 +29,8 @@ router.route('/:userId/appointments')
 /** Load user when API with userId route parameter is hit */
 router.param('userId', ProfessionalCtrl.load);
 
+router.route('/search/:keyword')
+  /** GET /api/skills/search/:keyword - search skills */
+  .get(ProfessionalCtrl.search);
+
 export default router;

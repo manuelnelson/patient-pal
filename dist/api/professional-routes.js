@@ -46,5 +46,9 @@ router.route('/:userId/appointments').get(_controllers.AuthCtrl.verifyToken, _co
 /** Load user when API with userId route parameter is hit */
 router.param('userId', _controllers.ProfessionalCtrl.load);
 
+router.route('/search/:keyword')
+/** GET /api/skills/search/:keyword - search skills */
+.get(_controllers.ProfessionalCtrl.search);
+
 exports.default = router;
 //# sourceMappingURL=professional-routes.js.map

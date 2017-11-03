@@ -73,6 +73,7 @@ SkillSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        .populate('targetType dttType')
         .exec()
         .then((Skill) => {
             if (Skill) {

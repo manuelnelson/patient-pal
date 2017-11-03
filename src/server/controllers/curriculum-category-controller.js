@@ -45,7 +45,7 @@ function create(req, res, next) {
 * @returns {CurriculumCategory}
 */
 function update(req, res, next) {
-    const curriculumCategory = req.curriculumCategory;
+    let curriculumCategory = req.curriculumCategory;
     for(let prop in req.body){
         curriculumCategory[prop] = req.body[prop];
     }

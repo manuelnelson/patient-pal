@@ -38,7 +38,7 @@ function create(req, res, next) {
 * @returns {DttType}
 */
 function update(req, res, next) {
-    const dttType = req.dttType;
+    let dttType = req.dttType;
     for(let prop in req.body){
         dttType[prop] = req.body[prop];
     }

@@ -7,8 +7,11 @@ import { Client } from '../../models';
 export class ClientListResolver implements Resolve<Array<Client>> {
     constructor(private clientService: ClientService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<Client>> {
-        let orgId = this.authService.getLoggedInUser().organizationId;
+        let orgId = this.authService.getLoggedInUser().organizationId; 
         let query = 'organization=' + orgId;
+        if(!this.authService.isAdministrator()){
+            query += `&professional=${this.authService.getLoggedInUser()._id}`
+        }
         return this.clientService.list(query).map(clients => clients).toPromise(); 
     }
 }

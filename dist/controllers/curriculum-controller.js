@@ -125,8 +125,8 @@ function remove(req, res, next) {
     });
 }
 /**
-* Get skill
-* @returns {Skill}
+* Get curriculums by search string
+* @returns {Curriculums}
 * https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
 */
 function search(req, res, next) {

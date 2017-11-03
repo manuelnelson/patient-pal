@@ -12,6 +12,7 @@
             <span class="skill-name">{{skill.targetName}}</span>
             <span class="skill-target">{{skill.targetType.name}}</span>        
             <span class="skill-expand">
+                <i (click)="editSkill(skill)" aria-label="edit"  class="icon icon-edit"></i>                    
                 <i (click)="deleteSkill(skill)" aria-label="delete" *ngIf="showDelete" class="delete"></i>
                 <i (click)="toggleSkill(skill)" aria-label="expand" class="expand"></i>
             </span>
@@ -67,7 +68,7 @@
             <span class="skill-target">{{skill.targetType.name}}</span>        
             <span class="skill-expand">
                 <i (click)="deleteSkill(skill)" aria-label="delete" *ngIf="showDelete" class="delete"></i>
-                <i (click)="toggleSkill(skill)" aria-label="expand" class="expand"></i>
+                <i (click)="toggleSkill(skill)" aria-label="expand" class="expand"></i> 
             </span>
             <div class="expand-container">
                 <div class="expand-item" *ngIf="skill.goalName">

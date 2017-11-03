@@ -36,12 +36,24 @@
                     </option>
                     <option value="female">
                         Female
-                    </option>
+                    </option> 
                 </select>
             </div>
             <div class="form-input" [ngClass]="{'error':invalidControl(editClientForm.controls.insurance)}">
                 <label>Insurance<span *ngIf="invalidControl(editClientForm.controls.insurance)">Invalid insurance type</span></label>
                 <input type="text" formControlName="insurance" placeholder="Insurance"/>
+            </div>
+            <div class="form-input auto-complete" *ngIf="isAdministrator">
+                <label>Professional</label>
+                <input type="hidden" formControlName="professional"/>
+                <div class="autocomplete-container">
+                    <input type="text" formControlName="keyword" (keyup)="search()" placeholder="Search for Professional Name"/>
+                    <div class="autocomplete-drop-down" *ngIf="searchResults && searchResults.length > 0">
+                        <div class="drop-down-item" (click)="selectProfessional(result)" *ngFor="let result of searchResults">
+                            {{result.firstname}} {{result.lastname}}                            
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="submit-input">
                 <input type="submit" class="btn btn-primary" />

@@ -69,5 +69,10 @@ export class ProfessionalService {
                 return appointments;
             });
     }
+    search(keyword: string) {
+        let query = '?organization=' + this.authService.getLoggedInUser().organizationId;
+        return this.http.get(this.apiEndpointUrl + '/search/' + keyword + query, this.authService.getAuthRequestOptions())
+            .map((response: Response) => response.json() as Array<Professional>);
+    }
 
 }

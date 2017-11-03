@@ -49,6 +49,10 @@ var ClientSchema = new _mongoose2.default.Schema({
     sex: {
         type: String
     },
+    professional: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'Professional'
+    },
     organization: {
         type: _mongoose2.default.Schema.ObjectId,
         ref: 'Organization'
@@ -76,7 +80,7 @@ ClientSchema.statics = {
     * @returns {Promise<Client, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).exec().then(function (Client) {
+        return this.findById(id).populate('professional').exec().then(function (Client) {
             if (Client) {
                 return Client;
             } else {

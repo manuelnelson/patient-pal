@@ -97,7 +97,7 @@ SkillSchema.statics = {
     * @returns {Promise<Skill, APIError>}
     */
     get: function get(id) {
-        return this.findById(id).exec().then(function (Skill) {
+        return this.findById(id).populate('targetType dttType').exec().then(function (Skill) {
             if (Skill) {
                 return Skill;
             } else {

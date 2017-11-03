@@ -2,7 +2,7 @@ import { Injectable, Output } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { Client, Appointment } from '../models';
+import { Client, Appointment, ClientApi } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class ClientService {
     constructor(private http: Http, private authService: AuthenticationService) { }
     private apiEndpointUrl: string = '/api/clients';
 
-    create(client: Client) {
+    create(client: ClientApi) {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });

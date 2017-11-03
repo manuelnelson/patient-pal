@@ -64,19 +64,9 @@ function create(req, res, next) {
             var err = new _APIError2.default('Error: Client Already Exists', _httpStatus2.default.FORBIDDEN, true);
             return next(err);
         } else {
-            return new _models.Client({
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                birth: req.body.birth,
-                sex: req.body.sex,
-                insurance: req.body.insurance,
-                organization: req.body.organization,
-                status: 1
-            }).save().then(function (savedClient) {
-                //asynchronously add client to current professional -- doing this by organization now...
-                //Professional.findOneAndUpdate({email: req.locals.sessionUserEmail}, {$push:{clients:savedClient}}, (err,result) =>{});
-
+            var client = new _models.Client(req.body);
+            client.status = 1;
+            return client.save().then(function (savedClient) {
                 //check if user already exists
                 return _models.User.getByEmail(req.body.email).then(function (existingUser) {
                     if (existingUser && existingUser.length > 0) {
@@ -120,15 +110,10 @@ function create(req, res, next) {
 * @returns {Client}
 */
 function update(req, res, next) {
-    //we may have to get user based off this.
     var client = req.client;
-    client.email = req.body.email;
-    client.firstname = req.body.firstname;
-    client.lastname = req.body.lastname;
-    client.insurance = req.body.insurance;
-    client.sex = req.body.sex;
-    client.birth = req.body.birth;
-
+    for (var prop in req.body) {
+        client[prop] = req.body[prop];
+    }
     return client.save().then(function (savedClient) {
         return savedClient;
     }).catch(function (e) {
@@ -153,7 +138,7 @@ function list(req, res, next) {
     delete req.query.skip;
     var queryObj = buildQuery(req);
 
-    return _models.Client.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (clients) {
+    return _models.Client.find(queryObj.length > 0 ? { $and: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (clients) {
         return clients;
     }).catch(function (e) {
         return next(e);

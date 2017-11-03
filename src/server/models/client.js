@@ -24,6 +24,10 @@ const ClientSchema = new mongoose.Schema({
     sex: {
         type: String
     },
+    professional: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Professional'
+    },
     organization: {
         type: mongoose.Schema.ObjectId,
         ref: 'Organization'
@@ -52,6 +56,7 @@ ClientSchema.statics = {
     */
     get(id) {
         return this.findById(id)
+        .populate('professional')
         .exec()
         .then((Client) => {
             if (Client) {

@@ -38,7 +38,7 @@ function create(req, res, next) {
 * @returns {Curriculum}
 */
 function update(req, res, next) {
-    const curriculum = req.curriculum;
+    let curriculum = req.curriculum;
     for(let prop in req.body){
         curriculum[prop] = req.body[prop];
     }
@@ -100,8 +100,8 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 /**
-* Get skill
-* @returns {Skill}
+* Get curriculums by search string
+* @returns {Curriculums}
 * https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
 */
 function search(req, res, next) {

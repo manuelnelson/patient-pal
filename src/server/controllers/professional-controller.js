@@ -26,7 +26,7 @@ function get(req, res) {
 /**
 * Get professional's Appointments
 * @returns {Appointment[]}
-*/
+*/ 
 function getAppointments(req, res, next) {
     let queryObj = {
         professional: req.professional._id,
@@ -176,4 +176,40 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove, getAppointments, uploadPhoto };
+/**
+* Get curriculums by search string
+* @returns {Skill}
+* https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
+*/
+function search(req, res, next) {
+    var regex = new RegExp(req.params.keyword,'ig')
+    let nameQuery = {
+        $or:[{
+                firstname: {
+                    $regex: regex
+                }
+            },
+            {
+                lastname: {
+                    $regex: regex
+                }
+            }
+        ]
+    };
+    Professional.find({
+        $and:[
+            nameQuery,
+            {        
+                organization: req.query.organization
+            }
+        ]    
+    })
+    .then((professionals) => {
+        console.log('professoinals!!')
+        console.log(professionals)
+        res.json(professionals)
+    })
+    .catch(e => next(e));
+}
+
+export default { load, get, create, update, list, remove, getAppointments, uploadPhoto, search };

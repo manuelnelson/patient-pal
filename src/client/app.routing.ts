@@ -9,7 +9,7 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, 
     ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, ClientBackComponent, 
-    BillingComponent, UpdatePasswordComponent, CurriculumComponent
+    BillingComponent, UpdatePasswordComponent, CurriculumComponent, EditSkillComponent
 
 } from './components';
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
@@ -37,8 +37,9 @@ const routes: Routes = [
                 component: SkillsComponent,
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
-                    { path: 'list', pathMatch: 'full', component: SkillListComponent, resolve: {skills:SkillResolver}},
-                    { path: 'add',  pathMatch: 'full', component: AddSkillComponent, resolve: {targetTypes: TargetTypeResolver, dttTypes: DttTypeResolver}}
+                    { path: 'list', pathMatch: 'full', component: SkillListComponent, resolve: {skills:SkillListResolver}},
+                    { path: 'add',  pathMatch: 'full', component: AddSkillComponent, resolve: {targetTypes: TargetTypeResolver, dttTypes: DttTypeResolver}},
+                    { path: 'edit/:id', component: EditSkillComponent, resolve: {targetTypes: TargetTypeResolver, dttTypes: DttTypeResolver, skill:SkillResolver}}
                 ]
             },
             {

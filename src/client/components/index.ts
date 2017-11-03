@@ -43,6 +43,7 @@ export * from './appointments/run-appointment.component';
 export * from './skills/curriculum-skill-list.component';
 export * from './skills/skill-list.component';
 export * from './skills/add-skill.component';
+export * from './skills/edit-skill.component';
 export * from './skills/skill-finder.component';
 export * from './skills/inputs/anecdotal.component';
 export * from './skills/inputs/dtt.component';

@@ -1,7 +1,7 @@
 import { Curriculum } from '../../models';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { SkillService, AlertService, CurriculumService } from '../../services';
+import { SkillService, AlertService, CurriculumService, AuthenticationService } from '../../services';
 import { Skill } from '../../models';
 import { Router, ActivatedRoute } from "@angular/router";
 import { DataObserver, data } from 'statex/angular';
@@ -18,16 +18,17 @@ export class SkillListComponent extends DataObserver {
 
     @data((state: AppState) => state.curriculum)
     curriculum: Curriculum;
-
+    isAdministrator: boolean = false;
     showDelete: boolean = false;
     constructor(private skillService:SkillService,private alertService:AlertService,
-        private router: Router, private route: ActivatedRoute, private curriculumService: CurriculumService){
+        private router: Router, private route: ActivatedRoute, private curriculumService: CurriculumService, private authService: AuthenticationService){
             super();
-    }
+            this.isAdministrator = this.authService.isAdministrator();
+        }
     ngOnInit(){
         if(this.route.snapshot.data['curriculum']){
             this.skills = this.curriculum.skills; 
-            this.showDelete = true;
+            this.showDelete = this.isAdministrator; 
         }
         else
             this.skills = this.route.snapshot.data["skills"];
@@ -42,4 +43,8 @@ export class SkillListComponent extends DataObserver {
             new UpdateCurriculumAction(updatedCurriculum).dispatch();            
         })    
     }
+    editSkill(skill: Skill){
+        this.router.navigate([`professional/skills/edit/${skill._id}`])
+    }
+
 }

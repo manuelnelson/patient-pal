@@ -46,7 +46,7 @@ function create(req, res, next) {
 * @returns {Organization}
 */
 function update(req, res, next) {
-    const organization = req.organization;
+    let organization = req.organization;
     for(let prop in req.body){
         organization[prop] = req.body[prop];
     }

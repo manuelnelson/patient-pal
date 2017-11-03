@@ -206,5 +206,36 @@ function remove(req, res, next) {
     });
 }
 
-exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, getAppointments: getAppointments, uploadPhoto: uploadPhoto };
+/**
+* Get curriculums by search string
+* @returns {Skill}
+* https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
+*/
+function search(req, res, next) {
+    var regex = new RegExp(req.params.keyword, 'ig');
+    var nameQuery = {
+        $or: [{
+            firstname: {
+                $regex: regex
+            }
+        }, {
+            lastname: {
+                $regex: regex
+            }
+        }]
+    };
+    _models.Professional.find({
+        $and: [nameQuery, {
+            organization: req.query.organization
+        }]
+    }).then(function (professionals) {
+        console.log('professoinals!!');
+        console.log(professionals);
+        res.json(professionals);
+    }).catch(function (e) {
+        return next(e);
+    });
+}
+
+exports.default = { load: load, get: get, create: create, update: update, list: list, remove: remove, getAppointments: getAppointments, uploadPhoto: uploadPhoto, search: search };
 //# sourceMappingURL=professional-controller.js.map
