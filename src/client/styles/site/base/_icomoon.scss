@@ -35,7 +35,11 @@ $icon-address-book: "\e944";
 $icon-edit: "\e906";
 $icon-professional: "\e976";
 $icon-credit-card: "\e93f";
+$icon-folder: "\e92f";
 
+.icon-folder:before {
+  content: $icon-folder;
+}
 .icon-edit:before {
   content: $icon-edit;
 }

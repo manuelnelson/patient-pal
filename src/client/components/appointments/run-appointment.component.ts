@@ -19,7 +19,6 @@ export class RunAppointmentComponent implements OnInit{
             this.clientCurriculum = this.route.snapshot.data["clientCurriculum"];
             this.currentSkill = this.clientCurriculum.curriculum.skills.find(skill => skill._id == this.route.snapshot.params['skillId']);            
             this.dttTypes = this.route.snapshot.data["dttTypes"];
-            console.log(this.dttTypes);
             
     }
 

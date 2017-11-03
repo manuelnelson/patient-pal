@@ -22,7 +22,6 @@ export class TaskAnalysisComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log(this.skill.taskSteps)
         this.skill.taskSteps.split(',').map((task) => {
             let taskStep : TaskStep = {
                 name: task.trim(),

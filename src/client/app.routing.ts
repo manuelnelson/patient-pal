@@ -9,13 +9,13 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
     CurriculumsComponent, StartAppointmentComponent, AssignCurriculumComponent, RunAppointmentComponent,
     PageNotFoundComponent, CurriculumSkillListComponent, LoadingComponent, ClientDashboardComponent, ClientLinksComponent, 
     ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, ClientBackComponent, 
-    BillingComponent, UpdatePasswordComponent
+    BillingComponent, UpdatePasswordComponent, CurriculumComponent
 
 } from './components';
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
     ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver,
-    ProfessionalListResolver, AuthGuard, ClientListResolver, BillingResolver, UpdatePasswordResolver
+    ProfessionalListResolver, AuthGuard, ClientListResolver, BillingResolver, UpdatePasswordResolver, SkillListResolver
 } from './services';
 
 const routes: Routes = [
@@ -47,7 +47,7 @@ const routes: Routes = [
                 children: [
                     { path: '', redirectTo: 'list', pathMatch: 'full'},
                     { path: 'list', pathMatch: 'full', component: CurriculumListComponent, resolve: {curriculums:CurriculumListResolver}},
-                    { path: 'view/:curriculumId', component: SkillListComponent, resolve: {curriculum:CurriculumResolver}}
+                    { path: 'view/:curriculumId', component: CurriculumComponent, resolve: {curriculum:CurriculumResolver, skills: SkillListResolver}}
                 ]
             },
             { path: 'clients', component: ClientsComponent, resolve: {professional: ProfessionalResolver, clients: ClientListResolver} },

@@ -117,7 +117,6 @@ function listReport(req, res, next) {
         });
         queryArray.push({ clientCurriculum: { $in: ids } });
         query = query.find({ $and: queryArray });
-        console.log(queryArray);
         return query.populate('skill').populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillDatas) {
             return skillDatas;
         }).catch(function (e) {
@@ -156,7 +155,6 @@ function list(req, res, next) {
     delete req.query.limit;
     delete req.query.skip;
     var queryObj = buildQuery(req);
-    console.log(queryObj);
 
     return _models.SkillData.find(queryObj.length > 0 ? { $and: queryObj } : {}).populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).populate('skill').sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillData) {
         return skillData;

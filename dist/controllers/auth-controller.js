@@ -100,13 +100,11 @@ function forgotPassword(req, res, next) {
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 86400000;
                 return user.save().then(function (newUser) {
-                    console.log('updated reset');
                     //send email to user with link to change password
                     var context = {
                         url: _config2.default.domain + '/forgot-password?email=' + user.email + '&token=' + token
                     };
                     return _controllers.EmailCtrl.sendEmail(user.email, 'forgot-password', 'Forgot Password help on the way!', context).then(function (message) {
-                        console.log('seenddiitt');
                         return { message: 'The link with the password change has been sent to your email address.' };
                     }).catch(function (e) {
                         var err = new _APIError2.default('Unable to send password link to email address: ' + user.email, _httpStatus2.default.EXPECTATION_FAILED, true);

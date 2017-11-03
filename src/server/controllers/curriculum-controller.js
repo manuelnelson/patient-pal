@@ -43,7 +43,10 @@ function update(req, res, next) {
         curriculum[prop] = req.body[prop];
     }
     return curriculum.save()
-    .then(savedCurriculum => savedCurriculum)
+    .then(savedCurriculum => {
+        return Curriculum.populate(savedCurriculum,'curriculumCategory')
+                            .then(populatedCurriculum => populatedCurriculum)
+    })
     .catch(e => next(e));
 }
 
@@ -61,6 +64,7 @@ function list(req, res, next) {
         
     return Curriculum.find(queryObj.length > 0 ? {$or: queryObj} : {})
         .sort({ createdAt: -1 })
+        .populate('curriculumCategory')
         .skip(skip)
         .limit(limit)
         .then(curriculums => curriculums)

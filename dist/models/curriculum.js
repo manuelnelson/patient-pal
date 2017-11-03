@@ -35,6 +35,10 @@ var curriculumSchema = new _mongoose2.default.Schema({
         type: String
     },
     skills: [{ type: _mongoose2.default.Schema.ObjectId, ref: 'Skill' }],
+    curriculumCategory: {
+        type: _mongoose2.default.Schema.ObjectId,
+        ref: 'CurriculumCategory'
+    },
     organization: {
         type: _mongoose2.default.Schema.ObjectId,
         ref: 'Organization'
@@ -58,7 +62,7 @@ curriculumSchema.statics = {
         return this.findById(id)
         //Deep populate FTW - TODO look at performance of this
         //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
-        .populate({ path: 'skills', populate: { path: 'targetType dttType' } }).exec().then(function (curriculum) {
+        .populate({ path: 'skills', populate: { path: 'targetType dttType' } }).populate('curriculumCategory').exec().then(function (curriculum) {
             if (curriculum) {
                 return curriculum;
             } else {

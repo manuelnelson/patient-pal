@@ -45,7 +45,6 @@ export class UpdatePasswordComponent implements OnInit{
         }
         if(this.resetPasswordForm.valid){
             this.authService.updatePassword(this.user.email, passwordValues.password).subscribe(updatedUser => {
-                console.log(updatedUser)
                 this.alertService.successMessage("Your password was successfully updated", true);
                 this.router.navigate(['/'], {queryParams:{"showLogin": true}});
             })    

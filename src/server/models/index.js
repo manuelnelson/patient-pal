@@ -9,6 +9,7 @@ import DttType from './dttType';
 import Curriculum from './curriculum';
 import SkillData from './skillData';
 import Organization from './organization';
+import CurriculumCategory from './curriculumCategory';
 
 export {
     Appointment,
@@ -17,6 +18,7 @@ export {
     Professional,
     User,
     ClientCurriculum,
+    CurriculumCategory,
     Skill,
     TargetType,
     DttType,

@@ -87,7 +87,6 @@ function listReport(req, res, next){
             let ids = clientCurriculums.map(curriculum => curriculum._id);  
             queryArray.push({clientCurriculum: {$in: ids}});
             query = query.find({$and: queryArray});
-            console.log(queryArray)
             return query.populate('skill')
                 .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
                 .sort({ trialNumber: -1 })
@@ -127,7 +126,6 @@ function list(req, res, next) {
     delete req.query.limit;
     delete req.query.skip;    
     let queryObj = buildQuery(req);
-    console.log(queryObj);
     
     return SkillData.find(queryObj.length > 0 ? {$and: queryObj} : {})
         .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})

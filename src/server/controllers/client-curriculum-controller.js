@@ -96,7 +96,6 @@ function buildQuery(req){
             array.push(obj);
         // }
     }
-    console.log(array);
     return array;
 }
 

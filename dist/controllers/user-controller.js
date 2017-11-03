@@ -107,7 +107,6 @@ function create(req, res, next) {
 }
 
 function createProfessional(req, res, next, savedUser, organization) {
-    console.log('5');
     return new _models.Professional({
         email: req.body.email,
         organization: organization._id,
@@ -155,7 +154,6 @@ function list(req, res, next) {
     delete req.query.limit;
     delete req.query.skip;
     var queryObj = buildQuery(req);
-    console.log(queryObj);
     return _models.User.find(queryObj.length > 0 ? { $and: queryObj } : {}).skip(skip).limit(limit).then(function (users) {
         return res.json(users);
     }).catch(function (e) {

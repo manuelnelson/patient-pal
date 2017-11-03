@@ -4,8 +4,8 @@
         <div class="form-input" [ngClass]="{'error':invalidControl(curriculumForm.controls.name)}">
             <label>Name<span *ngIf="invalidControl(curriculumForm.controls.name)">Name Required</span></label>
             <input type="text" formControlName="name" placeholder="Curriculum Name" required/>
-        </div>
-        <div class="form-input auto-complete" [ngClass]="{'error':invalidControl(curriculumForm.controls.skills)}">
+        </div> 
+        <!-- <div class="form-input auto-complete" [ngClass]="{'error':invalidControl(curriculumForm.controls.skills)}">
             <label>Skills<span *ngIf="invalidControl(curriculumForm.controls.skills)">Skills Required</span></label>
             <input type="hidden" formControlName="skills"/>
             <div class="autocomplete-container">
@@ -22,7 +22,7 @@
                     <i class="close" (click)="removeSkill(item)">&#10006;</i>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="submit-input">
             <input type="submit" class="btn btn-primary" />
         </div>

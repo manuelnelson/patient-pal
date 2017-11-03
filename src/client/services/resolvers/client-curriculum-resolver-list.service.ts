@@ -8,7 +8,6 @@ export class ClientCurriculumListResolver implements Resolve<Array<ClientCurricu
     constructor(private clientCurriculumService: ClientCurriculumService, private router: Router, private authService: AuthenticationService) {}
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Array<ClientCurriculum>> {        
         let appointment = route.parent.data.appointment;
-        //console.log(route.parent.data.appointment);
         
         if(appointment){
             let query = `client=${appointment.client._id}&completed=false`;

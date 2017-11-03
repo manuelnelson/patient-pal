@@ -43,6 +43,7 @@ export * from './appointments/run-appointment.component';
 export * from './skills/curriculum-skill-list.component';
 export * from './skills/skill-list.component';
 export * from './skills/add-skill.component';
+export * from './skills/skill-finder.component';
 export * from './skills/inputs/anecdotal.component';
 export * from './skills/inputs/dtt.component';
 export * from './skills/inputs/duration.component';
@@ -58,5 +59,6 @@ export * from './curriculums/curriculum-list.component';
 export * from './curriculums/select-curriculum-list.component';
 export * from './curriculums/create-curriculum.component';
 export * from './curriculums/assign-curriculum.component';
+export * from './curriculums/curriculum.component';
 
 export * from './reports/default.component';

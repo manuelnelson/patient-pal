@@ -1,0 +1,27 @@
+<div class="curriculum-view">
+    <h3>{{curriculum.name}}
+        <span *ngIf="curriculum.curriculumCategory && !isCategoryEditable" (click)="toggleCategoryEditMode()" class="curriculum-category"><i class="icon-folder icon"></i>{{curriculum.curriculumCategory.name}}</span>
+        <span *ngIf="!curriculum.curriculumCategory && !isCategoryEditable" (click)="toggleCategoryEditMode()" class="curriculum-category"><i class="icon-folder icon"></i>Not Categorized</span>        
+    </h3>
+    <div class="form-module" *ngIf="isCategoryEditable" >
+        <form class="form" [formGroup]="categoryForm" (ngSubmit)="category(categoryForm.value)" novalidate>
+            <div class="form-input auto-complete">
+                <label>Curriculum Category</label>
+                <div class="autocomplete-container">
+                    <input type="text" formControlName="keyword" (keyup)="search()" placeholder="Enter Name Here"/>
+                    <div class="autocomplete-drop-down" *ngIf="searchResults && searchResults.length > 0">
+                        <div class="drop-down-item" (click)="selectCategory(result)" *ngFor="let result of searchResults">
+                            {{result.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="submit-input">
+                <button (click)="toggleCategoryEditMode()" class="btn btn-primary">Cancel</button>
+                <input type="submit" class="btn btn-primary" />
+            </div>    
+        </form>            
+    </div>
+    <skill-list></skill-list>
+    <skill-finder></skill-finder>
+</div>

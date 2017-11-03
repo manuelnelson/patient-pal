@@ -4,7 +4,7 @@ import { SkillService, AlertService, ClientCurriculumService } from '../../servi
 import { Skill, ClientCurriculum, SkillData } from '../../models';
 import { Router, ActivatedRoute } from "@angular/router";
 @Component({
-    selector: 'skill-list',
+    selector: 'curriculum-skill-list',
     template: require('./curriculum-skill-list.component.html')
 })
 export class CurriculumSkillListComponent implements OnInit { 
@@ -25,10 +25,8 @@ export class CurriculumSkillListComponent implements OnInit {
     }
 
     isCurriculumCompleted(){
-        console.log('notFinished'); 
         let notFinished = this.clientCurriculum.curriculum.skills.filter(x=>!this.reachedMaximum(x));
         if(!notFinished || notFinished.length === 0){
-            console.log('finished!')
             this.clientCurriculum.completed = true;
             this.clientCurriculumService.update(this.clientCurriculum).subscribe(curriculum => curriculum);
 

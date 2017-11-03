@@ -66,7 +66,6 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     var organization = req.organization;
-    console.log(req.body);
     for (var prop in req.body) {
         organization[prop] = req.body[prop];
     }

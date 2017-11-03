@@ -48,7 +48,6 @@ export class EditClientComponent implements OnInit {
             clientValues._id = this.editClient._id;
             this.clientService.update(clientValues).subscribe(
                 data => {
-                    console.log(data);
                     this.formSucess = true;
                     this.formError = false;
                 },

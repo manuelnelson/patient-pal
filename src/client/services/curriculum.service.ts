@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService, AlertService } from '../services';
-import { Curriculum } from '../models';
+import { Curriculum, CurriculumApi } from '../models';
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -20,6 +20,17 @@ export class CurriculumService {
                 }
             });
     }
+    updateCategory(curriculum: CurriculumApi) {
+        return this.http.put(this.apiEndpointUrl + '/' + curriculum._id, curriculum, this.authService.getAuthRequestOptions())
+            .map((response: Response) => {
+                // update successful - return curriculum
+                let curriculum = response.json();
+                if (curriculum) {
+                    return curriculum;
+                }
+            });
+    }
+    
     update(curriculum: Curriculum) {
         return this.http.put(this.apiEndpointUrl + '/' + curriculum._id, curriculum, this.authService.getAuthRequestOptions())
             .map((response: Response) => {
@@ -30,7 +41,6 @@ export class CurriculumService {
                 }
             });
     }
-
     list(query:string) {
         if(!query || query.indexOf('organization') === -1)
             query = 'organization=' + this.authService.getLoggedInUser().organizationId;

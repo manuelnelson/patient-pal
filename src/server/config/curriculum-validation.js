@@ -4,7 +4,8 @@ export default {
     // POST /api/users
     createCurriculum: {
         body: {
-            skills: Joi.array().required(),
+            name: Joi.string().required(),
+            //skills: Joi.array().required(),
             organization: Joi.string().required()
         }
     },

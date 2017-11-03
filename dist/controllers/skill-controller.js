@@ -103,7 +103,7 @@ function list(req, res, next) {
 
     var queryObj = buildQuery(req);
 
-    return _models.Skill.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (skills) {
+    return _models.Skill.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).populate('targetType dttType').skip(skip).limit(limit).then(function (skills) {
         return skills;
     }).catch(function (e) {
         return next(e);

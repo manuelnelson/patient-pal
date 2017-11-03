@@ -11,5 +11,6 @@ export const Constants = Object.freeze({
     TimeFormat: "hh:mm a", 
     DateYearFormat: "MMMM dd, yyyy",
     DateTimeFormat: "MMMM dd, hh:mm a",
+    DefaultCurriculumCategory: "Not Categorized",
     MessageTypes: new MessageTypes()
 })

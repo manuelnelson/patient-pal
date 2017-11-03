@@ -62,8 +62,13 @@ var _billingRoutes = require('./billing-routes');
 
 var _billingRoutes2 = _interopRequireDefault(_billingRoutes);
 
+var _curriculumCategoryRoutes = require('./curriculum-category-routes');
+
+var _curriculumCategoryRoutes2 = _interopRequireDefault(_curriculumCategoryRoutes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import { version } from '../../../package.json';
 exports.default = function (_ref) {
 	var config = _ref.config,
 	    db = _ref.db;
@@ -81,6 +86,7 @@ exports.default = function (_ref) {
 	api.use('/skills', _skillRoutes2.default);
 	api.use('/curriculums', _curriculumRoutes2.default);
 	api.use('/clientcurriculums', _clientCurriculumRoutes2.default);
+	api.use('/curriculumcategories', _curriculumCategoryRoutes2.default);
 	api.use('/skilldatas', _skillDataRoutes2.default);
 	api.use('/organizations', _organizationRoutes2.default);
 	api.use('/photos', _photoRoutes2.default);
@@ -92,5 +98,5 @@ exports.default = function (_ref) {
 	// });
 
 	return api;
-}; //import { version } from '../../../package.json';
+};
 //# sourceMappingURL=index.js.map

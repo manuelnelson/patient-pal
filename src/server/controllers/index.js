@@ -12,6 +12,7 @@ import SkillDataCtrl from './skill-data-controller';
 import OrganizationCtrl from './organization-controller';
 import BillingCtrl from './billing-controller';
 import EmailCtrl from './email-controller';
+import CurriculumCategoryCtrl from './curriculum-category-controller';
 
 export {
     AppointmentCtrl,
@@ -22,6 +23,7 @@ export {
     ClientCtrl,
     ProfessionalCtrl,
     UserCtrl,
+    CurriculumCategoryCtrl,
     TargetTypeCtrl,
     SkillCtrl,
     CurriculumCtrl,

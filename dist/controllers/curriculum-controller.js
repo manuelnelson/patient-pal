@@ -62,7 +62,9 @@ function update(req, res, next) {
         curriculum[prop] = req.body[prop];
     }
     return curriculum.save().then(function (savedCurriculum) {
-        return savedCurriculum;
+        return _models.Curriculum.populate(savedCurriculum, 'curriculumCategory').then(function (populatedCurriculum) {
+            return populatedCurriculum;
+        });
     }).catch(function (e) {
         return next(e);
     });
@@ -85,7 +87,7 @@ function list(req, res, next) {
     delete req.query.skip;
     var queryObj = buildQuery(req);
 
-    return _models.Curriculum.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).skip(skip).limit(limit).then(function (curriculums) {
+    return _models.Curriculum.find(queryObj.length > 0 ? { $or: queryObj } : {}).sort({ createdAt: -1 }).populate('curriculumCategory').skip(skip).limit(limit).then(function (curriculums) {
         return curriculums;
     }).catch(function (e) {
         return next(e);

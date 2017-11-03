@@ -23,7 +23,7 @@ export class ProfessionalService {
                 // login successful if there's a jwt token in the response
                 let professional = response.json();
                 if (professional) {
-                    console.log(professional);
+                    // console.log(professional);
                 }
             });
     }
@@ -31,7 +31,6 @@ export class ProfessionalService {
         // add authorization header with jwt token
         let headers = new Headers({ 'Authorization': this.authService.token });
         let options = new RequestOptions({ headers: headers });
-        console.log(professional);
         return this.http.put(this.apiEndpointUrl + '/' + professional._id, professional, options)
             .map((response: Response) => {
                 // update successful - return curriculum

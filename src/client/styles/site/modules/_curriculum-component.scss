@@ -6,6 +6,26 @@ curriculums-component{
             width: 0;
         }
     }
+    .curriculum-view{
+        h3{
+            margin-bottom: px-to-rem(2px);
+        }
+        .form-module{
+            .form-input{
+                width: 100%;
+            }
+        }
+        .curriculum-category{
+            display: inline-block;
+            margin-left: px-to-rem(20px);
+            margin-bottom: px-to-rem(14px);
+            font-size: px-to-rem(16px);
+            cursor: pointer;
+            i{
+                margin-right: px-to-rem(10px);
+            }
+        }
+    }
     @include bp-max($bp-between){
         width: 100%;
         .curriculum-container{

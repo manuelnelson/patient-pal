@@ -65,7 +65,6 @@ export class CalendarComponent {
         })
     }
     eventClicked({ event }: { event: CalendarEvent }): void {
-        console.log('Event clicked', event);
         this.router.navigate([`/appointments/${event.meta._id}/start`]);
     }
 }

@@ -78,6 +78,7 @@ function list(req, res, next) {
     
     return Skill.find(queryObj.length > 0 ? {$or: queryObj} : {})
         .sort({ createdAt: -1 })
+        .populate('targetType dttType')
         .skip(skip)
         .limit(limit)
         .then(skills => skills)

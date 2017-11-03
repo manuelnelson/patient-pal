@@ -14,6 +14,7 @@ import skillDataRoutes from './skill-data-routes';
 import organizationRoutes from './organization-routes';
 import photoRoutes from './photo-routes';
 import billingRoutes from './billing-routes';
+import curriculumCategoriesRoutes from './curriculum-category-routes';
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -29,6 +30,7 @@ export default ({ config, db }) => {
 	api.use('/skills', skillRoutes);
 	api.use('/curriculums', curriculumRoutes);
 	api.use('/clientcurriculums', clientCurriculumRoutes);
+	api.use('/curriculumcategories', curriculumCategoriesRoutes);
 	api.use('/skilldatas', skillDataRoutes);
 	api.use('/organizations', organizationRoutes);
 	api.use('/photos', photoRoutes);

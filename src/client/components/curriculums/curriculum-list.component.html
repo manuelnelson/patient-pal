@@ -1,10 +1,14 @@
 <div class="curriculum-list">
-    <div *ngIf="curriculums.length == 0" class="no-curriculums">
+    <div *ngIf="curriculumCategories.length == 0" class="no-curriculums">
         <h4>You currently have no curriculums added.</h4>
     </div>
-    <h4 *ngIf="curriculums.length > 0">Curriculums</h4>
-    <div class="curriculum-item" *ngFor="let curriculum of curriculums">
-        <span class="curriculum-name">{{curriculum.name}}</span>
-        <a routerLink="/professional/curriculums/view/{{curriculum._id}}" class="curriculum-action">View</a>
+    <h4 *ngIf="curriculumCategories.length > 0">Curriculums</h4>
+    <div *ngFor="let curriculumCategory of curriculumCategories"> 
+        <span class="curriculum-category">{{curriculumCategory.name}}</span>            
+        <div class="curriculum-item" *ngFor="let curriculum of curriculumCategory.curriculums"> 
+            <span class="curriculum-name">{{curriculum.name}}</span>
+            <a routerLink="/professional/curriculums/view/{{curriculum._id}}" class="curriculum-action">View</a>
+        </div>
     </div>
 </div>
+<curriculum-form></curriculum-form>    

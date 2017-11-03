@@ -67,13 +67,8 @@ export class BillingComponent implements OnInit{
               errorElement.textContent = result.error.message;
             } else {
                 that.billingService.createSource(result.token.id, that.customer.id).subscribe(customer => that.customer = customer);
-                console.log(result);
-                // this.billingService.
-              // Send the token to your server
-              //stripeTokenHandler(result.token);
             }
           });
         });
-        //console.log(elements);
     }
 }

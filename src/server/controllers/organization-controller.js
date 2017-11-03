@@ -47,7 +47,6 @@ function create(req, res, next) {
 */
 function update(req, res, next) {
     const organization = req.organization;
-    console.log(req.body);
     for(let prop in req.body){
         organization[prop] = req.body[prop];
     }

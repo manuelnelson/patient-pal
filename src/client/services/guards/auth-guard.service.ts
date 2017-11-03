@@ -10,7 +10,6 @@ export class AuthGuard {
 
     canActivate( route : ActivatedRouteSnapshot, state : RouterStateSnapshot ) {
         if(!this.authService.isLoggedIn()) return this.navigateToLogin();
-        console.log(route.data)
         let allowedRoles = route.data['roles'] as Array<number>;      
         if(this.isInRole(allowedRoles))
             return true;

@@ -10,6 +10,10 @@ const curriculumSchema = new mongoose.Schema({
         type: String,
     },
     skills:[{type:mongoose.Schema.ObjectId, ref:'Skill'}],
+    curriculumCategory: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'CurriculumCategory'
+    },
     organization: {
         type: mongoose.Schema.ObjectId,
         ref: 'Organization'
@@ -34,6 +38,7 @@ curriculumSchema.statics = {
         //Deep populate FTW - TODO look at performance of this
         //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
         .populate({path:'skills', populate:{ path: 'targetType dttType'}})
+        .populate('curriculumCategory')
         .exec()
         .then((curriculum) => {
             if (curriculum) {

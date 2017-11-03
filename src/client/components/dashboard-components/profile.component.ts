@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit{
         let query = 'startDate=' + currentDate + '&professional=' + this.profile._id;
         this.appointmentService.list(query).subscribe(appointments => {
             this.upcomingAppointment = appointments && appointments.length > 0 ? appointments[0] : null;
-            console.log(this.upcomingAppointment)
         });
 
     }
@@ -62,11 +61,9 @@ export class ProfileComponent implements OnInit{
 
     imageUploaded(file: FileHolder){
         this.editMode = false;
-        console.log(file)
     }
     imagePending(state: boolean){
         this.uploadInProgress = state;
-        //console.log(file.serverResponse.response)
     }
 
     enableEditMode(){

@@ -1,0 +1,54 @@
+<div class="skill-list">
+    <h4 *ngIf="skills.length > 0">Add Targets</h4>
+    <form class="form" [formGroup]="skillFinderForm" novalidate>
+        <div class="form-input">
+            <input type="text" (keyup)="search()" formControlName="targetName" placeholder="Search Targets"/>
+        </div>
+    </form>
+    <div *ngIf="skills.length > 0" class="skill-item">
+        <span class="skill-name add bold">Add</span>
+        <span class="skill-name bold clickable" [ngClass]="{'active': sortField == 'targetName', 'ascending': ascendingOrder}" (click)="sortBy('targetName')">Target Name</span>
+        <span class="skill-target bold clickable" [ngClass]="{'active': sortField == 'targetType', 'ascending': ascendingOrder}" (click)="sortBy('targetType')">Target Type</span>
+    </div>
+    <div class="skill-item" *ngFor="let skill of skills" [ngClass]="{'expanded': skill.expanded}">
+        <input type="checkbox" (click)="add(skill)" class="skill-add" />
+        <span class="skill-name">{{skill.targetName}}</span>
+        <span class="skill-target">{{skill.targetType?.name}}</span>
+        <span class="skill-expand" (click)="toggleSkill(skill)"></span>
+        <div class="expand-container">
+            <div class="expand-item" *ngIf="skill.goalName">
+                <span class="expand-label">Goal </span>
+                {{skill.goalName}}
+            </div>
+            <div class="expand-item" *ngIf="skill.stimulus">
+                <span class="expand-label">Stimulus </span>
+                {{skill.stimulus}}
+            </div>
+            <div class="expand-item" *ngIf="skill.numberOfTrials">
+                <span class="expand-label">Number of Trials </span>
+                {{skill.numberOfTrials}}
+            </div>
+            <div class="expand-item" *ngIf="skill.dttType">
+                <span class="expand-label">DTT Type </span>
+                {{skill.dttType.name}}
+            </div>
+            <div class="expand-item" *ngIf="skill.interval">
+                <span class="expand-label">Interval </span>
+                {{skill.interval}}
+            </div>
+            <div class="expand-item" *ngIf="skill.maxThreshold">
+                <span class="expand-label">Max Threshold </span>
+                {{skill.maxThreshold}}
+            </div>
+            <div class="expand-item" *ngIf="skill.masteryType">
+                <span class="expand-label">Mastery Type </span>
+                {{skill.masteryType}}
+            </div>
+            <div class="expand-item" *ngIf="skill.taskSteps">
+                <span class="expand-label">Task Steps </span>
+                {{skill.taskSteps}}
+            </div>
+        </div>
+    </div>
+</div>
+<a *ngIf="!curriculum" class="btn btn-primary btn-add" routerLink="/professional/skills/add">Add Target</a>

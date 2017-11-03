@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule }  from './app.routing';
-
+import { STORES } from './stores';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { ImageUploadModule } from 'angular2-image-upload';
 import {
@@ -15,7 +15,7 @@ import {
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
             CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver,
-            UpdatePasswordResolver
+            UpdatePasswordResolver, CurriculumCategoryService, CurriculumCategoryListResolver, SkillListResolver
         } from './services';
 import { CalendarModule } from 'angular-calendar';
  
@@ -29,7 +29,7 @@ import {
     PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, DttComponent, DurationComponent,
     RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent, WholeIntervalComponent, ClientDashboardComponent,
     ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent, DefaultComponent, ProfessionalsComponent,
-    AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent
+    AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent, CurriculumComponent, SkillFinderComponent
 } from './components/';
 
 let imports = [
@@ -58,7 +58,8 @@ exportModules.push(MatSliderModule);
         AssignCurriculumComponent, RunAppointmentComponent, PageNotFoundComponent, AnecdotalComponent, CurriculumSkillListComponent, SelectCurriculumListComponent, 
         DttComponent, DurationComponent, ClockFormatPipe, RateComponent, FrequencyComponent, EchoicComponent, QuantityComponent, TaskAnalysisComponent, LoadingComponent,
         WholeIntervalComponent, ClientDashboardComponent, ClientBackComponent, ClientLinksComponent, ClientProfileComponent, ClientReportsComponent, ClientCalendarComponent,
-        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent
+        DefaultComponent, ProfessionalsComponent, AddProfessionalComponent, BillingComponent, ForgotPasswordComponent, UpdatePasswordComponent, CurriculumComponent,
+        SkillFinderComponent
     ],
     imports: imports,
     exports: exportModules,
@@ -75,12 +76,13 @@ exportModules.push(MatSliderModule);
             provide: RouteReuseStrategy, 
             useClass: CustomRouteReuseStrategy
         },
-        AuthenticationService, AlertService, UserService, AuthGuard, ClientService,
+        STORES, AuthenticationService, AlertService, UserService, AuthGuard, ClientService,
         ProfessionalService, ClientResolver, ProfessionalResolver, AppointmentService, AppointmentListResolver,
         AddAppointmentResolver, DatePipe, SkillService, SkillResolver, TargetTypeService, DttTypeService, CurriculumListResolver,
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
-        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver, UpdatePasswordResolver
+        TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver, UpdatePasswordResolver,
+        CurriculumCategoryListResolver, CurriculumCategoryService, SkillListResolver
     ]
 })
 

@@ -90,6 +90,7 @@
     "resource-router-middleware": "^0.7.0",
     "rxjs": "^5.2.0",
     "sass-loader": "^6.0.2",
+    "statex": "^1.0.5",
     "stripe": "^5.1.1",
     "style-loader": "^0.19.0",
     "supertest": "^3.0.0",

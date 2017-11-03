@@ -75,14 +75,12 @@ function forgotPassword(req, res, next) {
                 user.resetPasswordExpires = Date.now() + 86400000;
                 return user.save()
                     .then(newUser => {
-                        console.log('updated reset');
                         //send email to user with link to change password
                         const context = {
                             url: `${config.domain}/forgot-password?email=${user.email}&token=${token}`
                         };
                         return EmailCtrl.sendEmail(user.email, 'forgot-password', 'Forgot Password help on the way!',context)
                             .then(message => {
-                                console.log('seenddiitt')
                                 return {message: 'The link with the password change has been sent to your email address.'}
                             })
                             .catch(e => {

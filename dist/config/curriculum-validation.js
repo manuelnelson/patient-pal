@@ -14,7 +14,8 @@ exports.default = {
     // POST /api/users
     createCurriculum: {
         body: {
-            skills: _joi2.default.array().required(),
+            name: _joi2.default.string().required(),
+            //skills: Joi.array().required(),
             organization: _joi2.default.string().required()
         }
     }

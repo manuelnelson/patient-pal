@@ -158,7 +158,6 @@ function buildQuery(req){
 
 function uploadPhoto(req,res,next){
     let professional = req.professional;
-    console.log(req.file)
     professional.imageUrl = req.file.location;
 
     return professional.save()

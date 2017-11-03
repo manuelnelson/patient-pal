@@ -1,4 +1,8 @@
-curriculum-list, select-curriculum-list{
+curriculum-list{
+    display: flex;
+    width: 100%;
+}
+.curriculum-list, select-curriculum-list{
     width: 50%;
     .curriculum-item{
         display: flex;
@@ -12,6 +16,11 @@ curriculum-list, select-curriculum-list{
         a{
             text-align: right;
         }
+    }
+    .curriculum-category{
+        font-weight: bold;
+        margin-top: px-to-rem(10px);
+        display: block;
     }
     @include bp-max($bp-between){
         width: 100%;
