@@ -10,7 +10,7 @@ export class ClientCurriculumListResolver implements Resolve<Array<ClientCurricu
         let appointment = route.parent.data.appointment;
         
         if(appointment){
-            let query = `client=${appointment.client._id}&completed=false`;
+            let query = `client=${appointment.client._id}`;
             return this.clientCurriculumService.list(query).map(clientCurriculums => clientCurriculums).toPromise();
         }
         

@@ -121,5 +121,21 @@ skill-list{
             width: 100%;
         }
     }
+    .target-mastered{
+        display: inline-block;
+        cursor: pointer;
+        //font-size: px-to-rem(20px);
+        width: auto !important;
+        &:before{
+            content: '\2610';
+            color: $color-red;
+        }        
+        &.mastered{
+            &:before{
+                content: '\2611';                
+                color: $color-green;
+            }
+        }
+    }
 
 }

@@ -6,7 +6,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/dttTypes - Get list of dttTypes */
-  .get(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.list(req,res,next).then(dttTypes => res.json(dttTypes)))
+  .get( (req,res,next) => DttTypeCtrl.list(req,res,next).then(dttTypes => res.json(dttTypes)))
 
   /** POST /api/dttTypes - Create new dttType */
   .post(AuthCtrl.verifyToken, (req,res,next) => DttTypeCtrl.create(req,res,next).then(dttType => res.json(dttType)))

@@ -22,6 +22,10 @@ var _constants = require('../lib/constants');
 
 var _constants2 = _interopRequireDefault(_constants);
 
+var _queryHelper = require('../lib/queryHelper');
+
+var _queryHelper2 = _interopRequireDefault(_queryHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -154,24 +158,13 @@ function list(req, res, next) {
 
     delete req.query.limit;
     delete req.query.skip;
-    var queryObj = buildQuery(req);
-
-    return _models.SkillData.find(queryObj.length > 0 ? { $and: queryObj } : {}).populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).populate('skill').sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillData) {
+    var queryObj = _queryHelper2.default.buildQuery(req);
+    console.log(queryObj);
+    return _models.SkillData.find(queryObj).populate({ path: 'clientCurriculum', populate: { path: 'curriculum client' } }).populate('skill').sort({ trialNumber: -1 }).skip(parseInt(skip)).limit(parseInt(limit)).exec().then(function (skillData) {
         return skillData;
     }).catch(function (e) {
         return next(e);
     });
-}
-
-function buildQuery(req) {
-    if (Object.keys(req.query).length === 0) return [];
-    var array = [];
-    for (var key in req.query) {
-        var obj = {};
-        obj[key] = req.query[key];
-        array.push(obj);
-    }
-    return array;
 }
 
 /**

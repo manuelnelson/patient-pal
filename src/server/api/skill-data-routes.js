@@ -6,7 +6,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
   /** GET /api/skillDatas - Get list of skillDatas */
-  .get(AuthCtrl.verifyToken, (req,res,next) => SkillDataCtrl.list(req,res,next).then(skillDatas => res.json(skillDatas)))
+  .get((req,res,next) => SkillDataCtrl.list(req,res,next).then(skillDatas => res.json(skillDatas)))
 
   /** POST /api/skillDatas - Create new skillData */
   .post(AuthCtrl.verifyToken, validate(paramValidation.createSkillData), (req,res,next) => SkillDataCtrl.create(req,res,next).then(skillData => res.json(skillData)))

@@ -16,6 +16,7 @@ export * from './skill-data.service';
 export * from './timer.service'; 
 export * from './organization.service'; 
 export * from './billing.service'; 
+export * from './mastered-skill.service';
 
 //strategies
 export * from './route-reuse.strategy';
@@ -34,6 +35,7 @@ export * from './resolvers/target-type-resolver.service';
 export * from './resolvers/dtt-type-resolver.service';
 export * from './resolvers/curriculum-resolver.service';
 export * from './resolvers/curriculum-resolver-list.service';
+export * from './resolvers/mastered-skill-resolver-list.service';
 export * from './resolvers/curriculum-category-resolver-list.service';
 export * from './resolvers/client-curriculum-resolver.service';
 export * from './resolvers/client-curriculum-resolver-list.service';

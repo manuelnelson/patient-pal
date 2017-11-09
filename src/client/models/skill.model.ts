@@ -21,4 +21,6 @@ export class Skill {
     targetInstructions: string;
     organization: string;    
     expanded: boolean;
+    //only used on the curriculum skill page to denote if skill has been mastered
+    mastered: boolean;
 }

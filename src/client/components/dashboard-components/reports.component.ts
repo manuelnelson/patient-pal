@@ -15,12 +15,17 @@ export class ReportsComponent implements OnInit{
     professional: Professional;
     reportsForm: FormGroup;
     showErrors: boolean = false;
-    
+    reportTypes: Array<any>;
     constructor(private authService: AuthenticationService, private alertService: AlertService, private clientService: ClientService, 
         private route: ActivatedRoute, private router: Router)
     { 
         this.professional = this.route.snapshot.data['professional'];  
         this.students = this.route.snapshot.data['clients'];  
+        this.reportTypes = [
+            {value:'mastered', name: 'Targets Mastered'},
+            {value:'weakest', name: 'Weakest Targets'},
+            {value:'progress', name: 'Progress Report'},
+        ];
     }
     
 
@@ -29,16 +34,18 @@ export class ReportsComponent implements OnInit{
         let student = new FormControl('');
         let startDate = new FormControl(moment(new Date().setHours(-7*24)).format('YYYY-MM-DD'),Validators.pattern(/\d{4}[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])/));
         let endDate = new FormControl(moment(new Date()).format('YYYY-MM-DD'), Validators.pattern(/\d{4}[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])/));
-
+        let reportType = new FormControl('');
+        
         this.reportsForm = new FormGroup({
             student: student,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            reportType: reportType
         });
     }
     generateReport(reportValues:any){
         if(this.reportsForm.valid){
-            let query = `client=${reportValues.student}&startDate=${reportValues.startDate}&endDate=${reportValues.endDate}`
+            let query = `client=${reportValues.student}&startDate=${reportValues.startDate}&endDate=${reportValues.endDate}&reportType=${reportValues.reportType}`
             window.open(`/server/reports?${query}`);
         }
         else

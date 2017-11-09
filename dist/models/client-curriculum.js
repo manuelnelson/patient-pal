@@ -69,7 +69,7 @@ clientCurriculumSchema.statics = {
         return this.findById(id)
         //Deep populate FTW - TODO look at performance of this
         //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
-        .populate({ path: 'curriculum', populate: { path: 'skills', populate: { path: 'targetType dttType' } } }).exec().then(function (clientCurriculum) {
+        .populate({ path: 'curriculum', populate: { path: 'skills', populate: { path: 'targetType dttType' } } }).populate('client').exec().then(function (clientCurriculum) {
             if (clientCurriculum) {
                 return clientCurriculum;
             } else {

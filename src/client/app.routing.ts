@@ -15,7 +15,8 @@ import { HomeComponent, ProfessionalDashboardComponent, AddClientComponent,
 import { ClientResolver, ProfessionalResolver, AppointmentListResolver,
     AddAppointmentResolver, DttTypeResolver, TargetTypeResolver, SkillResolver, CurriculumResolver,
     ClientCurriculumResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, CurriculumListResolver,
-    ProfessionalListResolver, AuthGuard, ClientListResolver, BillingResolver, UpdatePasswordResolver, SkillListResolver
+    ProfessionalListResolver, AuthGuard, ClientListResolver, BillingResolver, UpdatePasswordResolver, SkillListResolver, 
+    MasteredSkillListResolver
 } from './services';
 
 const routes: Routes = [

@@ -13,6 +13,10 @@
         <span class="skill-target">{{skill.targetType.name}}</span>
         <a (click)="runSkill(skill)" *ngIf="!reachedMaximum(skill)" class="skill-start">Start</a>
         <span class="skill-completed" *ngIf="reachedMaximum(skill)">Completed</span> 
+        <span class="target-mastered" (click)="masterSkill(skill)" [ngClass]="{mastered: skill.mastered}" *ngIf="reachedMaximum(skill)">
+            Mastered
+        </span> 
+        
     </div>
 </div>
 <!-- TODO: where should we go? It's back to the dashboard for now -->

@@ -45,6 +45,7 @@ clientCurriculumSchema.statics = {
         //Deep populate FTW - TODO look at performance of this
         //https://stackoverflow.com/questions/18867628/mongoose-deep-population-populate-a-populated-field
         .populate({path:'curriculum', populate:{ path: 'skills', populate:{ path: 'targetType dttType'}}})
+        .populate('client')
         .exec()
         .then((clientCurriculum) => {
             if (clientCurriculum) {

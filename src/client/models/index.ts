@@ -25,6 +25,7 @@ export * from './appointment-form.model';
 export * from './curriculum.model';
 export * from './client-curriculum.model';
 export * from './skill-data.model';
+export * from './mastered-skill.model';
 export * from './task-step.model';
 export * from './timer.model';
 export * from './organization.model';

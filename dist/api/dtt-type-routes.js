@@ -24,7 +24,7 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/dttTypes - Get list of dttTypes */
-.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+.get(function (req, res, next) {
   return _controllers.DttTypeCtrl.list(req, res, next).then(function (dttTypes) {
     return res.json(dttTypes);
   });

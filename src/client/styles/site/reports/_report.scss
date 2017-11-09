@@ -1,8 +1,12 @@
 .report{
-    padding: px-to-rem(40px);
+    padding: px-to-rem(80px);
     h1{
         color: $color-dark-blue;
+        font-family: 'Arial';
         text-align: center;
+        font-weight: bold;
+        font-size: px-to-rem(48px);
+        margin-bottom: px-to-rem(24px);
     }
     .information{
         font-weight: bold;

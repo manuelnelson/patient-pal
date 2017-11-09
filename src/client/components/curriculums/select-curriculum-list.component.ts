@@ -22,3 +22,4 @@ export class SelectCurriculumListComponent implements OnInit {
         this.router.navigate(['/appointments/' + clientCurriculum.appointment._id + '/start/client-curriculum/' + clientCurriculum._id + '/navigation']);
     }
 }
+ 

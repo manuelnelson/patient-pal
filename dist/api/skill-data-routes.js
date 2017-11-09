@@ -24,7 +24,7 @@ var router = _express2.default.Router(); // eslint-disable-line new-cap
 
 router.route('/')
 /** GET /api/skillDatas - Get list of skillDatas */
-.get(_controllers.AuthCtrl.verifyToken, function (req, res, next) {
+.get(function (req, res, next) {
   return _controllers.SkillDataCtrl.list(req, res, next).then(function (skillDatas) {
     return res.json(skillDatas);
   });

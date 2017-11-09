@@ -19,15 +19,15 @@
             <label>End Date<span *ngIf="invalidControl(reportsForm.controls.endDate)">End Date Required</span></label>
             <input type="date" formControlName="endDate" placeholder="End Date"/>
         </div>
-        <!-- <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.reportType)}">
+        <div class="form-input" [ngClass]="{'error':invalidControl(reportsForm.controls.reportType)}">
             <label>Report Type<span *ngIf="invalidControl(reportsForm.controls.reportType)">Invalid selection</span></label>
             <select *ngIf="reportTypes" formControlName="reportType" required>
                 <option value="" disabled selected>Select Report Type</option>
-                <option *ngFor="let reportType of reportTypes" [value]="reportType._id">
+                <option *ngFor="let reportType of reportTypes" [value]="reportType.value">
                     {{reportType.name}}
                 </option>
             </select>
-        </div> -->
+        </div>
         <div class="submit-input">
             <input type="submit" class="btn btn-primary" />
         </div>

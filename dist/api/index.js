@@ -66,9 +66,12 @@ var _curriculumCategoryRoutes = require('./curriculum-category-routes');
 
 var _curriculumCategoryRoutes2 = _interopRequireDefault(_curriculumCategoryRoutes);
 
+var _masteredSkillRoutes = require('./mastered-skill-routes');
+
+var _masteredSkillRoutes2 = _interopRequireDefault(_masteredSkillRoutes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import { version } from '../../../package.json';
 exports.default = function (_ref) {
 	var config = _ref.config,
 	    db = _ref.db;
@@ -91,6 +94,7 @@ exports.default = function (_ref) {
 	api.use('/organizations', _organizationRoutes2.default);
 	api.use('/photos', _photoRoutes2.default);
 	api.use('/billing', _billingRoutes2.default);
+	api.use('/masteredskills', _masteredSkillRoutes2.default);
 
 	// perhaps expose some API metadata at the root
 	// api.get('/', (req, res) => {
@@ -98,5 +102,5 @@ exports.default = function (_ref) {
 	// });
 
 	return api;
-};
+}; //import { version } from '../../../package.json';
 //# sourceMappingURL=index.js.map

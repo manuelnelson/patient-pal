@@ -15,7 +15,8 @@ import {
             CurriculumService, CurriculumResolver, CurriculumListResolver, ClientCurriculumService, ClientCurriculumResolver,
             SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver, SkillDataListResolver, ClockFormatPipe,
             CustomRouteReuseStrategy, TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver,
-            UpdatePasswordResolver, CurriculumCategoryService, CurriculumCategoryListResolver, SkillListResolver
+            UpdatePasswordResolver, CurriculumCategoryService, CurriculumCategoryListResolver, SkillListResolver, MasteredSkillListResolver,
+            MasteredSkillService
         } from './services';
 import { CalendarModule } from 'angular-calendar';
  
@@ -82,7 +83,7 @@ exportModules.push(MatSliderModule);
         DttTypeResolver, TargetTypeResolver, CurriculumService, CurriculumResolver, ClientCurriculumService ,ClientCurriculumResolver,
         SkillService, SkillResolver, SkillDataService, SkillDataResolver, ClientCurriculumListResolver, AppointmentResolver,  SkillDataListResolver, 
         TimerService, ProfessionalListResolver, AuthGuard, ClientListResolver, BillingService, BillingResolver, UpdatePasswordResolver,
-        CurriculumCategoryListResolver, CurriculumCategoryService, SkillListResolver
+        CurriculumCategoryListResolver, CurriculumCategoryService, SkillListResolver, MasteredSkillListResolver, MasteredSkillService
     ]
 })
 

@@ -3,6 +3,7 @@ import APIError from '../lib/APIError';
 import httpStatus from 'http-status';
 import _ from 'lodash';
 import Constants from '../lib/constants';
+import queryHelper from '../lib/queryHelper';
 /**
 * Load skillData and append to req.
 */
@@ -125,9 +126,9 @@ function list(req, res, next) {
     const { limit = 20, skip = 0 } = req.query; 
     delete req.query.limit;
     delete req.query.skip;    
-    let queryObj = buildQuery(req);
-    
-    return SkillData.find(queryObj.length > 0 ? {$and: queryObj} : {})
+    let queryObj = queryHelper.buildQuery(req);
+    console.log(queryObj);
+    return SkillData.find(queryObj)
         .populate( {path:'clientCurriculum', populate: {path: 'curriculum client'}})
         .populate('skill')
         .sort({ trialNumber: -1 })
@@ -136,18 +137,6 @@ function list(req, res, next) {
         .then(skillData => skillData)
         .catch(e => next(e));
 }
-
-function buildQuery(req){
-    if (Object.keys(req.query).length === 0) return [];
-    var array = [];
-    for (var key in req.query) {
-        var obj = {};
-        obj[key] = req.query[key];
-        array.push(obj);
-    }
-    return array;
-}
-
 
 /**
 * Delete skillData.
