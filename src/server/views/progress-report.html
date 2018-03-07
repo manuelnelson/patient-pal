@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reports</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Sans+Pro:400,700" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="http://localhost:9000/site.css">
+</head>
+<body class="report">
+        <!-- <div id="pageHeader">Test</div> -->
+        <div id="pageContent">
+            <h1>Progress Report</h1>
+            <div class="student-info">
+                <div class="info-row">
+                    <span class="info-label">Student:</span>
+                    <span class="info-content">{{student.firstname}} {{student.lastname}}</span>
+                </div>
+                {{#if student.birth}}
+                <div class="info-row">
+                    <span class="info-label">Date of Birth:</span>
+                    <span class="info-content">{{student.birth}}</span>
+                </div>
+                {{/if}}
+                {{#if currentDate}}
+                <div class="info-row">
+                    <span class="info-label">Report Date:</span>
+                    <span class="info-content">{{currentDate}}</span>
+                </div>
+                {{/if}}
+                {{#if dateRange}}
+                <div class="info-row">
+                    <span class="info-label">Report Date Range:</span>
+                    <span class="info-content">{{dateRange.start}} - {{dateRange.end}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <div class="report-text-highlights">
+                
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        {{#each headerCols}}
+                        <td>{{heading}}</td>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                        <tr>
+                            {{#each columns}}
+                                <td>{{value}}</td>
+                            {{/each}}
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <!-- <div id="pageFooter">Footer on last page</div></body> -->
+</html>
+
+

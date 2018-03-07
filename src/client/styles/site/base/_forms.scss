@@ -65,7 +65,9 @@ textarea {
 //input[type="search"] {
 //  @include appearance(none);
 //}
-
+input[type="submit"]{
+  margin-bottom: 0;
+}
 input[type="checkbox"],
 input[type="radio"] {
   display: inline;

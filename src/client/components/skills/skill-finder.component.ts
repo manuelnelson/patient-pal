@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { DataObserver, data } from 'statex/angular';
 import { UpdateCurriculumAction, SetCurriculumAction, AddCurriculumSkillAction } from '../../stores/actions';
 import { AppState } from '../../models'
+import {sortFn} from '../../helpers/search-helpers';
 
 
 export const selectState = (state: AppState) => state
@@ -71,20 +72,12 @@ export class SkillFinderComponent extends DataObserver {
         this.sortField = sort;
         switch(sort){
             case 'targetName':
-                this.skills.sort((x,y) => this.sortFn(x.targetName.toUpperCase(), y.targetName.toUpperCase()));
+                this.skills.sort((x,y) => sortFn(x.targetName.toUpperCase(), y.targetName.toUpperCase(), this.ascendingOrder));
                 break;
             case 'targetType':
-                this.skills.sort((x,y) => this.sortFn(x.targetType.name.toUpperCase(), y.targetType.name.toUpperCase()))
+                this.skills.sort((x,y) => sortFn(x.targetType.name.toUpperCase(), y.targetType.name.toUpperCase(), this.ascendingOrder))
                 break;
         }
-    }
-
-    sortFn(x:String, y:String){
-        if(x > y)
-            return this.ascendingOrder ? 1 : -1;
-        if(x < y)
-            return this.ascendingOrder ? -1 : 1;
-        return 0;
     }
 
     search(){

@@ -17,6 +17,7 @@ export * from './timer.service';
 export * from './organization.service'; 
 export * from './billing.service'; 
 export * from './mastered-skill.service';
+export * from './progress-report.service';
 
 //strategies
 export * from './route-reuse.strategy';

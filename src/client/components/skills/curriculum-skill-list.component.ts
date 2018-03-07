@@ -75,4 +75,7 @@ export class CurriculumSkillListComponent implements OnInit {
         const currRoute = this.router.url.replace('navigation','');
         this.router.navigate([currRoute + '/skill/' + skill._id]);
     }
+    toAppointment(){
+        this.router.navigate([`appointments/${this.clientCurriculum.appointment._id}/start/assign`])
+    }
 }

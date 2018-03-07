@@ -1,0 +1,57 @@
+curriculum-finder-list{
+    display: flex;
+    width: 100%;
+}
+.curriculum-finder-list, select-curriculum-list{
+    margin-bottom: px-to-rem(40px);
+    $input-checkbox-size: 80px;
+    .curriculum-item{
+        display: flex;
+        flex-wrap: wrap;
+        padding: px-to-rem(10px);
+        &:nth-child(odd){
+            background-color: $color-light-gray;
+        }
+        input[type="checkbox"]{
+            width: px-to-rem($input-checkbox-size);
+            display: inline-block;    
+            text-align: left;        
+        }
+        span{
+            &.add{
+                width: px-to-rem($input-checkbox-size);
+            }
+            width: calc(50% - #{$input-checkbox-size});
+            display: inline-block;
+            &.bold{
+                font-weight: bold;
+            }
+            &.clickable{
+                cursor: pointer;
+                &.active{
+                    &.ascending{
+                        &:after{
+                            content: "\2193";
+                            margin-left: px-to-rem(4px);
+                        }                                
+                    }
+                    &:after{
+                        content: "\2191";
+                        margin-left: px-to-rem(4px);
+                    }    
+                }
+            }
+        }
+    }
+    .form-input input[type="text"]{
+        box-shadow: 0px 3px 9px -2px $color-medium-gray;
+        &:focus{
+            box-shadow: 0px 3px 9px -2px $color-dark-blue;            
+        }
+    }
+
+    @include bp-max($bp-between){
+        width: 100%;
+    }
+
+}

@@ -1,21 +1,8 @@
 assign-curriculum{
     width: 50%;
-    $form-padding: 30px;
-    .form-module{
-        margin: 0 auto 30px;
-        .form{
-            padding: $form-padding;            
-            width: calc(100% - #{$form-padding}*3);
-            margin-top: 0;
-        }
-        .form-input{
+    select-curriculum-list{
+        .curriculum-list{
             width: 100%;
-            &:nth-child(2n){
-                padding-left: 0;
-            }
-            &:nth-child(odd) {
-                padding-right: 0;
-            }
         }
     }
 }
